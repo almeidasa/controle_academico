@@ -20,14 +20,4 @@ public class Formatar {
         }
         return dataForm;
     }
-    
-    public static Date date(String data, String formatoEntrada) {
-        Date date = null;
-        try {
-            date = new SimpleDateFormat(formatoEntrada).parse(data);
-        } catch (ParseException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return date;
-    }
 }
