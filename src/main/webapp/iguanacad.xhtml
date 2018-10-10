@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Cadastar Iguana</title>
+        <link rel="shortcut icon" href="resources/img/iguanaIcon.png"/>
+        <link rel="StyleSheet" type="text/css" href="resources/css/estilos.css" media="screen" />
+    </h:head>
+    <h:body>
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/templates/header.xhtml" />
+            </ui:insert>
+        </div>
+        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
+            <div>
+                <b:navBar style="padding: 5px" fluid="true" inverse="true">
+                    <b:form>
+                        <h:graphicImage value="resources/img/iguana3.jpg" style="width: 3.8%" />
+                        <b:button iconAwesome="reply" icon-size="lg" value="Voltar" class="btn btn-lg" title="Voltar ao Menu" look="danger" 
+                                  href="/controle_academico/index.xhtml" style="float: right"/>
+                    </b:form>
+                </b:navBar>
+            </div>
+            <div>
+                <b:panel title="Cadastar Iguana" collapsible="false" look="info" iconAwesome="list-alt" icon-size="lg">
+                    <b:form>
+                        <b:inputText label="Nome" placeholder="Ex: Igui" type="text" tiny-screen="one-third" value="#{iguanaBean.nome}"
+                                     required="true" requiredMessage="O campo 'Nome' é de preenchimento obrigatório."/>
+                        <b:touchSpin label="Idade" col-md="3" value="#{iguanaBean.idade}" min="0" max="60" step="1" />
+                        <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg" 
+                                         title="Incluir" look="success" style="margin-top: 15px" action="#{iguanaBean.addIguana()}"/> 
+                    </b:form>
+                </b:panel>
+            </div>
+        </b:column>
+    </h:body>
+</html>
+

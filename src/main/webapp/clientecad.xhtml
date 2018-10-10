@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cadastar Cobra</title>
+        <link rel="shortcut icon" href="resources/img/cobraIcon.png"/>
+        <link rel="StyleSheet" type="text/css" href="resources/css/estilos.css" media="screen" />
+    </h:head>
+    <h:body>
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/templates/header.xhtml" />
+            </ui:insert>
+        </div>
+        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
+            <div>
+                <b:navBar style="padding: 5px" fluid="true" inverse="true">
+                    <b:form>
+                        <h:graphicImage value="resources/img/cobra2.jpg" style="width: 3.8%" />
+                        <b:button iconAwesome="reply" icon-size="lg" value="Voltar" class="btn btn-lg" title="Voltar ao Menu" look="danger" 
+                                  href="/controle_academico/index.xhtml" style="float: right"/>
+                    </b:form>
+                </b:navBar>
+            </div>
+            <div>
+                <b:panel title="Cadastar Cliente" collapsible="false" look="info" iconAwesome="list-alt" icon-size="lg">
+                    <b:form>
+                        <b:inputText label="Nome" type="text" value="#{clienteBean.nome}" tiny-screen="one-third" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'Nome' é de preenchimento obrigatório."/>
+                        <b:inputText label="Data de Nascimento" type="date" value="#{clienteBean.dtNacimento}" tiny-screen="one-third" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'Data de Nascimento' é de preenchimento obrigatório."/>
+
+                        <b:inputText id="cpf" label="CPF" type="text" value="#{clienteBean.cpf}" tiny-screen="one-third" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'CPF' é de preenchimento obrigatório.">
+                            <f:validator validatorId="cpfValidator" />
+                        </b:inputText>
+
+                        <b:inputText label="RG" type="text" value="#{clienteBean.rg}" tiny-screen="one-third" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'RG' é de preenchimento obrigatório.">
+
+                        </b:inputText>
+                        <b:inputText label="Endereço" type="text"  value="#{clienteBean.endereco}" tiny-screen="one-third" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'Endereço' é de preenchimento obrigatório."/>
+                        <b:inputText label="Valor Gasto" mask="numeric"  value="#{clienteBean.qtdReais}" tiny-screen="one-third" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'Valor Gasto' é de preenchimento obrigatório."/>
+                        <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg" 
+                                         title="Incluir" look="success" style="margin-top: 15px" action="#{clienteBean.add()}"/> 
+                        <b:message for="cpf" />
+                        <b:message />
+                    </b:form>
+                </b:panel>
+            </div>
+            <div>
+                <b:panel class="painel3" collapsible="false" title="Cadastrados" iconAwesome="table" icon-size="lg" look="info" rendered="true">
+                    <b:form>
+                        <b:row style="padding: 15px">
+                            <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
+                                         class="table table-striped table-bordered" 
+                                         value = "#{clienteBean.cliente}"
+                                         var="lista"
+                                         style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
+                                         responsive="true">
+
+                                <b:dataTableColumn value="#{lista.nome}" label="Nome"/>
+                                <b:dataTableColumn value="#{lista.dtNacimento}" label="Data de Nascimento"/>
+                                <b:dataTableColumn value="#{lista.cpf}" label="CPF"/>
+                                <b:dataTableColumn value="#{lista.rg}" label="RG"/>
+                                <b:dataTableColumn value="#{lista.endereco}" label="Endereço"/>
+                                <b:dataTableColumn value="#{lista.qtdReais}" label="Valor Gasto"/>
+                                <b:dataTableColumn label="Opções" style="width: 170px">
+                                    <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
+                                        <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
+                                                         title="Remover Item" look="danger"  action="#{clienteBean.remover(lista)}" />
+                                        <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
+                                                         title="Editar Item" look="info"  action="#{clienteBean.editar(lista)}" />
+                                    </h:panelGrid>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                        </b:row>
+                    </b:form>
+                </b:panel>
+            </div>
+        </b:column>
+    </h:body>
+</html>
+

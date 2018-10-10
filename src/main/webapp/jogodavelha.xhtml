@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Jogo da Velha</title>
+        <link rel="shortcut icon" href="resources/img/velha.jpg"/>
+        <link rel="StyleSheet" type="text/css" href="resources/css/estilos.css" media="screen" />
+    </h:head>
+    <h:body>
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/templates/header.xhtml" />
+            </ui:insert>
+        </div>
+        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
+            <div>
+                <b:navBar style="padding: 5px" fluid="true" inverse="true">
+                    <b:form>
+                        <h:graphicImage value="resources/img/velha.jpg" style="width: 3.3%" />
+                        <b:button iconAwesome="reply" icon-size="lg" value="Voltar" class="btn btn-lg" title="Voltar ao Menu" look="danger" 
+                                  href="/controle_academico/index.xhtml" style="float: right"/>
+                    </b:form>
+                </b:navBar>
+            </div>
+            <div style=" width: 100%; padding: 10px; text-align: center">
+                <b:panel style="width: 500px; margin-left: auto; margin-right: auto" collapsible="false" title="Jogo da Velha" iconAwesome="th" icon-size="lg" look="success" rendered="true">
+                    <b:form>
+                        <b:commandButton iconAwesome="gamepad" value="#{jogoDaVelhaBean.botaoSelJogador}" size="lg" class="btn btn-lg" style="margin-bottom: 10px"
+                                         title="Remover Item" look="success"  action="#{jogoDaVelhaBean.actBotaoSelJogador()}" />
+                        <b:panelGrid columns="3">
+                            <h:outputLabel style="font-size: 18px; padding-right: 35px" value="Modo"></h:outputLabel>
+                            <h:outputLabel style="font-size: 18px;" value="#{jogoDaVelhaBean.tempo}"></h:outputLabel>
+                            <h:outputLabel style="font-size: 18px;" value=""></h:outputLabel>
+                        </b:panelGrid>
+                        <h:panelGrid style=" margin-left: auto; margin-right: auto; margin-bottom: 2px" columns="7">
+                            <b:commandButton value="#{jogoDaVelhaBean.botaoModo}" size="lg" class="btn btn-lg" style="width: 80px; margin-right: 25px"
+                                             title="Remover Item" look="info"  action="#{jogoDaVelhaBean.actBotaoModo()}" disabled="#{!jogoDaVelhaBean.btnModo}" />
+                            <h:outputLabel style="font-size: 38px; color: blue" >X</h:outputLabel>
+                            <b:button value="#{jogoDaVelhaBean.campoPlacarX}" size="lg" class="btn btn-lg" style="width: 70px; height: 48px"/>
+                            <h:outputLabel style="font-size: 18px; margin-left: 10px; margin-right: 10px">vs</h:outputLabel>
+                            <b:button value="#{jogoDaVelhaBean.campoPlacarO}" size="lg" class="btn btn-lg" style="width: 70px; height:  48px"/>
+                            <h:outputLabel  style="font-size: 38px; color: red">O</h:outputLabel>
+                            <b:commandButton value="Zerar" size="lg" class="btn btn-lg" style="width: 80px; margin-left:  25px"
+                                             title="Remover Item" look="info"  action="#{jogoDaVelhaBean.actBotaoZerarPlacar()}" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto">
+                            <h:outputLabel style="font-size: 18px; padding-left: 8px" value="Empates:"></h:outputLabel>
+                            <h:outputLabel style="font-size: 18px; padding-left: 2px;" value="#{jogoDaVelhaBean.campoEmpates}"></h:outputLabel>
+                        </h:panelGrid>
+                        <h:outputLabel style="font-size: 18px; margin-left: 10px; margin-right: 10px" value="#{jogoDaVelhaBean.campoInfoJogada}"></h:outputLabel>
+                        <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="3">
+                            <b:commandButton value="#{jogoDaVelhaBean.botao1}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao1()}" />
+                            <b:commandButton value="#{jogoDaVelhaBean.botao2}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao2()}" />
+                            <b:commandButton value="#{jogoDaVelhaBean.botao3}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao3()}" />
+                        </h:panelGrid>
+                        <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto; margin-top: 5px" columns="3">
+                            <b:commandButton value="#{jogoDaVelhaBean.botao4}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao4()}" />
+                            <b:commandButton value="#{jogoDaVelhaBean.botao5}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao5()}" />
+                            <b:commandButton value="#{jogoDaVelhaBean.botao6}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao6()}" />
+                        </h:panelGrid>
+                        <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto; margin-top: 5px" columns="3">
+                            <b:commandButton value="#{jogoDaVelhaBean.botao7}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao7()}" />
+                            <b:commandButton value="#{jogoDaVelhaBean.botao8}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao8()}" />
+                            <b:commandButton value="#{jogoDaVelhaBean.botao9}" size="lg" class="btn btn-lg" style="margin-left: 5px; width: 100px; height: 100px"
+                                             action="#{jogoDaVelhaBean.actBotao9()}" />
+                        </h:panelGrid>
+                        <b:commandButton iconAwesome="rotate-left" value="Reniciar Jogo" size="lg" class="btn btn-lg" style=" margin-top: 20px"
+                                         title="Remover Item" look="danger"  action="#{jogoDaVelhaBean.actBotaoReiniciar()}" />
+                    </b:form>
+                </b:panel>
+            </div>
+        </b:column>
+    </h:body>
+</html>
+

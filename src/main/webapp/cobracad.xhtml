@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cadastar Cobra</title>
+        <link rel="shortcut icon" href="resources/img/cobraIcon.png"/>
+        <link rel="StyleSheet" type="text/css" href="resources/css/estilos.css" media="screen" />
+    </h:head>
+    <h:body>
+        <div id="header">
+            <ui:insert name="header" >
+                <ui:include src="/templates/header.xhtml" />
+            </ui:insert>
+        </div>
+        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
+            <div>
+                <b:navBar style="padding: 5px" fluid="true" inverse="true">
+                    <b:form>
+                        <h:graphicImage value="resources/img/cobra2.jpg" style="width: 3.8%" />
+                        <b:button iconAwesome="reply" icon-size="lg" value="Voltar" class="btn btn-lg" title="Voltar ao Menu" look="danger" 
+                                  href="/controle_academico/index.xhtml" style="float: right"/>
+                    </b:form>
+                </b:navBar>
+            </div>
+            <div>
+                <b:panel title="Cadastar Cobra" collapsible="false" look="info" iconAwesome="list-alt" icon-size="lg">
+                    <b:form>
+                        <b:inputText label="Nome" placeholder="Ex: Sogra" type="text"  value="#{cobraBean.nome}" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'Nome' é de preenchimento obrigatório."/>
+                        <b:inputText label="Data de Captura" type="date"  value="#{cobraBean.dtCaptura}" style="width: 260px"
+                                     required="true" requiredMessage="O campo 'Data de Captura' é de preenchimento obrigatório."/>
+
+                        <b:inputText label="Tamanho" mask="numeric" value="#{cobraBean.tamanho}" style="width: 218px"
+                                     required="true" requiredMessage="O campo 'Tamanho' é de preenchimento obrigatório.">
+                            <f:facet name="prepend">
+                                <h:outputText value="cm" />
+                            </f:facet>
+                        </b:inputText>
+                        <b:inputText label="Peso" mask="numeric" value="#{cobraBean.peso}" style="width: 220px"
+                                     required="true" requiredMessage="O campo 'Peso' é de preenchimento obrigatório.">
+                            <f:facet name="prepend">
+                                <h:outputText value="kg" />
+                            </f:facet>
+                        </b:inputText>
+                        <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg" 
+                                         title="Incluir" look="success" style="margin-top: 15px" action="#{cobraBean.add()}"/> 
+                    </b:form>
+                </b:panel>
+            </div>
+        </b:column>
+    </h:body>
+</html>
+
