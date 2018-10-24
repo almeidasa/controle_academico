@@ -5,10 +5,27 @@ package entities;
  * @author Alexandre Almeida
  */
 public class Funcionario {
+
     private int id;
     private String nome;
-    private String  telefone;
+    private String telefone;
     private int fk_Usuarios_id_user;
+
+    public Funcionario(String nome, String telefone, int fk_Usuarios_id_user) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.fk_Usuarios_id_user = fk_Usuarios_id_user;
+    }
+
+    public Funcionario(int id, String nome, String telefone, int fk_Usuarios_id_user) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.fk_Usuarios_id_user = fk_Usuarios_id_user;
+    }
+
+    public Funcionario() {
+    }
 
     public int getId() {
         return id;

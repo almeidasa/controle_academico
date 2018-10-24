@@ -11,10 +11,23 @@ public class Aluno {
     private String cpf;
     private String nome;
     private Date data_nascimento;
-    private char sexo;
+    private String sexo;
     private String foto;
     private String endereco;
-    private int telefone;
+    private String telefone;
+
+    public Aluno(String cpf, String nome, Date data_nascimento, String sexo, String foto, String endereco, String telefone) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.data_nascimento = data_nascimento;
+        this.sexo = sexo;
+        this.foto = foto;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
+
+    public Aluno() {
+    }
 
     public String getCpf() {
         return cpf;
@@ -40,11 +53,11 @@ public class Aluno {
         this.data_nascimento = data_nascimento;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
@@ -64,11 +77,11 @@ public class Aluno {
         this.endereco = endereco;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

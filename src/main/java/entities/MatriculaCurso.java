@@ -7,13 +7,25 @@ import java.sql.Date;
  * @author Alexandre Almeida
  */
 public class MatriculaCurso {
-    
+
     private int matricula;
     private String situacao;
     private Date data_inicio;
     private String duracao_curso;
     private String fk_Aluno;
-    private String fk_Curso_cod;
+    private int fk_Curso_cod;
+
+    public MatriculaCurso(int matricula, String situacao, Date data_inicio, String duracao_curso, String fk_Aluno, int fk_Curso_cod) {
+        this.matricula = matricula;
+        this.situacao = situacao;
+        this.data_inicio = data_inicio;
+        this.duracao_curso = duracao_curso;
+        this.fk_Aluno = fk_Aluno;
+        this.fk_Curso_cod = fk_Curso_cod;
+    }
+
+    public MatriculaCurso() {
+    }
 
     public int getMatricula() {
         return matricula;
@@ -55,11 +67,11 @@ public class MatriculaCurso {
         this.fk_Aluno = fk_Aluno;
     }
 
-    public String getFk_Curso_cod() {
+    public int getFk_Curso_cod() {
         return fk_Curso_cod;
     }
 
-    public void setFk_Curso_cod(String fk_Curso_cod) {
+    public void setFk_Curso_cod(int fk_Curso_cod) {
         this.fk_Curso_cod = fk_Curso_cod;
     }
 }

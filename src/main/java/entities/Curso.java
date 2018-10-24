@@ -10,6 +10,15 @@ public class Curso {
     private String nome_curso;
     private int fk_Funcionario_id;
 
+    public Curso(int cod, String nome_curso, int fk_Funcionario_id) {
+        this.cod = cod;
+        this.nome_curso = nome_curso;
+        this.fk_Funcionario_id = fk_Funcionario_id;
+    }
+
+    public Curso() {
+    }
+
     public int getCod() {
         return cod;
     }
