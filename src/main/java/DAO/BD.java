@@ -16,6 +16,7 @@ public class BD {
 
     public static Connection getConexao() throws Exception {
         Connection conn = DriverManager.getConnection(driver + banco, usuario, senha);
-        return conn;
+        System.out.println("");
+        return conn;    
     }
 }
