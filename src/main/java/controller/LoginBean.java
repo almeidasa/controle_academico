@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.UsuariosDAO;
+import Util.Exibir;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -17,13 +18,10 @@ public class LoginBean {
     private String nomeUsr;
     private String novaSenha;
     private String novaSenhaConf;
-    private boolean erroNovaSenha;
-    private boolean erroLogin;
     private boolean sessao = false;
 
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
-        erroLogin = false;
 
         if (login.verificaUsuarioSenha(usuario, senha)) {
             sessao = true;
@@ -31,7 +29,7 @@ public class LoginBean {
             senha = null;
             return "index";
         } else {
-            erroLogin = true;
+            Exibir.menssagem("Usuário ou senha inválidos!");
             senha = null;
             return "login";
         }
@@ -45,7 +43,6 @@ public class LoginBean {
 
     public String paginaAlterar() {
         UsuariosDAO login = new UsuariosDAO();
-        erroLogin = false;
         novaSenha = null;
         novaSenhaConf = null;
         if (login.verificaUsuarioSenha(usuario, senha)) {
@@ -53,32 +50,32 @@ public class LoginBean {
             return "alterar";
         } else {
             sessao = false;
-            erroLogin = true;
+            Exibir.menssagem("Usuário ou senha inválidos!");
             return "login";
         }
     }
 
     public String alterarSenha() {
         UsuariosDAO login = new UsuariosDAO();
-        erroLogin = false;
         if (login.verificaUsuarioSenha(usuario, senha)) {
             if (novaSenha.equals(novaSenhaConf) && !novaSenha.equals("")) {
                 login.alterarSenha(usuario, novaSenha);
-                erroNovaSenha = false;
                 senha = null;
                 sessao = false;
+                Exibir.menssagem("A senha foi alterada!");
                 return "login";
             } else {
-                erroNovaSenha = true;
+                Exibir.menssagem("A nova senha e a confirmação devem ser iguais!");
                 return "alterar";
             }
         } else {
-            erroLogin = true;
+            Exibir.menssagem("Usuário ou senha inválidos!");
             return "alterar";
         }
     }
 
     //Getters e Seters
+
     public String getUsuario() {
         return usuario;
     }
@@ -93,22 +90,6 @@ public class LoginBean {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public boolean isErroLogin() {
-        return erroLogin;
-    }
-
-    public void setErroLogin(boolean erroLogin) {
-        this.erroLogin = erroLogin;
-    }
-
-    public boolean isSessao() {
-        return sessao;
-    }
-
-    public void setSessao(boolean sessao) {
-        this.sessao = sessao;
     }
 
     public String getNomeUsr() {
@@ -135,11 +116,11 @@ public class LoginBean {
         this.novaSenhaConf = novaSenhaConf;
     }
 
-    public boolean isErroNovaSenha() {
-        return erroNovaSenha;
+    public boolean isSessao() {
+        return sessao;
     }
 
-    public void setErroNovaSenha(boolean erroNovaSenha) {
-        this.erroNovaSenha = erroNovaSenha;
+    public void setSessao(boolean sessao) {
+        this.sessao = sessao;
     }
 }

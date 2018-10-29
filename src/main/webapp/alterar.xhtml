@@ -44,17 +44,9 @@
                         <b:commandButton id="btnLogin" class="btnLogin" title="Alterar Senha" look="primary" value ="Alterar Senha" action ="#{loginBean.alterarSenha()}"/>
                         <b:commandButton id="btnRecuperar" class="btnLogin" title="Cancelar Alteração" look="danger" value ="Cancelar" action ="#{loginBean.logOff()}" immediate="true"/>
                     </b:panelGrid>
-                    <b:message for="login"/>
-                    <b:message for="senha"/>
-                    <b:message for="novaSenha"/>
-                    <b:message for="confNovaSenha"/>
+                    <b:messages />
                 </h:panelGrid>
             </b:form>
-
-            <h:messages globalOnly="true" />
-            <h:outputScript rendered="#{loginBean.erroLogin}">
-                alert("Usuário ou senha inválidos!");
-            </h:outputScript>
         </div>
     </h:body>
 </html>

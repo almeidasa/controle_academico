@@ -32,15 +32,9 @@
                     <div class="divAlterarSenha">
                         <b:commandLink class="alterarSenha" value="Alterar sua senha" action="#{loginBean.paginaAlterar()}"/>
                     </div>
-                    <b:message for="login"/>
-                    <b:message for="senha"/>
+                    <b:messages />
                 </h:panelGrid>
             </b:form>
-
-            <h:messages globalOnly="true" />
-            <h:outputScript rendered="#{loginBean.erroLogin}">
-                alert("Usuário ou senha inválidos!");
-            </h:outputScript>
         </div>
     </h:body>
 </html>

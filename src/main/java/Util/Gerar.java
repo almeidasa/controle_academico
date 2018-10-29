@@ -1,15 +1,15 @@
-package Teste;
+package Util;
 
 import java.util.Random;
 
 /**
  * @Autor Winder Rezende
- * @Data 28/10/2018
+ * @Data  28/10/2018
  */
-public class StringAleatoria {
-
-    public static void main(String[] args) {
-        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVYWXZabcdefghijklmnopqrstuvywxz1234567890@%&";
+public class Gerar {
+    
+    public static String Senha(){
+    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVYWXZabcdefghijklmnopqrstuvywxz1234567890@%&";
 
         Random random = new Random();
 
@@ -20,5 +20,6 @@ public class StringAleatoria {
             armazenaChaves += caracteres.substring(index, index + 1);
         }
         System.out.println(armazenaChaves);
+        return armazenaChaves;
     }
 }
