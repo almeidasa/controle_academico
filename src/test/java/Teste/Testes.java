@@ -1,12 +1,10 @@
+package Teste;
+
 
 import DAO.DisciplinaDAO;
+import DAO.UsuariosDAO;
 import entities.Disciplina;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import entities.Usuarios;
 
 /**
  *
@@ -14,12 +12,12 @@ import entities.Disciplina;
  */
 public class Testes {
     public static void main(String[] args) {
-        /*UsuariosDAO us = new UsuariosDAO();
+        UsuariosDAO us = new UsuariosDAO();
         Usuarios user = new Usuarios();        
-        user.setLogin("winder");
-        user.setSenha("winder123");
+        user.setLogin("Admin");
+        user.setSenha("1");
         user.setTipo("admin");        
-        us.inserirUsuario(user);*/
+        us.inserirUsuario(user);
         
         /*    
         FuncionarioDAO f = new FuncionarioDAO();

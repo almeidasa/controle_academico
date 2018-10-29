@@ -8,6 +8,12 @@
         <title>Inicio</title>
         <link rel="shortcut icon" href="resources/img/home.png"/>
         <link rel="StyleSheet" type="text/css" href="resources/css/estilos.css" media="screen" />
+
+        <script language="JavaScript">
+            if (!#{loginBean.sessao}) {
+                window.location.href = "/controle_academico/login.xhtml";
+            }
+        </script>
     </h:head>
     <h:body>
         <div id="header">
@@ -17,44 +23,13 @@
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div style="text-align: center; width: 100%">
-                <b:panel title="Animais" collapsible="false" look="primary">
+                <b:panel title="Bem-Vindo #{loginBean.nomeUsr}" collapsible="false" look="primary">
                     <b:panelGrid columns="4">
                         <b:row>
                             <h:form>
-                                <center>
-
-                                </center>
+                                <b:commandButton iconAwesome="sign-out" value="Sair" class="btn btn-lg" title="Sair do Sistema" look="danger" style="margin-right: 15px" action="#{loginBean.logOff()}" />
                             </h:form>
                         </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-                                    
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-                                    
-                                </center>
-                            </h:form>
-                        </b:row>
-                    </b:panelGrid>
-                </b:panel>
-            </div>
-        </b:column>
-        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
-            <div style="text-align: center; width: 100%">
-                <b:panel title="Empresas" collapsible="false" look="success">
-                    <b:panelGrid columns="4">
                         <b:row>
                             <h:form>
                                 <center>
@@ -72,50 +47,7 @@
                         <b:row>
                             <h:form>
                                 <center>
-                                    
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-                                    
-                                </center>
-                            </h:form>
-                        </b:row>
-                    </b:panelGrid>
-                </b:panel>
-            </div>
-        </b:column>
-        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
-            <div style="text-align: center; width: 100%">
-                <b:panel title="Aplicativos" collapsible="false" look="danger">
-                    <b:panelGrid columns="4">
-                        <b:row>
-                            <h:form>
-                                <center>
 
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-                                    
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-                                    
                                 </center>
                             </h:form>
                         </b:row>

@@ -15,7 +15,9 @@
             </b:navbarLinks>
             <b:navbarLinks pull="right">
                 <b:navLink value="Configurações" href="#" iconAwesome="cog"></b:navLink>
-                <b:navLink value="Perfil" href="#" iconAwesome="user"></b:navLink>
+                <b:dropMenu value="#{loginBean.nomeUsr}" icon-awesome="user" >
+                    <b:navLink action="#{loginBean.logOff()}" value="Sair" icon-awesome="sign-out" />
+                </b:dropMenu>
                 <b:navLink value="Ajuda" href="#" iconAwesome="question-circle"></b:navLink>
             </b:navbarLinks>
             <h:form styleClass="navbar-form navbar-right">

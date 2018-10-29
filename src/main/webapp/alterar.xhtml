@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Alterar Senha</title>
+        <link rel="shortcut icon" href="resources/img/academico.png"/>
+        <link rel="StyleSheet" type="text/css" href="resources/css/alterar.css" media="screen" />
+        <script language="JavaScript">
+            if (!#{loginBean.sessao}) {
+                window.location.href = "/controle_academico/login.xhtml";
+            }
+        </script>
+    </h:head>
+    <h:body class="body"> 
+        <div class="divLogo">
+            <img src="resources/img/academico.png"></img><br></br>
+            <h:outputLabel class="labelSistema">Alterar Senha</h:outputLabel>
+        </div>
+        <div class="divLogin">
+            <b:form>
+                <h:panelGrid class="painel" columns="1">
+                    <b:inputText id="login" value="#{loginBean.usuario}" placeholder="Usuário" required="true" requiredMessage="Digite o Usuário">
+                        <f:facet name="prepend">
+                            <b:icon name="user" />
+                        </f:facet>
+                    </b:inputText>
+                    <b:inputSecret id="senha" value="#{loginBean.senha}" placeholder="Senha" required="true" requiredMessage="Digite su senha atual">
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="key" />
+                        </f:facet>
+                    </b:inputSecret>
+                    <b:inputSecret id="novaSenha" value="#{loginBean.novaSenha}" placeholder="Nova Senha" required="true" requiredMessage="Digite a nova senha">
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="key" />
+                        </f:facet>
+                    </b:inputSecret>
+                    <b:inputSecret id="confNovaSenha" value="#{loginBean.novaSenhaConf}" placeholder="Confirmar Senha" required="true" requiredMessage="Confirme a nova Senha">
+                        <f:facet name="prepend">
+                            <b:iconAwesome name="key" />
+                        </f:facet>
+                    </b:inputSecret>
+                    <b:panelGrid columns="2">
+                        <b:commandButton id="btnLogin" class="btnLogin" title="Alterar Senha" look="primary" value ="Alterar Senha" action ="#{loginBean.alterarSenha()}"/>
+                        <b:commandButton id="btnRecuperar" class="btnLogin" title="Cancelar Alteração" look="danger" value ="Cancelar" action ="#{loginBean.logOff()}" immediate="true"/>
+                    </b:panelGrid>
+                    <b:message for="login"/>
+                    <b:message for="senha"/>
+                    <b:message for="novaSenha"/>
+                    <b:message for="confNovaSenha"/>
+                </h:panelGrid>
+            </b:form>
+
+            <h:messages globalOnly="true" />
+            <h:outputScript rendered="#{loginBean.erroLogin}">
+                alert("Usuário ou senha inválidos!");
+            </h:outputScript>
+        </div>
+    </h:body>
+</html>
