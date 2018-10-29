@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 public class UsuariosDAO {
 
     public void inserirUsuario(Usuarios usuarios) {
+
         String SQL = "INSERT INTO usuarios(login, senha, tipo) VALUES (?, md5(?), ?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, usuarios.getLogin());
@@ -25,15 +26,13 @@ public class UsuariosDAO {
             System.out.println("\nErro ao inserir usuário: " + ex);
         }
     }
-    
+
     public boolean verificaUsuarioSenha(String usuario, String senha) {
+
         boolean result = false;
-
+        String SQL = "SELECT login, senha FROM usuarios WHERE UPPER(login) = UPPER(?) and senha = md5(?)";
         try {
-            String SQL = "SELECT login, senha FROM usuarios WHERE UPPER(login) = UPPER(?) and senha = md5(?)";
-            PreparedStatement pstm;
-            pstm = BD.getConexao().prepareStatement(SQL);
-
+            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             pstm.setString(1, usuario.toUpperCase());
             pstm.setString(2, senha);
 
@@ -55,15 +54,14 @@ public class UsuariosDAO {
 
         return result;
     }
-    
-    public String obterUsuario(String matricula) {
+
+    public String obterUsuario(String login) {
+
         String UsrAtivo = "";
+        String SQL = "SELECT login FROM usuarios WHERE UPPER(login) = UPPER(?)";
 
-        try {
-            String SQL = "SELECT login FROM usuarios WHERE UPPER(login) = UPPER('" + matricula + "')";
-
-            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
-
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, login);
             ResultSet result = pstm.executeQuery();
 
             while (result.next()) {
@@ -79,17 +77,17 @@ public class UsuariosDAO {
         System.out.println(UsrAtivo);
         return UsrAtivo;
     }
-    
-    public void apagarUsuario(String id) {
-        try {
-            String SQL = "DELETE FROM usuarios WHERE id = " + id;
 
-            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+    public void apagarUsuario(String id) {
+
+        String SQL = "DELETE FROM usuarios WHERE id = " + id;
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
             pstm.executeUpdate();
 
             pstm.close();
             BD.getConexao().close();
-            System.out.println( "Usuário Apagado! ");
+            System.out.println("Usuário Apagado! ");
         } catch (Exception ex) {
             System.out.println("Erro ao Apagar Usuário!:\n" + ex);
         }
@@ -97,12 +95,11 @@ public class UsuariosDAO {
 
     public void alterarSenha(String login, String novaSenha) {
 
-        try {
-            String SQL = "UPDATE usuarios SET senha = md5('" + novaSenha + "') WHERE UPPER(login) = '" + login.toUpperCase() + "'";
-
+        String SQL = "UPDATE usuarios SET senha = md5(?) WHERE UPPER(login) = UPPER(?)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, novaSenha);
+            pstm.setString(2, login);
             System.out.println(SQL);
-
-            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             pstm.executeUpdate();
 
             pstm.close();

@@ -8,23 +8,26 @@ public class Funcionario {
 
     private int id;
     private String nome;
+    private String email;
     private String telefone;
     private int fk_Usuarios_id_user;
 
-    public Funcionario(String nome, String telefone, int fk_Usuarios_id_user) {
+    public Funcionario() {
+    }
+    
+    public Funcionario(String nome, String email, String telefone, int fk_Usuarios_id_user) {
         this.nome = nome;
+        this.email = email;
         this.telefone = telefone;
         this.fk_Usuarios_id_user = fk_Usuarios_id_user;
     }
 
-    public Funcionario(int id, String nome, String telefone, int fk_Usuarios_id_user) {
+    public Funcionario(int id, String nome, String email, String telefone, int fk_Usuarios_id_user) {
         this.id = id;
         this.nome = nome;
+        this.email = email;
         this.telefone = telefone;
         this.fk_Usuarios_id_user = fk_Usuarios_id_user;
-    }
-
-    public Funcionario() {
     }
 
     public int getId() {
@@ -41,6 +44,14 @@ public class Funcionario {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTelefone() {

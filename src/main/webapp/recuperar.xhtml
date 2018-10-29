@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"  xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Login</title>
+        <title>Alterar Senha</title>
         <link rel="shortcut icon" href="resources/img/academico.png"/>
-        <link rel="StyleSheet" type="text/css" href="resources/css/login.css" media="screen" />
+        <link rel="StyleSheet" type="text/css" href="resources/css/recuperar.css" media="screen" />
     </h:head>
     <h:body class="body"> 
         <div class="divLogo">
             <img src="resources/img/academico.png"></img><br></br>
-            <h:outputLabel class="labelSistema">Acesso ao Sistema</h:outputLabel>
+            <h:outputLabel class="labelSistema">Recuperar Senha</h:outputLabel>
         </div>
         <div class="divLogin">
             <b:form>
@@ -20,18 +20,11 @@
                             <b:icon name="user" />
                         </f:facet>
                     </b:inputText>
-                    <b:inputSecret id="senha" value="#{loginBean.senha}" placeholder="Senha" required="true" requiredMessage="Digite a Senha">
-                        <f:facet name="prepend">
-                            <b:iconAwesome name="key" />
-                        </f:facet>
-                    </b:inputSecret>
+                    <b:inputSecret id="senha" value="#{loginBean.senha}" placeholder="Digite o e-mail cadastrado para este usuário" required="true" requiredMessage="Digite sua senha atual"/>
                     <b:panelGrid columns="2">
-                        <b:commandButton id="btnLogin" class="btnLogin" title="Entrar no sistema" look="success" value ="Login" action ="#{loginBean.efetuarLogin()}"/>
-                        <b:commandButton id="btnRecuperar" class="btnLogin" title="Recuperar a senha" look="danger" value ="Esqueceu a senha" action ="#{loginBean.recuperarSenha()}" immediate="true"/>
+                        <b:commandButton id="btnLogin" class="btnLogin" title="Enviar senha temporária ao e-mail cadastrado" look="warning" value ="Solicitar Nova Senha" action ="#{loginBean.alterarSenha()}"/>
+                        <b:commandButton id="btnRecuperar" class="btnLogin" title="Cancelar Alteração" look="danger" value ="Cancelar" action ="#{loginBean.logOff()}" immediate="true"/>
                     </b:panelGrid>
-                    <div class="divAlterarSenha">
-                        <b:commandLink class="alterarSenha" value="Alterar sua senha" action="#{loginBean.paginaAlterar()}"/>
-                    </div>
                     <b:messages />
                 </h:panelGrid>
             </b:form>

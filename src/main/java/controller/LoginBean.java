@@ -73,6 +73,12 @@ public class LoginBean {
             return "alterar";
         }
     }
+    
+    public String recuperarSenha() {
+        sessao = false;
+        senha = null;
+        return "recuperar";
+    }
 
     //Getters e Seters
 
