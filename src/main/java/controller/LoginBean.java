@@ -2,6 +2,8 @@ package controller;
 
 import DAO.UsuariosDAO;
 import Util.Exibir;
+import Util.Gerar;
+import Util.JavaMailApp;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -18,7 +20,9 @@ public class LoginBean {
     private String nomeUsr;
     private String novaSenha;
     private String novaSenhaConf;
+    private String email;
     private boolean sessao = false;
+    public static String tempSenha = "Erro";
 
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
@@ -32,6 +36,24 @@ public class LoginBean {
             Exibir.menssagem("Usuário ou senha inválidos!");
             senha = null;
             return "login";
+        }
+    }
+    
+    public String soliictarSenha() {
+        UsuariosDAO login = new UsuariosDAO();
+
+        if (login.verificaUsuarioEmail(usuario, email)) {
+            usuario = null;
+            tempSenha = Gerar.Senha();
+            JavaMailApp enviar = new JavaMailApp();
+            enviar.EnviarEmail();
+            System.out.println(tempSenha);
+            Exibir.menssagem("Solicitação enviada! Verifique sua caixa de e-mail!");
+            return "recuperar";
+        } else {
+            Exibir.menssagem("Usuário ou email não cadastrado!");
+            senha = null;
+            return "recuperar";
         }
     }
 
@@ -128,5 +150,13 @@ public class LoginBean {
 
     public void setSessao(boolean sessao) {
         this.sessao = sessao;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

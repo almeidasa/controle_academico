@@ -4,6 +4,7 @@ package Util;
  * @Data: 27/04/2018
  * @Autor: m159255
  */
+import controller.LoginBean;
 import java.util.Properties;
 import javax.mail.Address;
 import javax.mail.Message;
@@ -26,7 +27,7 @@ public class JavaMailApp implements Runnable {
         Properties props = new Properties();
 
         //Parâmetros de conexão com servidor de email
-        props.put("mail.smtp.host", "mail.saneago.com.br");
+        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
@@ -35,7 +36,7 @@ public class JavaMailApp implements Runnable {
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("user@user.com", "senha");
+                return new PasswordAuthentication("isoinformaticati@gmail.com", "Ctrl270787");
             }
         });
 
@@ -43,13 +44,13 @@ public class JavaMailApp implements Runnable {
 
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("user@user.com")); //Remetente
+            message.setFrom(new InternetAddress("isoinformaticati@gmail.com")); //Remetente
 
-            Address[] toUser = InternetAddress.parse("destinatario1@email.com,destinatario2.com.br"); //Destinatário(s)
+            Address[] toUser = InternetAddress.parse("windergt@gmail.com"); //Destinatário(s)
 
             message.setRecipients(Message.RecipientType.TO, toUser);
-            message.setSubject("Asunto Email"); //Assunto
-            message.setText("<html>Teste</html>", "utf-8", "html");
+            message.setSubject("Recuperação de Senha Controle Academico"); //Assunto
+            message.setText("<!DOCTYPE html><html> Sua senha de recuperação é: "+ LoginBean.tempSenha +" </html>", "utf-8", "html");
 
             Transport.send(message);//Método para enviar a mensagem criada
 

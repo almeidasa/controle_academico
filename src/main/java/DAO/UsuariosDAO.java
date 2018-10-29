@@ -30,11 +30,39 @@ public class UsuariosDAO {
     public boolean verificaUsuarioSenha(String usuario, String senha) {
 
         boolean result = false;
-        String SQL = "SELECT login, senha FROM usuarios WHERE UPPER(login) = UPPER(?) and senha = md5(?)";
+        String SQL = "SELECT login, senha FROM usuarios WHERE UPPER(login) = UPPER(?) AND senha = md5(?)";
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             pstm.setString(1, usuario.toUpperCase());
             pstm.setString(2, senha);
+
+            ResultSet rs = pstm.executeQuery(); //envia o comando ao banco
+
+            if (rs.next()) {
+                result = true;
+                pstm.close();
+                BD.getConexao().close();
+
+            } else {
+                pstm.close();
+                BD.getConexao().close();
+                result = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Erro ao Verificar Usuário e Senha!: \n" + ex);
+        }
+
+        return result;
+    }
+    
+    public boolean verificaUsuarioEmail(String usuario, String email) {
+
+        boolean result = false;
+        String SQL = "SELECT u.login, f.email FROM usuarios u INNER JOIN Funcionario f ON(f.id = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?)";
+        try {
+            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+            pstm.setString(1, usuario.toUpperCase());
+            pstm.setString(2, email);
 
             ResultSet rs = pstm.executeQuery(); //envia o comando ao banco
 

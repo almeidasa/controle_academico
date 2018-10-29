@@ -20,9 +20,9 @@
                             <b:icon name="user" />
                         </f:facet>
                     </b:inputText>
-                    <b:inputSecret id="senha" value="#{loginBean.senha}" placeholder="Digite o e-mail cadastrado para este usuário" required="true" requiredMessage="Digite sua senha atual"/>
+                    <b:inputText id="senha" value="#{loginBean.email}" placeholder="Digite o e-mail cadastrado para este usuário" required="true" requiredMessage="Digite o e-mail cadastrado para este usuário"/>
                     <b:panelGrid columns="2">
-                        <b:commandButton id="btnLogin" class="btnLogin" title="Enviar senha temporária ao e-mail cadastrado" look="warning" value ="Solicitar Nova Senha" action ="#{loginBean.alterarSenha()}"/>
+                        <b:commandButton id="btnLogin" class="btnLogin" title="Enviar senha temporária ao e-mail cadastrado" look="warning" value ="Solicitar Nova Senha" action ="#{loginBean.soliictarSenha()}"/>
                         <b:commandButton id="btnRecuperar" class="btnLogin" title="Cancelar Alteração" look="danger" value ="Cancelar" action ="#{loginBean.logOff()}" immediate="true"/>
                     </b:panelGrid>
                     <b:messages />
