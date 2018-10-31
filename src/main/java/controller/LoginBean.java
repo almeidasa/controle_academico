@@ -33,7 +33,7 @@ public class LoginBean {
             senha = null;
             return "index";
         } else {
-            Exibir.menssagem("Usuário ou senha inválidos!");
+            Exibir.Mensagem("Usuário ou senha inválidos!");
             senha = null;
             return "login";
         }
@@ -48,10 +48,10 @@ public class LoginBean {
             JavaMailApp enviar = new JavaMailApp();
             enviar.EnviarEmail();
             System.out.println(tempSenha);
-            Exibir.menssagem("Solicitação enviada! Verifique sua caixa de e-mail!");
+            Exibir.Mensagem("Solicitação enviada! Verifique sua caixa de e-mail!");
             return "recuperar";
         } else {
-            Exibir.menssagem("Usuário ou email não cadastrado!");
+            Exibir.Mensagem("Usuário ou email não cadastrado!");
             senha = null;
             return "recuperar";
         }
@@ -72,7 +72,7 @@ public class LoginBean {
             return "alterar";
         } else {
             sessao = false;
-            Exibir.menssagem("Usuário ou senha inválidos!");
+            Exibir.Mensagem("Usuário ou senha inválidos!");
             return "login";
         }
     }
@@ -84,14 +84,14 @@ public class LoginBean {
                 login.alterarSenha(usuario, novaSenha);
                 senha = null;
                 sessao = false;
-                Exibir.menssagem("A senha foi alterada!");
+                Exibir.Mensagem("A senha foi alterada!");
                 return "login";
             } else {
-                Exibir.menssagem("A nova senha e a confirmação devem ser iguais!");
+                Exibir.Mensagem("A nova senha e a confirmação devem ser iguais!");
                 return "alterar";
             }
         } else {
-            Exibir.menssagem("Usuário ou senha inválidos!");
+            Exibir.Mensagem("Usuário ou senha inválidos!");
             return "alterar";
         }
     }

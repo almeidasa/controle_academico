@@ -9,8 +9,8 @@ import javax.faces.context.FacesContext;
  */
 public class Exibir {
 
-    public static void menssagem(String menssagem){
-        FacesMessage mensagem = new FacesMessage(menssagem);
-        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+    public static void Mensagem(String mensagem){
+        FacesMessage fm = new FacesMessage(mensagem);
+        FacesContext.getCurrentInstance().addMessage(null, fm);
     }
 }
