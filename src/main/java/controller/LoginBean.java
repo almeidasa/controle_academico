@@ -48,6 +48,8 @@ public class LoginBean {
             JavaMailApp enviar = new JavaMailApp();
             enviar.enviarEmail(email, Gerar.Senha());
             System.out.println(tempSenha);
+            login.verificaUsuarioSenha(usuario, senha);
+            login.alterarSenha(usuario, novaSenha);
             Exibir.Mensagem("Solicitação enviada! Verifique sua caixa de e-mail!");
             return "recuperar";
         } else {
