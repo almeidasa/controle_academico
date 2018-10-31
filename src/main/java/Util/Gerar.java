@@ -9,7 +9,7 @@ import java.util.Random;
 public class Gerar {
     
     public static String Senha(){
-    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVYWXZabcdefghijklmnopqrstuvywxz1234567890@%&";
+    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVYWXZabcdefghijklmnopqrstuvywxz1234567890!@#$%";
 
         Random random = new Random();
 
