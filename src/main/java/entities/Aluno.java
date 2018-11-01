@@ -12,16 +12,16 @@ public class Aluno {
     private String nome;
     private Date data_nascimento;
     private String sexo;
-    private String foto;
+    private int cod_foto;
     private String endereco;
     private String telefone;
 
-    public Aluno(String cpf, String nome, Date data_nascimento, String sexo, String foto, String endereco, String telefone) {
+    public Aluno(String cpf, String nome, Date data_nascimento, String sexo, int cod_foto, String endereco, String telefone) {
         this.cpf = cpf;
         this.nome = nome;
         this.data_nascimento = data_nascimento;
         this.sexo = sexo;
-        this.foto = foto;
+        this.cod_foto = cod_foto;
         this.endereco = endereco;
         this.telefone = telefone;
     }
@@ -61,12 +61,12 @@ public class Aluno {
         this.sexo = sexo;
     }
 
-    public String getFoto() {
-        return foto;
+    public int getCod_foto() {
+        return cod_foto;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setCod_foto(int cod_foto) {
+        this.cod_foto = cod_foto;
     }
 
     public String getEndereco() {

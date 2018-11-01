@@ -10,13 +10,13 @@ import java.sql.PreparedStatement;
 public class AlunoDAO {
 
     public void inserirAluno(Aluno aluno) {
-        String SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, foto, endereco, telefone) VALUES (?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, cod_foto, endereco, telefone) VALUES (?,?,?,?,?,?,?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, aluno.getCpf());
             pstm.setString(2, aluno.getNome());
             pstm.setDate(3, aluno.getData_nascimento());
             pstm.setString(4, aluno.getSexo());
-            pstm.setString(5, aluno.getFoto());
+            pstm.setInt(5, aluno.getCod_foto());
             pstm.setString(6, aluno.getEndereco());
             pstm.setString(7, aluno.getTelefone());
 
