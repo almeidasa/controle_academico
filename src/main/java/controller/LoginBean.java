@@ -22,7 +22,6 @@ public class LoginBean {
     private String novaSenhaConf;
     private String email;
     private boolean sessao = false;
-    public static String tempSenha = "Erro";
 
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
@@ -43,14 +42,13 @@ public class LoginBean {
         UsuariosDAO login = new UsuariosDAO();
 
         if (login.verificaUsuarioEmail(usuario, email)) {
-            usuario = null;
-            tempSenha = Gerar.Senha();
+            String senhaGerada = Gerar.Senha();
             JavaMailApp enviar = new JavaMailApp();
-            enviar.enviarEmail(email, Gerar.Senha());
-            System.out.println(tempSenha);
-            login.verificaUsuarioSenha(usuario, senha);
-            login.alterarSenha(usuario, novaSenha);
+            enviar.enviarEmail(email, senhaGerada);
+            login.alterarSenha(usuario, senhaGerada);
             Exibir.Mensagem("Solicitação enviada! Verifique sua caixa de e-mail!");
+            usuario = null;
+            email = null;
             return "recuperar";
         } else {
             Exibir.Mensagem("Usuário ou email não cadastrado!");
