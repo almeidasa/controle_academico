@@ -58,7 +58,7 @@ public class UsuariosDAO {
     public boolean verificaUsuarioEmail(String usuario, String email) {
 
         boolean result = false;
-        String SQL = "SELECT u.login, f.email FROM usuarios u INNER JOIN Funcionario f ON(f.id = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?)";
+        String SQL = "SELECT u.login, f.email FROM usuarios u INNER JOIN Funcionario f ON(f.fk_usuarios_id_user = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?);";
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             pstm.setString(1, usuario.toUpperCase());
@@ -79,7 +79,7 @@ public class UsuariosDAO {
         } catch (Exception ex) {
             System.out.println("Erro ao Verificar Usuário e Senha!: \n" + ex);
         }
-
+        System.out.println(result);
         return result;
     }
 

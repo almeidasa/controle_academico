@@ -28,13 +28,13 @@ public class Testes {
 //        us.inserirUsuario(user);
 //        
 // 
-//        FuncionarioDAO f = new FuncionarioDAO();
-//        Funcionario func = new Funcionario();
-//        func.setNome("Administrador");
-//        func.setEmail("windergt@gmail.com");
-//        func.setTelefone("62982121212");
-//        func.setFk_Usuarios_id_user(1);
-//        f.inserirFuncionario(func);
+        FuncionarioDAO f = new FuncionarioDAO();
+        Funcionario func = new Funcionario();
+        func.setNome("Administrador");
+        func.setEmail("asa-008@hotmail.com");
+        func.setTelefone("62982121212");
+        func.setFk_Usuarios_id_user(3);
+        f.inserirFuncionario(func);
 //
 //       
 //        CursoDAO c = new CursoDAO();
