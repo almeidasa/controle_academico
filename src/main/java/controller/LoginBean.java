@@ -22,7 +22,8 @@ public class LoginBean {
     private String novaSenhaConf;
     private String email;
     private boolean sessao = false;
-
+    public int cont=0;
+    
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
 
@@ -31,10 +32,15 @@ public class LoginBean {
             nomeUsr = login.obterUsuario(usuario);
             senha = null;
             return "index";
-        } else {
+        } else if(cont != 3) {
             Exibir.Mensagem("Usuário ou senha inválidos!");
             senha = null;
+            cont++;
             return "login";
+        } else {
+            senha = null;
+            cont = 0;
+            return "recuperar";
         }
     }
     
