@@ -7,7 +7,7 @@
     <h:head>
         <title>Inicio</title>
         <link rel="shortcut icon" href="resources/img/home.png"/>
-        <link rel="StyleSheet" type="text/css" href="resources/css/estilos.css" media="screen" />
+        <link rel="StyleSheet" type="text/css" href="resources/css/index.css" media="screen" />
 
         <script language="JavaScript">
             if (!#{loginBean.sessao}) {
@@ -22,42 +22,13 @@
             </ui:insert>
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
-            <div style="text-align: center; width: 100%">
-                <b:panel title="Bem-Vindo #{loginBean.nomeUsr}" collapsible="false" look="primary">
-                    <b:panelGrid columns="4">
-                        <b:row>
-                            <h:form>
-                                <b:commandButton iconAwesome="sign-out" value="Sair" class="btn btn-lg" title="Sair do Sistema" look="danger" style="margin-right: 15px" action="#{loginBean.logOff()}" />
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-
-                                </center>
-                            </h:form>
-                        </b:row>
-                        <b:row>
-                            <h:form>
-                                <center>
-
-                                </center>
-                            </h:form>
-                        </b:row>
-                    </b:panelGrid>
-                </b:panel>
+            <div class="divPrincipal">
+                <h:graphicImage class="img" value="resources/img/logo.png"/><br></br>
+                <h:outputLabel>Bem-Vindo #{loginBean.nomeUsr} ao Sistema</h:outputLabel>
+                <h:form>
+                    <b:commandButton iconAwesome="sign-out" value="Sair" class="btn btn-lg" title="Sair do Sistema" look="danger" action="#{loginBean.logOff()}" />
+                </h:form>
             </div>
-        </b:column>
-        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
-
-
         </b:column>
     </h:body>
 </html>
