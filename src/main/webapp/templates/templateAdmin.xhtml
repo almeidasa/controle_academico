@@ -3,66 +3,62 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
     <h:body style="padding-top: 30px">
         <h:outputScript library="holder" name="holder.js" />
         <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
         <b:navBar inverse="true" fixed="top" fluid="true">
             <b:navbarLinks pull="left">
-                <b:navLink value="Controle Academico" href="/controle_academico/index.xhtml" style="font-size: 18px" icon-awesome="home" icon-size="lg"></b:navLink>
+                <b:navLink value="Inicio" href="/controle_academico/index.xhtml" style="font-size: 18px" icon-awesome="home" icon-size="lg"></b:navLink>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
-                <b:navLink value="Configurações" href="#" iconAwesome="cog"></b:navLink>
                 <b:dropMenu value="#{loginBean.nomeUsr}" icon-awesome="user" >
-                    <b:navLink action="#{loginBean.logOff()}" value="Sair" icon-awesome="sign-out" />
+                    <h:form style="margin-left: 20px">
+                        <b:navLink href="/controle_academico/alterar.xhtml" value="Alterar Senha" icon-awesome="key"/>
+                        <b:navCommandLink action="#{loginBean.logOff()}" value="Sair" icon-awesome="sign-out"/>
+                    </h:form>
                 </b:dropMenu>
-                <b:navLink value="Ajuda" href="#" iconAwesome="question-circle"></b:navLink>
+                <b:dropMenu value="Ajuda" icon-awesome="question-circle" >
+                    <b:button value="Sobre" look="link" p:data-target="#amodal" p:data-toggle="modal" icon-awesome="file-code-o" style="color: #0033cc"/>
+                </b:dropMenu>
             </b:navbarLinks>
-            <h:form styleClass="navbar-form navbar-right">
-                <div class="form-group">
-                    <b:inputText placeholder="Pesquisar..." fieldSize="sm"/>
-                </div>
-            </h:form>
         </b:navBar>
+        <b:modal id="amodal" title="Sobre" styleClass="modalPseudoClass">
+            <p>SHAA - SISTEMA DE HISTÓRICO ACADÊMICO DE ALUNOS - v0.11</p>
+            <p>SENAC GO - Programação para Internet GTI IV – 2018.</p>
+            <p>Desenvolvido por: WAAL Software > Alexandre Almeida - Winder Rezende - Lucio Torres.</p>
+            <p>© Todos os Direitos Reservados.</p>
+            <f:facet name="footer">
+                <b:button value="Fechar" dismiss="modal" />
+                <b:button value="Ok" look="primary" dismiss="modal" />
+            </f:facet>
+        </b:modal>
         <b:container fluid="true">
             <b:row>
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
                     <b:listLinks>
-                        <b:navLink href="#" value="Cadastrar Animais" active="true" iconAwesome="fa-paw" icon-size="lg"/>
-                        <b:navLink href="#" value="Cachorro" icon-awesome="chevron-right" />
-                        <b:dropMenu value="Gato" icon-awesome="chevron-right" >
+                        <b:navLink value="Cadastro" active="true" iconAwesome="list-alt" icon-size="lg" style="background-color: #428BCA"/>
+                        <b:navLink href="#" value="Funcionários" icon-awesome="user-plus" />
+                        <b:dropMenu value="Alunos" icon-awesome="child" >
                             <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
-                            <b:navLink href="#" value="Cadastrados" icon-awesome="search" />
+                            <b:navLink href="#" value="Listar" icon-awesome="search" />
                         </b:dropMenu>
-                        <b:dropMenu value="Iguana" icon-awesome="chevron-right" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
-                            <b:navLink href="#" value="Cadastrados" icon-awesome="search" />
-                        </b:dropMenu>
-                        <b:dropMenu value="Cobra" icon-awesome="chevron-right" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
-                            <b:navLink href="#" value="Cadastrados" icon-awesome="search" />
-                        </b:dropMenu>
+                        <b:navLink href="#" value="Cursos" icon-awesome="qrcode" />
+                        <b:navLink href="#" value="Disciplinas" icon-awesome="sitemap" />
                     </b:listLinks>
                     <b:listLinks>
-                        <b:navLink href="#" value="Cadastrar Empresas" active="true" iconAwesome="briefcase" icon-size="lg" style="background-color: #81c784" />
-                        <b:navLink href="#" value="Beta Inc" iconAwesome="chevron-right"/>
-                        <b:navLink value="Monster Care Ltda" iconAwesome="chevron-right"/>
-                        <b:navLink value="Geração Tecnologia" iconAwesome="chevron-right"/>
+                        <b:navLink value="Alunos" active="true" iconAwesome="child" icon-size="lg" style="background-color: #81c784" />
+                        <b:navLink href="#" value="Matricular" iconAwesome="chevron-right"/>
+                        <b:navLink href="#" value="Evolução" iconAwesome="chevron-right"/>
+                        <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="chevron-right"/>
                     </b:listLinks>
                     <b:listLinks>
                         <b:navLink href="#" value="Aplicativos" active="true" iconAwesome="apple" icon-size="lg" style="background-color: #e57373" />
                         <b:navLink href="#" value="Conversor de Moedas" icon-awesome="money"/>
                         <b:navLink href="#" value="Jogo da Velha" icon-awesome="th"/>
                     </b:listLinks>
-                    <div id="footer" style="text-align: center">
-                        <hr/>
-                        &copy; 2018 WAAL Software. Todos os direitos reservados.
-                    </div>
-                </b:column>
-                <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
-                    <ui:insert name ="conteudo"> Espaço para o conteúdo da tela </ui:insert>
                 </b:column>
             </b:row>
         </b:container>
