@@ -39,25 +39,48 @@
             <b:row>
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
                     <b:listLinks>
-                        <b:navLink value="Cadastro" active="true" iconAwesome="list-alt" icon-size="lg" style="background-color: #428BCA"/>
-                        <b:navLink href="#" value="Funcionários" icon-awesome="user-plus" />
+                        <b:navLink value="Cadastrar" active="true" iconAwesome="vcard" icon-size="lg" style="background-color: #428BCA"/>
+                        <b:dropMenu value="Funcionários" icon-awesome="user-plus" >
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
+                            <b:navLink href="#" value="Listar" icon-awesome="search" />
+                        </b:dropMenu>
                         <b:dropMenu value="Alunos" icon-awesome="child" >
                             <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
                             <b:navLink href="#" value="Listar" icon-awesome="search" />
                         </b:dropMenu>
-                        <b:navLink href="#" value="Cursos" icon-awesome="qrcode" />
-                        <b:navLink href="#" value="Disciplinas" icon-awesome="sitemap" />
+                        <b:dropMenu value="Cursos" icon-awesome="qrcode" >
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
+                            <b:navLink href="#" value="Vincular Disciplina" icon-awesome="link"/>
+                            <b:navLink href="#" value="Desvincular Disciplina" icon-awesome="unlink"/>
+                            <b:navLink href="#" value="Vincular Coordenador" icon-awesome="link"/>
+                            <b:navLink href="#" value="Desvincular Coordenador" icon-awesome="unlink"/>
+                        </b:dropMenu>
+                        <b:dropMenu value="Disciplinas" icon-awesome="sitemap" >
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
+                            <b:navLink href="#" value="Listar" icon-awesome="search" />
+                            <b:navLink href="#" value="Vincular Professor" icon-awesome="link"/>
+                            <b:navLink href="#" value="Desvincular Professor" icon-awesome="unlink"/>
+                        </b:dropMenu>
                     </b:listLinks>
                     <b:listLinks>
-                        <b:navLink value="Alunos" active="true" iconAwesome="child" icon-size="lg" style="background-color: #81c784" />
-                        <b:navLink href="#" value="Matricular" iconAwesome="chevron-right"/>
-                        <b:navLink href="#" value="Evolução" iconAwesome="chevron-right"/>
-                        <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="chevron-right"/>
+                        <b:navLink value="Alunos" active="true" iconAwesome="child" icon-size="lg" style="background-color: #81C784" />
+                        <b:navLink href="#" value="Matricular" iconAwesome="leanpub"/>
+                        <b:navLink href="#" value="Aprovação" iconAwesome="line-chart"/>
+                        <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap"/>
                     </b:listLinks>
                     <b:listLinks>
-                        <b:navLink href="#" value="Aplicativos" active="true" iconAwesome="apple" icon-size="lg" style="background-color: #e57373" />
-                        <b:navLink href="#" value="Conversor de Moedas" icon-awesome="money"/>
-                        <b:navLink href="#" value="Jogo da Velha" icon-awesome="th"/>
+                        <b:navLink href="#" value="Relatórios" active="true" iconAwesome="list-alt" icon-size="lg" style="background-color: #e57373" />
+                        <b:dropMenu value="Relação de Alunos" icon-awesome="drivers-license-o" >
+                            <b:navLink href="#" value="Matriculados" icon-awesome="address-book-o" />
+                            <b:navLink href="#" value="Poderão Colar Grau" icon-awesome="graduation-cap" />
+                            <b:navLink href="#" value="Podem Colar Grau" icon-awesome="flag" />
+                        </b:dropMenu>
+                        <b:dropMenu value="Relação de Funcionários" icon-awesome="group" >
+                            <b:navLink href="#" value="Professores" icon-awesome="id-badge" />
+                            <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" />
+                            <b:navLink href="#" value="Outros" icon-awesome="search" />
+                        </b:dropMenu>
+                        <b:navLink href="#" value="Outros" icon-awesome="pie-chart"/>
                     </b:listLinks>
                 </b:column>
             </b:row>

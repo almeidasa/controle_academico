@@ -12,6 +12,10 @@
     width: 45%;
 }
 
+.msg{
+    font-size: 25px;
+}
+
 .footer{
-    padding-top: 18%;
+    padding-top: 16%;
 }

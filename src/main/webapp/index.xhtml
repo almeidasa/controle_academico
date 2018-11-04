@@ -3,9 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Inicio</title>
         <link rel="shortcut icon" href="resources/img/home.png"/>
@@ -27,7 +25,7 @@
             <div class="divPrincipal">
                 <b:panel>
                     <h:graphicImage class="img" value="resources/img/logo.png"/><br/>
-                    <h:outputLabel>Bem-Vindo #{loginBean.nomeUsr} ao Sistema - SHAA</h:outputLabel>
+                    <h:outputLabel class="msg">Bem-Vindo #{loginBean.nomeUsr} ao Sistema - SHAA</h:outputLabel>
                     <h:form>
                         <b:commandButton iconAwesome="sign-out" value="Sair" class="btn btn-lg" title="Sair do Sistema" look="danger" action="#{loginBean.logOff()}" />
                     </h:form><div class="footer" style="text-align: center">
