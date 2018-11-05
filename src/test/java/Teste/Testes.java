@@ -20,21 +20,21 @@ import java.sql.Date;
  */
 public class Testes {
     public static void main(String[] args) {
-//        UsuariosDAO us = new UsuariosDAO();
-//        Usuarios user = new Usuarios();        
-//        user.setLogin("Admin");
-//        user.setSenha("1");
-//        user.setTipo("admin");        
-//        us.inserirUsuario(user);
+        UsuariosDAO us = new UsuariosDAO();
+        Usuarios user = new Usuarios();        
+        user.setLogin("Admin");
+        user.setSenha("1");
+        user.setTipo("admin");        
+        us.inserirUsuario(user);
 //        
 // 
-        FuncionarioDAO f = new FuncionarioDAO();
-        Funcionario func = new Funcionario();
-        func.setNome("Administrador");
-        func.setEmail("asa-008@hotmail.com");
-        func.setTelefone("62982121212");
-        func.setFk_Usuarios_id_user(3);
-        f.inserirFuncionario(func);
+//        FuncionarioDAO f = new FuncionarioDAO();
+//        Funcionario func = new Funcionario();
+//        func.setNome("Administrador");
+//        func.setEmail("asa-008@hotmail.com");
+//        func.setTelefone("62982121212");
+//        func.setFk_Usuarios_id_user(3);
+//        f.inserirFuncionario(func);
 //
 //       
 //        CursoDAO c = new CursoDAO();

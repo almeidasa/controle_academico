@@ -1,8 +1,11 @@
 package DAO;
 
+import Util.Formatar;
 import entities.Usuarios;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -12,12 +15,12 @@ public class UsuariosDAO {
 
     public void inserirUsuario(Usuarios usuarios) {
 
-        String SQL = "INSERT INTO usuarios(login, senha, tipo) VALUES (?, md5(?), ?)";
+        String SQL = "INSERT INTO usuarios(login, senha, tipo, situacao, data_cad) VALUES (?, md5(?), ?, ?, '" + new Date() + "')";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, usuarios.getLogin());
             pstm.setString(2, usuarios.getSenha());
             pstm.setString(3, usuarios.getTipo());
-
+            pstm.setBoolean(4, Boolean.parseBoolean(usuarios.getSituacao()));
             pstm.execute();
 
             BD.getConexao().close();
@@ -25,6 +28,35 @@ public class UsuariosDAO {
         } catch (Exception ex) {
             System.out.println("\nErro ao inserir usuário: " + ex);
         }
+    }
+
+    public ArrayList<Usuarios> obterUsuarios() {
+
+        ArrayList<Usuarios> usuarios = new ArrayList<>();
+
+        String SQL = "SELECT id_user, login, senha, tipo, situacao, data_cad FROM usuarios";
+        try {
+            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+
+            ResultSet rs = pstm.executeQuery(); //envia o comando ao banco
+
+            while (rs.next()) {
+                Usuarios usr = new Usuarios(
+                        rs.getInt("id_user"),
+                        rs.getString("login"),
+                        rs.getString("senha").equals("e8d95a51f3af4a3b134bf6bb680a213a") ? "Padrão" : "Privada",
+                        rs.getString("tipo"),
+                        rs.getBoolean("situacao") ? "Ativo" : "Inativo",
+                        Formatar.data(rs.getDate("data_cad"), "dd/MM/yyyy")
+                );
+                usuarios.add(usr);
+            }
+            System.out.println("Usuários obtidos com sucesso!");
+        } catch (Exception ex) {
+            System.out.println("Erro ao obter usuários!: \n" + ex);
+        }
+
+        return usuarios;
     }
 
     public boolean verificaUsuarioSenha(String usuario, String senha) {
@@ -54,7 +86,7 @@ public class UsuariosDAO {
 
         return result;
     }
-    
+
     public boolean verificaUsuarioEmail(String usuario, String email) {
 
         boolean result = false;
@@ -83,24 +115,24 @@ public class UsuariosDAO {
         return result;
     }
 
-    public String obterUsuario(String login) {
+    public String obterLogin(String login) {
 
         String UsrAtivo = "";
         String SQL = "SELECT login FROM usuarios WHERE UPPER(login) = UPPER(?)";
 
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, login);
-            ResultSet result = pstm.executeQuery();
+            ResultSet rs = pstm.executeQuery();
 
-            while (result.next()) {
-                UsrAtivo = result.getString("login");
+            while (rs.next()) {
+                UsrAtivo = rs.getString("login");
             }
 
             pstm.close();
             BD.getConexao().close();
             System.out.println("Consulta Realizada na Tabela Usuario!");
         } catch (Exception ex) {
-            System.out.println("Erro ao Obter Usuários do Banco de Dados!: \n" + ex);
+            System.out.println("Erro ao Obter Login do Banco de Dados!: \n" + ex);
         }
         System.out.println(UsrAtivo);
         return UsrAtivo;

@@ -29,7 +29,7 @@ public class LoginBean {
 
         if (login.verificaUsuarioSenha(usuario, senha)) {
             sessao = true;
-            nomeUsr = login.obterUsuario(usuario);
+            nomeUsr = login.obterLogin(usuario);
             senha = null;
             return "index";
         } else if(cont != 3) {
@@ -109,7 +109,6 @@ public class LoginBean {
     }
 
     //Getters e Seters
-
     public String getUsuario() {
         return usuario;
     }

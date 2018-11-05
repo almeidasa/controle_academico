@@ -6,9 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
-    <h:body style="padding-top: 30px">
-        <h:outputScript library="holder" name="holder.js" />
-        <!--script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.5.2/holder.min.js"></script-->
+    <h:body style="padding-top: 59px">
         <b:navBar inverse="true" fixed="top" fluid="true">
             <b:navbarLinks pull="left">
                 <b:navLink value="Inicio" href="/controle_academico/index.xhtml" style="font-size: 18px" icon-awesome="home" icon-size="lg"></b:navLink>
@@ -40,24 +38,28 @@
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
                     <b:listLinks>
                         <b:navLink value="Cadastrar" active="true" iconAwesome="vcard" icon-size="lg" style="background-color: #428BCA"/>
-                        <b:dropMenu value="Funcionários" icon-awesome="user-plus" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
-                            <b:navLink href="#" value="Listar" icon-awesome="search" />
+                        <b:dropMenu value="Usuários" icon-awesome="user-circle-o" >
+                            <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Cadastrar" icon-awesome="plus-circle" />
+                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
+                        </b:dropMenu>
+                        <b:dropMenu value="Funcionários" icon-awesome="id-badge" >
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
+                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
                         </b:dropMenu>
                         <b:dropMenu value="Alunos" icon-awesome="child" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
-                            <b:navLink href="#" value="Listar" icon-awesome="search" />
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
+                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
                         </b:dropMenu>
                         <b:dropMenu value="Cursos" icon-awesome="qrcode" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
                             <b:navLink href="#" value="Vincular Disciplina" icon-awesome="link"/>
                             <b:navLink href="#" value="Desvincular Disciplina" icon-awesome="unlink"/>
                             <b:navLink href="#" value="Vincular Coordenador" icon-awesome="link"/>
                             <b:navLink href="#" value="Desvincular Coordenador" icon-awesome="unlink"/>
                         </b:dropMenu>
                         <b:dropMenu value="Disciplinas" icon-awesome="sitemap" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="save" />
-                            <b:navLink href="#" value="Listar" icon-awesome="search" />
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
+                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
                             <b:navLink href="#" value="Vincular Professor" icon-awesome="link"/>
                             <b:navLink href="#" value="Desvincular Professor" icon-awesome="unlink"/>
                         </b:dropMenu>
@@ -78,7 +80,7 @@
                         <b:dropMenu value="Relação de Funcionários" icon-awesome="group" >
                             <b:navLink href="#" value="Professores" icon-awesome="id-badge" />
                             <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" />
-                            <b:navLink href="#" value="Outros" icon-awesome="search" />
+                            <b:navLink href="#" value="Outros" icon-awesome="th-list" />
                         </b:dropMenu>
                         <b:navLink href="#" value="Outros" icon-awesome="pie-chart"/>
                     </b:listLinks>
