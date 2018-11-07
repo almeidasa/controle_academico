@@ -38,18 +38,8 @@
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
                     <b:listLinks>
                         <b:navLink value="Cadastrar" active="true" iconAwesome="vcard" icon-size="lg" style="background-color: #428BCA"/>
-                        <b:dropMenu value="Usuários" icon-awesome="user-circle-o" >
-                            <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Cadastrar" icon-awesome="plus-circle" />
-                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
-                        </b:dropMenu>
-                        <b:dropMenu value="Funcionários" icon-awesome="id-badge" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
-                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
-                        </b:dropMenu>
-                        <b:dropMenu value="Alunos" icon-awesome="child" >
-                            <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
-                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
-                        </b:dropMenu>
+                        <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Usuários" icon-awesome="user-circle-o" />
+                        <b:navLink href="#" value="Funcionários" icon-awesome="id-badge" />
                         <b:dropMenu value="Cursos" icon-awesome="qrcode" >
                             <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
                             <b:navLink href="#" value="Vincular Disciplina" icon-awesome="link"/>
@@ -63,9 +53,13 @@
                             <b:navLink href="#" value="Vincular Professor" icon-awesome="link"/>
                             <b:navLink href="#" value="Desvincular Professor" icon-awesome="unlink"/>
                         </b:dropMenu>
+                        <b:dropMenu value="Alunos" icon-awesome="child" >
+                            <b:navLink href="#" value="Cadastrar" icon-awesome="plus-circle" />
+                            <b:navLink href="#" value="Listar" icon-awesome="th-list" />
+                        </b:dropMenu>
                     </b:listLinks>
                     <b:listLinks>
-                        <b:navLink value="Alunos" active="true" iconAwesome="child" icon-size="lg" style="background-color: #81C784" />
+                        <b:navLink value="Gerenciar Alunos" active="true" iconAwesome="child" icon-size="lg" style="background-color: #81C784" />
                         <b:navLink href="#" value="Matricular" iconAwesome="leanpub"/>
                         <b:navLink href="#" value="Aprovação" iconAwesome="line-chart"/>
                         <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap"/>
