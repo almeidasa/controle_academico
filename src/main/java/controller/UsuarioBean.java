@@ -85,4 +85,5 @@ public class UsuarioBean {
     public void setUsuarios(ArrayList<Usuarios> usuarios) {
         this.usuarios = usuarios;
     }
+    //ok
 }
