@@ -8,6 +8,7 @@ public class Funcionario {
 
     private int id;
     private String nome;
+    private String cargo;
     private String email;
     private String telefone;
     private int fk_Usuarios_id_user;
@@ -15,16 +16,18 @@ public class Funcionario {
     public Funcionario() {
     }
     
-    public Funcionario(String nome, String email, String telefone, int fk_Usuarios_id_user) {
+    public Funcionario(String nome, String cargo, String email, String telefone, int fk_Usuarios_id_user) {
         this.nome = nome;
         this.email = email;
+        this.cargo = cargo;
         this.telefone = telefone;
         this.fk_Usuarios_id_user = fk_Usuarios_id_user;
     }
 
-    public Funcionario(int id, String nome, String email, String telefone, int fk_Usuarios_id_user) {
+    public Funcionario(int id, String nome, String cargo, String email, String telefone, int fk_Usuarios_id_user) {
         this.id = id;
         this.nome = nome;
+        this.cargo = cargo;
         this.email = email;
         this.telefone = telefone;
         this.fk_Usuarios_id_user = fk_Usuarios_id_user;
@@ -64,6 +67,14 @@ public class Funcionario {
 
     public int getFk_Usuarios_id_user() {
         return fk_Usuarios_id_user;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public void setFk_Usuarios_id_user(int fk_Usuarios_id_user) {
