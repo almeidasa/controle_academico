@@ -1,8 +1,12 @@
 package controller;
 
 import DAO.FuncionarioDAO;
+import DAO.UsuariosDAO;
 import entities.Funcionario;
+import entities.Usuarios;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -21,9 +25,12 @@ public class FuncionarioBean {
     private String telefone;
     private int fk_Usuarios_id_user;
     private ArrayList<Funcionario> funcionario = new ArrayList<>();
+    private ArrayList<Usuarios> user = new ArrayList<>();
+    private Map<Integer, String> ItensBoxUsuarios;
 
     public FuncionarioBean() {
         obter();
+        setBoxUsuarios();
     }
 
     private void obter() {
@@ -46,7 +53,45 @@ public class FuncionarioBean {
 
     }
 
-    //Getters e Seters
+    
+    private void setBoxUsuarios() {
+        ItensBoxUsuarios = new LinkedHashMap<>();
+        UsuariosDAO us = new UsuariosDAO();
+        user = us.obterUsuarios();
+        
+        for  (Usuarios usuario : user) {
+                ItensBoxUsuarios.put(1, "Selecione um Usuário");
+                ItensBoxUsuarios.put(usuario.getId_user(), usuario.getLogin());
+        } 
+
+//            ItensBoxUsuarios = new LinkedHashMap<>();
+//        ItensBoxUsuarios.put("", "Todos os Bancos");
+//        ItensBoxUsuarios.put("001", "001 - Banco do Brasil");
+//        ItensBoxUsuarios.put("033", "033 - Santander");
+//        ItensBoxUsuarios.put("070", "070 - Banco Regional de Brasilia S/A");
+//        ItensBoxUsuarios.put("104", "104 - Caixa Economica Federal");
+        
+    }
+    
+    public ArrayList<Usuarios> getUser() {
+        return user;
+    }
+
+    public void setUser(ArrayList<Usuarios> user) {
+        this.user = user;
+    }
+
+    public Map<Integer, String> getItensBoxUsuarios() {
+        return ItensBoxUsuarios;
+    }
+
+    public void setItensBoxUsuarios(Map<Integer, String> ItensBoxUsuarios) {
+        this.ItensBoxUsuarios = ItensBoxUsuarios;
+    }
+
+    
+
+
     public int getId_user() {
         return id_user;
     }

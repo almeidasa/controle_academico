@@ -46,8 +46,7 @@
                                          tiny-screen="one-third" required="true" />
 
                             <b:selectOneMenu value="#{funcionarioBean.fk_Usuarios_id_user}" label="Usuário" tiny-screen="one-third">
-                                <f:selectItem itemLabel="Ativo" itemValue="1" />
-                                <f:selectItem itemLabel="Inativo" itemValue="1" />
+                                <f:selectItems value="#{funcionarioBean.itensBoxUsuarios.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
 
