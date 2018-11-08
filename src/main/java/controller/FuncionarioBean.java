@@ -43,13 +43,15 @@ public class FuncionarioBean {
 
     }
 
-    public void limpaTela() {
+    public String  limpaTela() {
         id = 0;
-        nome = "";
+        nome = null;
         cargo = "";
         email = "";
         telefone = "";
         fk_Usuarios_id_user = 0;
+        obter();
+         return "cadastrarFuncionario";
     }
 
     public void add() {
@@ -70,6 +72,10 @@ public class FuncionarioBean {
         }
     }
 
+    public void cancelar(){
+        limpaTela();
+    }
+    
     public void editar(Funcionario f) {
         id = f.getId();
         nome = f.getNome();
@@ -77,7 +83,6 @@ public class FuncionarioBean {
         email = f.getEmail();
         telefone = f.getTelefone();
         fk_Usuarios_id_user = f.getFk_Usuarios_id_user();
-        funcionario.remove(f);
         botao = "Alterar";
         icone = "fa-refresh";
     }
