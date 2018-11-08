@@ -33,7 +33,7 @@ public class CursoDAO {
 
         ArrayList<Curso> cursos = new ArrayList<>();
 
-        String SQL = "SELECT cod, nome_curso, fk_Funcionario_id FROM cursos";
+        String SQL = "SELECT cod, nome_curso, fk_Funcionario_id FROM curso";
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             ResultSet rs = pstm.executeQuery();
@@ -41,7 +41,7 @@ public class CursoDAO {
             while (rs.next()) {
                 Curso novo = new Curso(
                         rs.getInt("cod"),
-                        rs.getString("nome"),
+                        rs.getString("nome_curso"),
                         rs.getInt("fk_Funcionario_id")
                 );
                 cursos.add(novo);

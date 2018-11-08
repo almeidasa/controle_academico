@@ -49,7 +49,7 @@ public class CursoBean {
         func = us.obterFuncionarios();
 
         for (Funcionario funcionarios : func) {
-            ItensBoxFuncionarios.put(0, "Selecione um Curso");
+            ItensBoxFuncionarios.put(0, "Selecione um Funcionário");
             ItensBoxFuncionarios.put(funcionarios.getId(), funcionarios.getNome());
             System.out.println(funcionarios.getId());
         }
