@@ -8,16 +8,16 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  * @Autor Alexandre Almeida
  * @Data 07/11/2018
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class FuncionarioBean {
-
+    
     private int id;
     private String nome;
     private String cargo;
@@ -28,14 +28,19 @@ public class FuncionarioBean {
     private ArrayList<Usuarios> user = new ArrayList<>();
     private Map<Integer, String> ItensBoxUsuarios;
 
+    private static String botao= "Incluir";
+    private static String icone = "plus-circle";
+
     public FuncionarioBean() {
         obter();
         setBoxUsuarios();
     }
 
     private void obter() {
+        funcionario.clear();
         FuncionarioDAO func = new FuncionarioDAO();
         funcionario = func.obterFuncionarios();
+
     }
 
     public void limpaTela() {
@@ -48,11 +53,21 @@ public class FuncionarioBean {
     }
 
     public void add() {
-        FuncionarioDAO func = new FuncionarioDAO();
-        Funcionario fc = new Funcionario(nome, cargo, email, telefone, fk_Usuarios_id_user);
-        func.inserirFuncionario(fc);
-        limpaTela();
-        obter();
+        if (botao.equals("Incluir")) {
+            FuncionarioDAO func = new FuncionarioDAO();
+            Funcionario fc = new Funcionario(nome, cargo, email, telefone, fk_Usuarios_id_user);
+            func.inserirFuncionario(fc);
+            limpaTela();
+            obter();
+        } else {
+            FuncionarioDAO func = new FuncionarioDAO();
+            Funcionario fc = new Funcionario(id, nome, cargo, email, telefone, fk_Usuarios_id_user);
+            func.editarFuncionario(fc);
+            limpaTela();
+            obter();
+            botao = "Incluir";
+            icone = "plus-circle";
+        }
     }
 
     public void editar(Funcionario f) {
@@ -62,7 +77,9 @@ public class FuncionarioBean {
         email = f.getEmail();
         telefone = f.getTelefone();
         fk_Usuarios_id_user = f.getFk_Usuarios_id_user();
-        remover(f);
+        funcionario.remove(f);
+        botao = "Alterar";
+        icone = "fa-refresh";
     }
 
     public void remover(Funcionario f) {
@@ -90,6 +107,14 @@ public class FuncionarioBean {
         this.user = user;
     }
 
+    public String getIcone() {
+        return icone;
+    }
+
+    public void setIcone(String icone) {
+        this.icone = icone;
+    }
+
     public Map<Integer, String> getItensBoxUsuarios() {
         return ItensBoxUsuarios;
     }
@@ -100,6 +125,14 @@ public class FuncionarioBean {
 
     public int getId() {
         return id;
+    }
+
+    public String getBotao() {
+        return botao;
+    }
+
+    public void setBotao(String botao) {
+        this.botao = botao;
     }
 
     public void setId(int id_user) {

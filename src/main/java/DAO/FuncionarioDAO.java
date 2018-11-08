@@ -56,8 +56,30 @@ public class FuncionarioDAO {
 
         return funcionario;
     }
-    
-        public void removerFuncionario(Funcionario funcionario) {
+
+    public void editarFuncionario(Funcionario f) {
+        System.out.println("id: " + f.getId());
+        String SQL = "UPDATE funcionario SET nome = ?, cargo = ?, email = ?, telefone = ?, fk_Usuarios_id_user = ? WHERE id = ?";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, f.getNome());
+            pstm.setString(2, f.getCargo());
+            pstm.setString(3, f.getEmail());
+            pstm.setString(4, f.getTelefone());
+            pstm.setInt(5, f.getFk_Usuarios_id_user());
+            pstm.setInt(6, f.getId());
+
+            System.out.println(SQL);
+            pstm.executeUpdate();
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Alteração efetuada!");
+        } catch (Exception ex) {
+            System.out.println("Erro ao Alterar Funcionário!:\n" + ex);
+        }
+    }
+
+    public void removerFuncionario(Funcionario funcionario) {
         String SQL = "DELETE FROM funcionario WHERE id = (?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setInt(1, funcionario.getId());
