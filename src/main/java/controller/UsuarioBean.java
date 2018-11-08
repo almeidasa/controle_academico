@@ -5,13 +5,14 @@ import entities.Usuarios;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  * @Autor Winder Rezende
  * @Data  04/11/2018, 23:41:56
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class UsuarioBean {
 
     private int id_user;
@@ -22,7 +23,7 @@ public class UsuarioBean {
     private ArrayList<Usuarios> usuarios = new ArrayList<>();
     Usuarios usr;
     UsuariosDAO usrDao;
-    private boolean editar;
+    private static boolean editar;
     
     public UsuarioBean() {
         usr = new Usuarios();
@@ -51,6 +52,7 @@ public class UsuarioBean {
     
     public void iniciaEditar(Usuarios lista) {
         editar = true;
+        id_user = lista.getId_user();
         login = lista.getLogin();
         senha = lista.getSenha().equals("Privada") ? "" : "senha" ;
         tipo = lista.getTipo();
@@ -59,8 +61,11 @@ public class UsuarioBean {
     }
     
     public void alterar(){
-        System.out.println("dfssdddddddddddddddddddddddddddddddddddddddffffffffffffffffff");
+        usr = new Usuarios(id_user, login, senha, tipo, situacao);
+        usrDao.alterarUsuario(usr);
         editar = false;
+        obter();
+        cancelar();
     }
 
     public void remover(Usuarios lista) {

@@ -24,6 +24,14 @@ public class Usuarios {
         this.tipo = tipo;
         this.situacao = situacao;
     }
+    
+    public Usuarios(int id_user, String login, String senha, String tipo, String situacao) {
+        this.id_user = id_user;
+        this.login = login;
+        this.senha = senha;
+        this.tipo = tipo;
+        this.situacao = situacao;
+    }
 
     public Usuarios(int id_user, String login, String senha, String tipo, String situacao, String data_cad) {
         this.id_user = id_user;
