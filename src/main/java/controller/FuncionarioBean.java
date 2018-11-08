@@ -34,14 +34,23 @@ public class FuncionarioBean {
     }
 
     private void obter() {
-       FuncionarioDAO func = new FuncionarioDAO();
+        FuncionarioDAO func = new FuncionarioDAO();
         funcionario = func.obterFuncionarios();
     }
 
+    public void limpaTela(){
+        nome = "";
+        cargo = "";
+        email = "";
+        telefone = "";
+        fk_Usuarios_id_user = 0;
+    }
+        
     public void add() {
         FuncionarioDAO func = new FuncionarioDAO();
         Funcionario fc = new Funcionario(nome, cargo, email, telefone, fk_Usuarios_id_user);
         func.inserirFuncionario(fc);
+        limpaTela();
         obter();
     }
 
@@ -49,30 +58,21 @@ public class FuncionarioBean {
 
     }
 
-    public void remover() {
-
+    public void remover(Funcionario func) {
+        
     }
 
-    
     private void setBoxUsuarios() {
         ItensBoxUsuarios = new LinkedHashMap<>();
         UsuariosDAO us = new UsuariosDAO();
         user = us.obterUsuarios();
-        
-        for  (Usuarios usuario : user) {
-                ItensBoxUsuarios.put(1, "Selecione um Usuário");
-                ItensBoxUsuarios.put(usuario.getId_user(), usuario.getLogin());
-        } 
 
-//            ItensBoxUsuarios = new LinkedHashMap<>();
-//        ItensBoxUsuarios.put("", "Todos os Bancos");
-//        ItensBoxUsuarios.put("001", "001 - Banco do Brasil");
-//        ItensBoxUsuarios.put("033", "033 - Santander");
-//        ItensBoxUsuarios.put("070", "070 - Banco Regional de Brasilia S/A");
-//        ItensBoxUsuarios.put("104", "104 - Caixa Economica Federal");
-        
+        for (Usuarios usuario : user) {
+            ItensBoxUsuarios.put(0, "Selecione um Usuário");
+            ItensBoxUsuarios.put(usuario.getId_user(), usuario.getLogin());
+        }
     }
-    
+
     public ArrayList<Usuarios> getUser() {
         return user;
     }
@@ -88,9 +88,6 @@ public class FuncionarioBean {
     public void setItensBoxUsuarios(Map<Integer, String> ItensBoxUsuarios) {
         this.ItensBoxUsuarios = ItensBoxUsuarios;
     }
-
-    
-
 
     public int getId_user() {
         return id_user;
