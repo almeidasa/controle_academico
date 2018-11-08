@@ -58,8 +58,10 @@ public class FuncionarioBean {
 
     }
 
-    public void remover(Funcionario func) {
-        
+    public void remover(Funcionario f) {
+        funcionario.remove(f);
+        FuncionarioDAO func = new FuncionarioDAO();
+        func.removerFuncionario(f);
     }
 
     private void setBoxUsuarios() {
