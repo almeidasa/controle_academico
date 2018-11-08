@@ -11,10 +11,10 @@
         <link rel="StyleSheet" type="text/css" href="resources/css/cadastrarUsuario.css" media="screen" />
 
         <script language="JavaScript">
-            if (!#{loginBean.sessao}) {
-                window.location.href = "/controle_academico/login.xhtml";
-            }
-        </script>
+//            if (!#{loginBean.sessao}) {
+//                window.location.href = "/controle_academico/login.xhtml";
+//            }
+        </script>        
     </h:head>
     <h:body>
         <div id="header">
@@ -24,34 +24,35 @@
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div>
-                <b:navBar class="navBar" fluid="true" inverse="true">
+                <b:panel title="Cadastar Usuários de Sistema" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
                     <b:form>
-                        <b:button class="btnVoltar" iconAwesome="reply" value="Voltar" title="Voltar ao Menu" look="danger" href="/controle_academico/index.xhtml"/>
-                    </b:form>
-                </b:navBar>
-            </div>
-            <div>
-                <b:panel title="Cadastar Usuários de Sistema" collapsible="false" look="info" iconAwesome="user-circle-o" icon-size="lg" >
-                    <b:form>
-                        <b:inputText value="#{usuarioBean.login}" label="Login" placeholder="Digite um login para o novo usuário" type="text" 
-                                     tiny-screen="one-fourth" required="true" />
-                        <b:selectOneMenu value="#{usuarioBean.senha}" label="Senha" tiny-screen="one-fourth">
-                            <f:selectItem itemLabel="Padrão (Reiniciar)" itemValue="senha" />
-                            <f:selectItem itemLabel="Privada (Manter)" itemValue="1" />
-                        </b:selectOneMenu>
-                        <b:selectOneMenu value="#{usuarioBean.tipo}" label="Tipo" tiny-screen="one-fourth">
-                            <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                            <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
-                            <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
-                            <f:selectItem itemLabel="Professor" itemValue="Professor" />
-                            <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
-                        </b:selectOneMenu>
-                        <b:selectOneMenu value="#{usuarioBean.situacao}" label="Situação" tiny-screen="one-fourth">
-                            <f:selectItem itemLabel="Ativo" itemValue="true" />
-                            <f:selectItem itemLabel="Inativo" itemValue="false" />
-                        </b:selectOneMenu>
-                        <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
-                                         title="Incluir" look="success" action="#{usuarioBean.add()}"/>   
+                        <b:row>
+                            <b:inputText value="#{usuarioBean.login}" label="Login" placeholder="Digite um login para o novo usuário" type="text" 
+                                         tiny-screen="one-fourth" required="true" />
+                            <b:selectOneMenu value="#{usuarioBean.senha}" label="Senha" tiny-screen="one-fourth">
+                                <f:selectItem itemLabel="Padrão (Reiniciar)" itemValue="senha" />
+                                <f:selectItem itemLabel="Privada (Manter)" itemValue="" itemDisabled="#{!usuarioBean.editar}"/>
+                            </b:selectOneMenu>
+                            <b:selectOneMenu value="#{usuarioBean.tipo}" label="Tipo" tiny-screen="one-fourth">
+                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
+                                <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
+                                <f:selectItem itemLabel="Professor" itemValue="Professor" />
+                                <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
+                            </b:selectOneMenu>
+                            <b:selectOneMenu value="#{usuarioBean.situacao}" label="Situação" tiny-screen="one-fourth">
+                                <f:selectItem itemLabel="Ativo" itemValue="true" />
+                                <f:selectItem itemLabel="Inativo" itemValue="false" />
+                            </b:selectOneMenu>
+                        </b:row>
+                        <b:row>
+                            <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
+                                             title="Incluir Usuário" look="success" action="#{usuarioBean.add()}" rendered="#{!usuarioBean.editar}"/> 
+                            <b:commandButton iconAwesome="refresh" icon-size="lg" value="Alterar" class="btn btn-lg btnIncluir" 
+                                             title="Alterar" look="info" action="#{usuarioBean.alterar()}" rendered="#{usuarioBean.editar}"/>
+                            <b:commandButton iconAwesome="remove" icon-size="lg" value="cancelar" class="btn btn-lg btnIncluir" 
+                                             title="Cancelar" look="danger" action="#{usuarioBean.cancelar()}" immediate="true"/>
+                        </b:row>
                     </b:form>
                     <b:messages/>
                 </b:panel>
@@ -76,9 +77,9 @@
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
-                                                         title="Remover Item" look="danger"   />
+                                                         title="Remover Usuário" look="danger"  action="#{usuarioBean.remover(lista)}"/>
                                         <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
-                                                         title="Editar Item" look="info"   />
+                                                         title="Editar Usuário" look="info"  action="#{usuarioBean.iniciaEditar(lista)}"/>
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>

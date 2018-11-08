@@ -138,11 +138,11 @@ public class UsuariosDAO {
         return UsrAtivo;
     }
 
-    public void apagarUsuario(String id) {
+    public void apagarUsuario(int id_user) {
 
-        String SQL = "DELETE FROM usuarios WHERE id = " + id;
+        String SQL = "DELETE FROM usuarios WHERE id_user = (?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-
+            pstm.setInt(1, id_user);
             pstm.executeUpdate();
 
             pstm.close();
