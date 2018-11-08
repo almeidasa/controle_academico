@@ -33,7 +33,7 @@ public class FuncionarioDAO {
 
         ArrayList<Funcionario> funcionario = new ArrayList<>();
 
-        String SQL = "SELECT id, nome, cargo, email, telefone, fk_Usuarios_id_user FROM funcionario";
+        String SQL = "SELECT id, nome, cargo, email, telefone, fk_Usuarios_id_user FROM funcionario ORDER BY nome";
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             ResultSet rs = pstm.executeQuery();
