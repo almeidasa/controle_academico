@@ -1,7 +1,11 @@
 package DAO;
 
+import Util.Formatar;
 import entities.Curso;
+import entities.Funcionario;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,4 +28,30 @@ public class CursoDAO {
             System.out.println("\nErro ao inserir curso: " + ex);
         }
     }
+    
+    public ArrayList<Curso> obterCursos() {
+
+        ArrayList<Curso> cursos = new ArrayList<>();
+
+        String SQL = "SELECT cod, nome_curso, fk_Funcionario_id FROM cursos";
+        try {
+            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Curso novo = new Curso(
+                        rs.getInt("cod"),
+                        rs.getString("nome"),
+                        rs.getInt("fk_Funcionario_id")
+                );
+                cursos.add(novo);
+            }
+            System.out.println("Cursos obtidos com sucesso!");
+        } catch (Exception ex) {
+            System.out.println("Erro ao obter Cursos!: \n" + ex);
+        }
+
+        return cursos;
+    }
+    
 }
