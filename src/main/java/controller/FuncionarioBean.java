@@ -11,14 +11,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 /**
- * @Autor Winder Rezende
- * @Data 04/11/2018, 23:41:56
+ * @Autor Alexandre Almeida
+ * @Data 07/11/2018
  */
 @ManagedBean
 @RequestScoped
 public class FuncionarioBean {
 
-    private int id_user;
+    private int id;
     private String nome;
     private String cargo;
     private String email;
@@ -38,14 +38,15 @@ public class FuncionarioBean {
         funcionario = func.obterFuncionarios();
     }
 
-    public void limpaTela(){
+    public void limpaTela() {
+        id = 0;
         nome = "";
         cargo = "";
         email = "";
         telefone = "";
         fk_Usuarios_id_user = 0;
     }
-        
+
     public void add() {
         FuncionarioDAO func = new FuncionarioDAO();
         Funcionario fc = new Funcionario(nome, cargo, email, telefone, fk_Usuarios_id_user);
@@ -54,12 +55,20 @@ public class FuncionarioBean {
         obter();
     }
 
-    public void editar() {
-
+    public void editar(Funcionario f) {
+        id = f.getId();
+        nome = f.getNome();
+        cargo = f.getCargo();
+        email = f.getEmail();
+        telefone = f.getTelefone();
+        fk_Usuarios_id_user = f.getFk_Usuarios_id_user();
+        remover(f);
     }
 
-    public void remover(Funcionario func) {
-        
+    public void remover(Funcionario f) {
+        funcionario.remove(f);
+        FuncionarioDAO func = new FuncionarioDAO();
+        func.removerFuncionario(f);
     }
 
     private void setBoxUsuarios() {
@@ -89,12 +98,12 @@ public class FuncionarioBean {
         this.ItensBoxUsuarios = ItensBoxUsuarios;
     }
 
-    public int getId_user() {
-        return id_user;
+    public int getId() {
+        return id;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setId(int id_user) {
+        this.id = id_user;
     }
 
     public String getNome() {

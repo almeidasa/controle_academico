@@ -56,4 +56,18 @@ public class FuncionarioDAO {
 
         return funcionario;
     }
+    
+        public void removerFuncionario(Funcionario funcionario) {
+        String SQL = "DELETE FROM funcionario WHERE id = (?)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setInt(1, funcionario.getId());
+
+            pstm.execute();
+
+            BD.getConexao().close();
+            System.out.println("Removido com sucesso!");
+        } catch (Exception ex) {
+            System.out.println("\nErro ao remover Funcionario: " + ex);
+        }
+    }
 }
