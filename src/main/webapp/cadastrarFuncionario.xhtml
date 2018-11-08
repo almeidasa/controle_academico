@@ -24,7 +24,7 @@
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div>
-                <b:panel title="Cadastar Usuários de Sistema" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
+                <b:panel title="Cadastar Funcionários" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
                     <b:form>
                         <b:row>
                             <b:inputText value="#{funcionarioBean.nome}" label="Nome" placeholder="Digite o nome do funcionário" type="text" 
@@ -69,11 +69,11 @@
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
-                                <b:dataTableColumn value="#{lista.nome}" label="ID"/>
-                                <b:dataTableColumn value="#{lista.cargo}" label="Login"/>
-                                <b:dataTableColumn value="#{lista.email}" label="Senha"/>
-                                <b:dataTableColumn value="#{lista.telefone}" label="Tipo"/>
-                                <b:dataTableColumn value="#{lista.fk_Usuarios_id_user}" label="Situação"/>
+                                <b:dataTableColumn value="#{lista.nome}" label="Nome"/>
+                                <b:dataTableColumn value="#{lista.cargo}" label="Cargo"/>
+                                <b:dataTableColumn value="#{lista.email}" label="Email"/>
+                                <b:dataTableColumn value="#{lista.telefone}" label="Telefone"/>
+                                <b:dataTableColumn value="#{funcionarioBean.itensBoxUsuarios.get(lista.fk_Usuarios_id_user)}" label="Usuário"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
