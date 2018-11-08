@@ -18,7 +18,7 @@ public class Usuarios {
     public Usuarios() {
     }
     
-    public Usuarios( String login, String senha, String tipo, String situacao) {
+    public Usuarios(String login, String senha, String tipo, String situacao) {
         this.login = login;
         this.senha = senha;
         this.tipo = tipo;

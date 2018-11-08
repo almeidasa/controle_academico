@@ -20,20 +20,51 @@ public class UsuarioBean {
     private String tipo;
     private String situacao;
     private ArrayList<Usuarios> usuarios = new ArrayList<>();
+    Usuarios usr;
+    UsuariosDAO usrDao;
+    private boolean editar;
     
     public UsuarioBean() {
+        usr = new Usuarios();
+        usrDao = new UsuariosDAO();
         obter();
     }
     
+    public String cancelar(){
+        login = null;
+        senha = "senha";
+        tipo = "Administrador";
+        situacao = "true";
+        editar = false;
+        return ("cadastrarUsuario");
+    }
+    
     private void obter(){
-        UsuariosDAO us = new UsuariosDAO();
-        usuarios = us.obterUsuarios();
+        usuarios = usrDao.obterUsuarios();
     }
     
     public void add(){
-        UsuariosDAO us = new UsuariosDAO();
-        Usuarios usr = new Usuarios(login, senha, tipo, situacao);
-        us.inserirUsuario(usr);
+        usr = new Usuarios(login, senha, tipo, situacao);
+        usrDao.inserirUsuario(usr);
+        obter();
+    }
+    
+    public void iniciaEditar(Usuarios lista) {
+        editar = true;
+        login = lista.getLogin();
+        senha = lista.getSenha().equals("Privada") ? "" : "senha" ;
+        tipo = lista.getTipo();
+        situacao = lista.getSituacao().equals("Ativo") ? "true" : "false";
+        editar = true;
+    }
+    
+    public void alterar(){
+        System.out.println("dfssdddddddddddddddddddddddddddddddddddddddffffffffffffffffff");
+        editar = false;
+    }
+
+    public void remover(Usuarios lista) {
+        usrDao.apagarUsuario(lista.getId_user());
         obter();
     }
 
@@ -85,5 +116,12 @@ public class UsuarioBean {
     public void setUsuarios(ArrayList<Usuarios> usuarios) {
         this.usuarios = usuarios;
     }
-    //ok
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
 }
