@@ -17,21 +17,23 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class FuncionarioBean {
-    
+
     private int id;
     private String nome;
     private String cargo;
     private String email;
     private String telefone;
     private int fk_Usuarios_id_user;
-    private ArrayList<Funcionario> funcionario = new ArrayList<>();
-    private ArrayList<Usuarios> user = new ArrayList<>();
+    private ArrayList<Funcionario> funcionario;
+    private ArrayList<Usuarios> user;
     private Map<Integer, String> ItensBoxUsuarios;
 
-    private static String botao= "Incluir";
-    private static String icone = "plus-circle";
+    private String botao = "Incluir";
+    private String icone = "plus-circle";
 
     public FuncionarioBean() {
+        this.user = new ArrayList<>();
+        this.funcionario = new ArrayList<>();
         obter();
         setBoxUsuarios();
     }
@@ -40,18 +42,15 @@ public class FuncionarioBean {
         funcionario.clear();
         FuncionarioDAO func = new FuncionarioDAO();
         funcionario = func.obterFuncionarios();
-
     }
 
-    public String  limpaTela() {
+    public void limpaTela() {
         id = 0;
-        nome = null;
+        nome = "";
         cargo = "";
         email = "";
         telefone = "";
         fk_Usuarios_id_user = 0;
-        obter();
-         return "cadastrarFuncionario";
     }
 
     public void add() {
@@ -72,10 +71,11 @@ public class FuncionarioBean {
         }
     }
 
-    public void cancelar(){
+    public String cancelar() {
         limpaTela();
+        return "cadastrarFuncionario";
     }
-    
+
     public void editar(Funcionario f) {
         id = f.getId();
         nome = f.getNome();
@@ -104,44 +104,12 @@ public class FuncionarioBean {
         }
     }
 
-    public ArrayList<Usuarios> getUser() {
-        return user;
-    }
-
-    public void setUser(ArrayList<Usuarios> user) {
-        this.user = user;
-    }
-
-    public String getIcone() {
-        return icone;
-    }
-
-    public void setIcone(String icone) {
-        this.icone = icone;
-    }
-
-    public Map<Integer, String> getItensBoxUsuarios() {
-        return ItensBoxUsuarios;
-    }
-
-    public void setItensBoxUsuarios(Map<Integer, String> ItensBoxUsuarios) {
-        this.ItensBoxUsuarios = ItensBoxUsuarios;
-    }
-
     public int getId() {
         return id;
     }
 
-    public String getBotao() {
-        return botao;
-    }
-
-    public void setBotao(String botao) {
-        this.botao = botao;
-    }
-
-    public void setId(int id_user) {
-        this.id = id_user;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -190,6 +158,38 @@ public class FuncionarioBean {
 
     public void setFuncionario(ArrayList<Funcionario> funcionario) {
         this.funcionario = funcionario;
+    }
+
+    public ArrayList<Usuarios> getUser() {
+        return user;
+    }
+
+    public void setUser(ArrayList<Usuarios> user) {
+        this.user = user;
+    }
+
+    public Map<Integer, String> getItensBoxUsuarios() {
+        return ItensBoxUsuarios;
+    }
+
+    public void setItensBoxUsuarios(Map<Integer, String> ItensBoxUsuarios) {
+        this.ItensBoxUsuarios = ItensBoxUsuarios;
+    }
+
+    public String getBotao() {
+        return botao;
+    }
+
+    public void setBotao(String botao) {
+        this.botao = botao;
+    }
+
+    public String getIcone() {
+        return icone;
+    }
+
+    public void setIcone(String icone) {
+        this.icone = icone;
     }
 
 }
