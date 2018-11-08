@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Funcionários</title>
+        <title>Disciplinas</title>
         <link rel="shortcut icon" href="resources/img/home.png"/>
         <link rel="StyleSheet" type="text/css" href="resources/css/cadastrarUsuario.css" media="screen" />
 
@@ -27,14 +27,14 @@
                 <b:panel title="Cadastar Funcionários" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:inputText value="#{funcionarioBean.nome}" label="Nome" placeholder="Digite o nome do funcionário" type="text" 
+                            <b:inputText value="" label="Código" placeholder="Digite o código da disciplina" type="text" 
                                          tiny-screen="half" required="true" />
-                            <b:inputText value="#{funcionarioBean.email}" label="Email" placeholder="Digite o email do funcionário" type="text" 
+                            <b:inputText value="" label="Email" placeholder="Digite o email do disciplina" type="text" 
                                          tiny-screen="half" required="true" />
                         </b:row>
 
                         <b:row>
-                            <b:selectOneMenu value="#{funcionarioBean.cargo}" label="Cargo" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu value="" label="Cargo" tiny-screen="one-third" required="true">
                                 <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
                                 <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
                                 <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
@@ -42,10 +42,10 @@
                                 <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
                             </b:selectOneMenu>
 
-                            <b:inputText value="#{funcionarioBean.telefone}" label="Telefone" placeholder="Digite o telefone do funcionário" type="text" 
+                            <b:inputText value="" label="Telefone" placeholder="Digite o telefone do funcionário" type="text" 
                                          tiny-screen="one-third" required="true" />
 
-                            <b:selectOneMenu value="#{funcionarioBean.fk_Usuarios_id_user}" label="Usuário" tiny-screen="one-third">
+                            <b:selectOneMenu value="" label="Usuário" tiny-screen="one-third">
                                 <f:selectItems value="#{funcionarioBean.itensBoxUsuarios.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
@@ -53,7 +53,7 @@
                         <b:row>
                             <b:commandButton iconAwesome="#{funcionarioBean.icone}" icon-size="lg" value="#{funcionarioBean.botao}" class="btn btn-lg btnIncluir" 
                                              title="#{funcionarioBean.botao}" look="success" action="#{funcionarioBean.add()}"/>   
-                            <b:commandButton iconAwesome="remove" icon-size="lg" value="cancelar" class="btn btn-lg btnIncluir" 
+                             <b:commandButton iconAwesome="remove" icon-size="lg" value="cancelar" class="btn btn-lg btnIncluir" 
                                              title="Cancelar" look="danger" action="#{funcionarioBean.cancelar()}" immediate="true"/>
                         </b:row>
                     </b:form>
