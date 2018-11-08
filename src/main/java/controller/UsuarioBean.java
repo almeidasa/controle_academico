@@ -4,7 +4,6 @@ import DAO.UsuariosDAO;
 import entities.Usuarios;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -23,7 +22,7 @@ public class UsuarioBean {
     private ArrayList<Usuarios> usuarios = new ArrayList<>();
     Usuarios usr;
     UsuariosDAO usrDao;
-    private static boolean editar;
+    private boolean editar;
     
     public UsuarioBean() {
         usr = new Usuarios();
@@ -34,7 +33,7 @@ public class UsuarioBean {
     public String cancelar(){
         login = null;
         senha = "senha";
-        tipo = "Administrador";
+        tipo = "";
         situacao = "true";
         editar = false;
         return ("cadastrarUsuario");
