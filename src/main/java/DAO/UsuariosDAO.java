@@ -108,7 +108,7 @@ public class UsuariosDAO {
     public boolean verificaUsuarioSenha(String usuario, String senha) {
 
         boolean result = false;
-        String SQL = "SELECT login, senha FROM usuarios WHERE UPPER(login) = UPPER(?) AND senha = md5(?)";
+        String SQL = "SELECT login, senha FROM usuarios WHERE UPPER(login) = UPPER(?) AND senha = md5(?) AND situacao = true";
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             pstm.setString(1, usuario.toUpperCase());
