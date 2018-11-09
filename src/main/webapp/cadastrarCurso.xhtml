@@ -27,8 +27,10 @@
                 <b:panel title="Cadastar Curso" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
                     <b:form>
                         <b:row>
+                            <b:inputText value="#{cursoBean.cod}" label="Código" placeholder="Digite o código do curso" mask="9{1,5}"  
+                                         tiny-screen="one-third" required="true" />
                             <b:inputText value="#{cursoBean.nome_curso}" label="Nome" placeholder="Digite o nome do curso" type="text" 
-                                         tiny-screen="half" required="true" />
+                                         tiny-screen="one-third" required="true" />
                             <b:selectOneMenu value="#{cursoBean.fk_Funcionario_id}" label="Usuário" tiny-screen="one-third">
                                 <f:selectItems value="#{cursoBean.itensBoxFuncionarios.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>

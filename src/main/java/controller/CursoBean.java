@@ -103,6 +103,4 @@ public class CursoBean {
         this.ItensBoxFuncionarios = ItensBoxFuncionarios;
     }
     
-    
-    
 }
