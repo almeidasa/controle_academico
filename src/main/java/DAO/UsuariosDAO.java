@@ -34,7 +34,7 @@ public class UsuariosDAO {
 
         ArrayList<Usuarios> usuarios = new ArrayList<>();
 
-        String SQL = "SELECT id_user, login, senha, tipo, situacao, data_cad FROM usuarios";
+        String SQL = "SELECT id_user, login, senha, tipo, situacao, data_cad FROM usuarios ORDER BY login ASC";
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
 

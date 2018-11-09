@@ -51,6 +51,8 @@ public class FuncionarioBean {
         email = "";
         telefone = "";
         fk_Usuarios_id_user = 0;
+        botao = "Incluir";
+        icone = "plus-circle";
     }
 
     public void add() {
