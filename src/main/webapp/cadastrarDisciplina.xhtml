@@ -27,7 +27,7 @@
                 <b:panel title="Cadastar Disciplinas" collapsible="true" look="info" iconAwesome="sitemap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:inputText value="#{disciplinaBean.codigo}" label="Código" placeholder="Digite o código da disciplina" type="text" 
+                            <b:inputText value="#{disciplinaBean.codigo}" label="Código" readonly="#{disciplinaBean.readonly}" placeholder="Digite o código da disciplina" type="text" 
                                          tiny-screen="one-fourth" required="true" />
                             <b:inputText value="#{disciplinaBean.nome}" label="Nome" placeholder="Digite o nome da disciplina" type="text" 
                                          tiny-screen="one-fourth" required="true" />
@@ -43,7 +43,7 @@
                         <b:row>
                             <b:commandButton iconAwesome="#{disciplinaBean.icone}" icon-size="lg" value="#{disciplinaBean.botao}" class="btn btn-lg btnIncluir" 
                                              title="#{disciplinaBean.botao}" look="success" action="#{disciplinaBean.add()}"/>   
-                            <b:commandButton iconAwesome="remove" icon-size="lg" value="cancelar" class="btn btn-lg btnIncluir" 
+                            <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
                                              title="Cancelar" look="danger" action="#{disciplinaBean.cancelar()}" immediate="true"/>
                         </b:row>
                     </b:form>

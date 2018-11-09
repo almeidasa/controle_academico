@@ -2,6 +2,7 @@ package DAO;
 
 import Util.Formatar;
 import entities.Curso;
+import entities.Disciplina;
 import entities.Funcionario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,4 +55,37 @@ public class CursoDAO {
         return cursos;
     }
     
+    public void editarCurso(Curso c) {
+        String SQL = "UPDATE curso SET cod = ?, nome_curso = ?, fk_Funcionario_id = ? WHERE cod = ?";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            System.out.println("cod " + c.getCod());
+            pstm.setInt(1, c.getCod());
+            pstm.setString(2, c.getNome_curso());
+            pstm.setInt(3, c.getFk_Funcionario_id());
+            pstm.setInt(4, c.getCod_antigo());
+            System.out.println(c.getCod_antigo());
+            System.out.println(SQL);
+            pstm.executeUpdate();
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Alteração efetuada!");
+        } catch (Exception ex) {
+            System.out.println("Erro ao Alterar Curso!:\n" + ex);
+        }
+    }
+
+    public void removerCurso(Curso c) {
+        String SQL = "DELETE FROM curso WHERE cod = (?)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setInt(1, c.getCod());
+
+            pstm.execute();
+
+            BD.getConexao().close();
+            System.out.println("Removido com sucesso!");
+        } catch (Exception ex) {
+            System.out.println("\nErro ao remover curso: " + ex);
+        }
+    }
 }

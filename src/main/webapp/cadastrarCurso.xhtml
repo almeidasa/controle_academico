@@ -11,9 +11,9 @@
         <link rel="StyleSheet" type="text/css" href="resources/css/cadastrarUsuario.css" media="screen" />
 
         <script language="JavaScript">
-            if (!#{loginBean.sessao}) {
-                window.location.href = "/controle_academico/login.xhtml";
-            }
+//            if (!#{loginBean.sessao}) {
+//                window.location.href = "/controle_academico/login.xhtml";
+//            }
         </script>
     </h:head>
     <h:body>
@@ -24,20 +24,22 @@
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div>
-                <b:panel title="Cadastar Curso" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
+                <b:panel title="Cadastar Curso" collapsible="true" look="info" iconAwesome="qrcode" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:inputText value="#{cursoBean.cod}" label="Código" placeholder="Digite o código do curso" mask="9{1,5}"  
+                            <b:inputText value="#{cursoBean.cod}" label="Código" readonly="#{cursoBean.readonly}" placeholder="Digite o código do curso" mask="9{1,5}"  
                                          tiny-screen="one-third" required="true" />
                             <b:inputText value="#{cursoBean.nome_curso}" label="Nome" placeholder="Digite o nome do curso" type="text" 
                                          tiny-screen="one-third" required="true" />
-                            <b:selectOneMenu value="#{cursoBean.fk_Funcionario_id}" label="Usuário" tiny-screen="one-third">
+                            <b:selectOneMenu value="#{cursoBean.fk_Funcionario_id}" label="Funcionário" tiny-screen="one-third">
                                 <f:selectItems value="#{cursoBean.itensBoxFuncionarios.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
                         <b:row>
-                            <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
-                                             title="Incluir" look="success" action="#{cursoBean.add()}"/>   
+                            <b:commandButton iconAwesome="#{cursoBean.icone}" icon-size="lg" value="#{cursoBean.botao}" class="btn btn-lg btnIncluir" 
+                                             title="#{cursoBean.botao}" look="success" action="#{cursoBean.add()}"/>  
+                            <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
+                                             title="Cancelar" look="danger" action="#{cursoBean.cancelar()}" immediate="true"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
@@ -54,14 +56,15 @@
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
+                                <b:dataTableColumn value="#{lista.cod}" label="Código"/>
                                 <b:dataTableColumn value="#{lista.nome_curso}" label="Nome"/>
-                                <b:dataTableColumn value="#{cursoBean.itensBoxFuncionarios.get(lista.fk_Funcionario_id)}" label="Usuário"/>
+                                <b:dataTableColumn value="#{cursoBean.itensBoxFuncionarios.get(lista.fk_Funcionario_id)}" label="Funcionário"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
-                                                         title="Remover Item" look="danger"   action="#{funcionarioBean.remover(lista)}"/>
+                                                         title="Remover Item" look="danger"   action="#{cursoBean.remover(lista)}"/>
                                         <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
-                                                         title="Editar Item" look="info"  action="#{funcionarioBean.editar(lista)}" />
+                                                         title="Editar Item" look="info"  action="#{cursoBean.editar(lista)}" />
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>

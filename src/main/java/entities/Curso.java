@@ -6,6 +6,7 @@ package entities;
  */
 public class Curso {
 
+    private int cod_antigo;
     private int cod;
     private String nome_curso;
     private int fk_Funcionario_id;
@@ -14,6 +15,21 @@ public class Curso {
         this.cod = cod;
         this.nome_curso = nome_curso;
         this.fk_Funcionario_id = fk_Funcionario_id;
+    }
+
+    public Curso(int cod, String nome_curso, int fk_Funcionario_id, int cod_antigo) {
+        this.cod_antigo = cod_antigo;
+        this.cod = cod;
+        this.nome_curso = nome_curso;
+        this.fk_Funcionario_id = fk_Funcionario_id;
+    }
+
+    public int getCod_antigo() {
+        return cod_antigo;
+    }
+
+    public void setCod_antigo(int cod_antigo) {
+        this.cod_antigo = cod_antigo;
     }
 
     public Curso() {

@@ -18,6 +18,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class DisciplinaBean {
 
+    private boolean readonly = false;
     private String cod_antigo;
     private String codigo;
     private String nome;
@@ -57,6 +58,7 @@ public class DisciplinaBean {
         nome = "";
         situacao = "";
         fk_Curso_cod = 0;
+        readonly = false;
     }
 
     public void add() {
@@ -74,6 +76,7 @@ public class DisciplinaBean {
             obter();
             botao = "Incluir";
             icone = "plus-circle";
+            readonly = false;
         }
     }
 
@@ -88,7 +91,8 @@ public class DisciplinaBean {
         nome = d.getNome();
         situacao = d.getSituacao();
         fk_Curso_cod = d.getFk_Curso_cod();
-
+        
+        readonly = true;
         botao = "Alterar";
         icone = "fa-refresh";
     }
@@ -116,6 +120,22 @@ public class DisciplinaBean {
 
     public void setCod_antigo(String cod_antigo) {
         this.cod_antigo = cod_antigo;
+    }
+
+    public boolean isReadonly() {
+        return readonly;
+    }
+
+    public void setReadonly(boolean readonly) {
+        this.readonly = readonly;
+    }
+
+    public int getFk_Curso_cod() {
+        return fk_Curso_cod;
+    }
+
+    public void setFk_Curso_cod(int fk_Curso_cod) {
+        this.fk_Curso_cod = fk_Curso_cod;
     }
 
     public String getCodigo() {
