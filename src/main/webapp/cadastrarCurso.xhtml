@@ -31,7 +31,7 @@
                                          tiny-screen="one-third" required="true" />
                             <b:inputText value="#{cursoBean.nome_curso}" label="Nome" placeholder="Digite o nome do curso" type="text" 
                                          tiny-screen="one-third" required="true" />
-                            <b:selectOneMenu value="#{cursoBean.fk_Funcionario_id}" label="Funcionário" tiny-screen="one-third">
+                            <b:selectOneMenu value="#{cursoBean.fk_Funcionario_id}" label="Coordenador" tiny-screen="one-third">
                                 <f:selectItems value="#{cursoBean.itensBoxFuncionarios.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
@@ -58,7 +58,7 @@
 
                                 <b:dataTableColumn value="#{lista.cod}" label="Código"/>
                                 <b:dataTableColumn value="#{lista.nome_curso}" label="Nome"/>
-                                <b:dataTableColumn value="#{cursoBean.itensBoxFuncionarios.get(lista.fk_Funcionario_id)}" label="Funcionário"/>
+                                <b:dataTableColumn value="#{cursoBean.itensBoxFuncionarios.get(lista.fk_Funcionario_id)}" label="Coordenador"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"

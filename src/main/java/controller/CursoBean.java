@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author l-s-t
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class CursoBean {
 
     private boolean readonly = false;

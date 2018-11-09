@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  * @Autor Alexandre Almeida
  * @Data 07/11/2018
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FuncionarioBean {
 
     private int id;
