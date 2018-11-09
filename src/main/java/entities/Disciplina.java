@@ -6,6 +6,15 @@ package entities;
  */
 public class Disciplina {
 
+    private String cod_antigo;
+
+    public Disciplina(String codigo, String nome, String situacao, int fk_Curso_cod, String cod_antigo) {
+        this.cod_antigo = cod_antigo;
+        this.codigo = codigo;
+        this.nome = nome;
+        this.situacao = situacao;
+        this.fk_Curso_cod = fk_Curso_cod;
+    }
     private String codigo;
     private String nome;
     private String situacao;
@@ -27,6 +36,14 @@ public class Disciplina {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getCod_antigo() {
+        return cod_antigo;
+    }
+
+    public void setCod_antigo(String cod_antigo) {
+        this.cod_antigo = cod_antigo;
     }
 
     public String getNome() {

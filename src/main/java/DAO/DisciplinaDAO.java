@@ -32,7 +32,7 @@ public class DisciplinaDAO {
 
         ArrayList<Disciplina> disciplina = new ArrayList<>();
 
-        String SQL = "SELECT id, nome, cargo, email, telefone, fk_Usuarios_id_user FROM funcionario ORDER BY nome";
+        String SQL = "SELECT * FROM disciplina ORDER BY codigo";
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             ResultSet rs = pstm.executeQuery();
@@ -55,12 +55,13 @@ public class DisciplinaDAO {
     }
 
     public void editarDisciplina(Disciplina d) {
-        String SQL = "UPDATE disciplina SET nome = ?, situacao = ?, fk_curso_cod = ? WHERE codigo = ?";
+        String SQL = "UPDATE disciplina SET codigo = ?, nome = ?, situacao = ?, fk_curso_cod = ? WHERE codigo = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-            pstm.setString(1, d.getNome());
-            pstm.setString(2, d.getSituacao());
-            pstm.setInt(3, d.getFk_Curso_cod());
-            pstm.setString(4, d.getCodigo());
+            pstm.setString(1, d.getCodigo());
+            pstm.setString(2, d.getNome());
+            pstm.setString(3, d.getSituacao());
+            pstm.setInt(4, d.getFk_Curso_cod());
+            pstm.setString(5, d.getCod_antigo());
 
             System.out.println(SQL);
             pstm.executeUpdate();
@@ -74,7 +75,7 @@ public class DisciplinaDAO {
     }
 
     public void removerDisciplina(Disciplina disciplina) {
-        String SQL = "DELETE FROM disciplina WHERE id = (?)";
+        String SQL = "DELETE FROM disciplina WHERE codigo = (?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, disciplina.getCodigo());
 
