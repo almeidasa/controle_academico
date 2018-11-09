@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.util.Scanner;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
 
 /**
@@ -15,7 +16,7 @@ import javax.servlet.http.Part;
  * @Data 09/11/2018, 12:00:15
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class AlunoBean {
 
     private String cpf;
@@ -32,7 +33,7 @@ public class AlunoBean {
 
     private String fileContent;
  
-  public void upload() {
+  public void save() {
     try {
       fileContent = new Scanner(file.getInputStream())
           .useDelimiter("/img").next();
