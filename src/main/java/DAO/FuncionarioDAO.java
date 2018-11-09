@@ -58,7 +58,6 @@ public class FuncionarioDAO {
     }
 
     public void editarFuncionario(Funcionario f) {
-        System.out.println("id: " + f.getId());
         String SQL = "UPDATE funcionario SET nome = ?, cargo = ?, email = ?, telefone = ?, fk_Usuarios_id_user = ? WHERE id = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, f.getNome());
