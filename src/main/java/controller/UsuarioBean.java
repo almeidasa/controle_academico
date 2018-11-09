@@ -5,13 +5,14 @@ import entities.Usuarios;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  * @Autor Winder Rezende
  * @Data  04/11/2018, 23:41:56
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class UsuarioBean {
 
     private int id_user;
