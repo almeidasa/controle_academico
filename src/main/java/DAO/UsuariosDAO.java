@@ -58,17 +58,28 @@ public class UsuariosDAO {
 
         return usuarios;
     }
-    
-    public void alterarUsuario(Usuarios usuarios) {
 
-        String SQL = "UPDATE usuarios SET login = (?), senha = md5(?), tipo = (?), situacao = (?) WHERE id_user = (?)";
+    public void alterarUsuario(Usuarios usuarios) {
+        String SQL;
+        if (!usuarios.getSenha().equals("")) {
+            SQL = "UPDATE usuarios SET login = (?), senha = md5(?), tipo = (?), situacao = (?) WHERE id_user = (?)";
+        } else {
+            SQL = "UPDATE usuarios SET login = (?), tipo = (?), situacao = (?) WHERE id_user = (?)";
+        }
+
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, usuarios.getLogin());
-            pstm.setString(2, usuarios.getSenha());
-            pstm.setString(3, usuarios.getTipo());
-            pstm.setBoolean(4, Boolean.parseBoolean(usuarios.getSituacao()));
-            pstm.setInt(5, usuarios.getId_user());
-            System.out.println(usuarios.getId_user());
+            if (!usuarios.getSenha().equals("")) {
+                pstm.setString(2, usuarios.getSenha());
+                pstm.setString(3, usuarios.getTipo());
+                pstm.setBoolean(4, Boolean.parseBoolean(usuarios.getSituacao()));
+                pstm.setInt(5, usuarios.getId_user());
+            }
+            else{
+                pstm.setString(2, usuarios.getTipo());
+                pstm.setBoolean(3, Boolean.parseBoolean(usuarios.getSituacao()));
+                pstm.setInt(4, usuarios.getId_user());
+            }
             pstm.executeUpdate();
 
             pstm.close();
@@ -78,7 +89,7 @@ public class UsuariosDAO {
             System.out.println("Erro ao Alterar Usuário!:\n" + ex);
         }
     }
-    
+
     public void apagarUsuario(int id_user) {
 
         String SQL = "DELETE FROM usuarios WHERE id_user = (?)";
