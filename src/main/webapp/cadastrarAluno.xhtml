@@ -27,48 +27,41 @@
                 <b:panel title="Cadastar Alunos" collapsible="true" look="info" iconAwesome="child" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:inputText value="#{usuarioBean.login}" label="Nome" placeholder="Digite um login para o novo usuário" type="text" 
+                            <b:inputText value="#{alunoBean.nome}" label="Nome" placeholder="Digite um login para o novo usuário" type="text" 
                                          tiny-screen="one-fourth" required="true" />
-                            <b:inputText value="#{usuarioBean.login}" label="CPF" placeholder="Digite um login para o novo usuário" type="text" 
+                            <b:inputText value="#{alunoBean.cpf}" label="CPF" placeholder="Digite um login para o novo usuário" type="text" 
                                          tiny-screen="one-fourth" required="true" />
-                            <b:inputText value="#{usuarioBean.login}" label="Data de Nascimento" placeholder="Digite um login para o novo usuário" type="text" 
+                            <b:inputText value="#{alunoBean.data_nascimento}" label="Data de Nascimento" placeholder="Digite um login para o novo usuário" type="text" 
                                          tiny-screen="one-fourth" required="true" />
                             <p>Sexo</p>
                             <b:panelGrid columns="2">
-                                <b:radiobutton value="#{radiobuttonBean.javaVersion}" itemLabel="M" itemValue="M" required="true" tiny-screen="one-fourth"/>
-                                <b:radiobutton value="#{radiobuttonBean.javaVersion}" itemLabel="F" itemValue="F" tiny-screen="one-fourth"/>
+                                <b:radiobutton value="#{alunoBean.sexo}" itemLabel="M" itemValue="M" required="true" tiny-screen="one-fourth"/>
+                                <b:radiobutton value="#{alunoBean.sexo}" itemLabel="F" itemValue="F" tiny-screen="one-fourth"/>
                             </b:panelGrid>
-                            <b:selectOneMenu value="#{usuarioBean.tipo}" label="Tipo" tiny-screen="one-fourth">
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                                <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
-                                <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
-                                <f:selectItem itemLabel="Professor" itemValue="Professor" />
-                                <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
-                            </b:selectOneMenu>
-                            <b:selectOneMenu value="#{usuarioBean.situacao}" label="Situação" tiny-screen="one-fourth">
-                                <f:selectItem itemLabel="Ativo" itemValue="true" />
-                                <f:selectItem itemLabel="Inativo" itemValue="false" />
-                            </b:selectOneMenu>
                         </b:row>
                         <b:row>
                             <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
-                                             title="Incluir Usuário" look="success" action="#{usuarioBean.add()}" rendered="#{!usuarioBean.editar}"/> 
+                                             title="Incluir Usuário" look="success" action="#{alunoBean.save()}" rendered="#{!usuarioBean.editar}"/> 
                             <b:commandButton iconAwesome="refresh" icon-size="lg" value="Alterar" class="btn btn-lg btnIncluir" 
-                                             title="Alterar" look="info" action="#{usuarioBean.alterar()}" rendered="#{usuarioBean.editar}"/>
+                                             title="Alterar" look="info" action="#{alunoBean.alterar()}" rendered="#{usuarioBean.editar}"/>
                             <b:commandButton iconAwesome="remove" icon-size="lg" value="cancelar" class="btn btn-lg btnIncluir" 
-                                             title="Cancelar" look="danger" action="#{usuarioBean.cancelar()}" immediate="true"/>
+                                             title="Cancelar" look="danger" action="#{alunoBean.cancelar()}" immediate="true"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
                 </b:panel>
+                <h:form id="form" enctype="multipart/form-data">
+                    <h:inputFile id="file" value="#{alunoBean.file}"/>
+                    <h:commandButton value="Upload"
+                                     action="#{alunoBean.save()}"/>
+                </h:form>
             </div>
             <div>
                 <b:panel class="painel3" collapsible="false" title="Cadastrados" iconAwesome="table" icon-size="lg" look="info" rendered="true">
                     <b:form>
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
-                                         class="table table-striped table-bordered" 
-                                         value = "#{usuarioBean.usuarios}"
+                                         class="table table-striped table-bordered"
                                          var="lista"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
