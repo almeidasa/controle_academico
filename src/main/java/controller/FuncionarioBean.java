@@ -101,8 +101,10 @@ public class FuncionarioBean {
         user = us.obterUsuarios();
 
         for (Usuarios usuario : user) {
-            ItensBoxUsuarios.put(0, "Selecione um Usuário");
-            ItensBoxUsuarios.put(usuario.getId_user(), usuario.getLogin());
+            if (usuario.getSituacao().equals("Ativo")) {
+                ItensBoxUsuarios.put(0, "Selecione um Usuário");
+                ItensBoxUsuarios.put(usuario.getId_user(), usuario.getLogin());
+            }
         }
     }
 
