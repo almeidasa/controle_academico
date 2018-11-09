@@ -24,15 +24,20 @@
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div>
-                <b:panel title="Cadastar Usuários de Sistema" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
+                <b:panel title="Cadastar Alunos" collapsible="true" look="info" iconAwesome="child" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:inputText value="#{usuarioBean.login}" label="Login" placeholder="Digite um login para o novo usuário" type="text" 
+                            <b:inputText value="#{usuarioBean.login}" label="Nome" placeholder="Digite um login para o novo usuário" type="text" 
                                          tiny-screen="one-fourth" required="true" />
-                            <b:selectOneMenu value="#{usuarioBean.senha}" label="Senha" tiny-screen="one-fourth">
-                                <f:selectItem itemLabel="Padrão (Reiniciar)" itemValue="senha" />
-                                <f:selectItem itemLabel="Privada (Manter)" itemValue="" itemDisabled="#{!usuarioBean.editar}"/>
-                            </b:selectOneMenu>
+                            <b:inputText value="#{usuarioBean.login}" label="CPF" placeholder="Digite um login para o novo usuário" type="text" 
+                                         tiny-screen="one-fourth" required="true" />
+                            <b:inputText value="#{usuarioBean.login}" label="Data de Nascimento" placeholder="Digite um login para o novo usuário" type="text" 
+                                         tiny-screen="one-fourth" required="true" />
+                            <p>Sexo</p>
+                            <b:panelGrid columns="2">
+                                <b:radiobutton value="#{radiobuttonBean.javaVersion}" itemLabel="M" itemValue="M" required="true" tiny-screen="one-fourth"/>
+                                <b:radiobutton value="#{radiobuttonBean.javaVersion}" itemLabel="F" itemValue="F" tiny-screen="one-fourth"/>
+                            </b:panelGrid>
                             <b:selectOneMenu value="#{usuarioBean.tipo}" label="Tipo" tiny-screen="one-fourth">
                                 <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
                                 <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
