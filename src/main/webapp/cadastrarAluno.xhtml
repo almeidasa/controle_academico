@@ -26,37 +26,51 @@
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div>
                 <b:panel title="Cadastar Alunos" collapsible="true" look="info" iconAwesome="child" icon-size="lg" >
-                    <b:form>
-                        <b:row>
-                            <b:inputText value="#{alunoBean.nome}" label="Nome" placeholder="Digite um login para o novo usuário" type="text" 
-                                         tiny-screen="one-fourth" required="true" />
-                            <b:inputText value="#{alunoBean.cpf}" label="CPF" placeholder="Digite um login para o novo usuário" type="text" 
-                                         tiny-screen="one-fourth" required="true" />
-                            <b:inputText value="#{alunoBean.data_nascimento}" label="Data de Nascimento" placeholder="Digite um login para o novo usuário" type="text" 
-                                         tiny-screen="one-fourth" required="true" />
-                            <p>Sexo</p>
-                            <b:panelGrid columns="2">
-                                <b:radiobutton value="#{alunoBean.sexo}" itemLabel="M" itemValue="M" required="true" tiny-screen="one-fourth"/>
-                                <b:radiobutton value="#{alunoBean.sexo}" itemLabel="F" itemValue="F" tiny-screen="one-fourth"/>
-                            </b:panelGrid>
-                        </b:row>
-                        <b:row>
-                            <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
-                                             title="Incluir Usuário" look="success" action="#{alunoBean.save()}" rendered="#{!usuarioBean.editar}"/> 
-                            <b:commandButton iconAwesome="refresh" icon-size="lg" value="Alterar" class="btn btn-lg btnIncluir" 
-                                             title="Alterar" look="info" action="#{alunoBean.alterar()}" rendered="#{usuarioBean.editar}"/>
-                            <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
-                                             title="Cancelar" look="danger" action="#{alunoBean.cancelar()}" immediate="true"/>
-                        </b:row>
-                    </b:form>
+                    <b:row>
+                        <h:panelGrid columns="2" style="margin-left: 14px; margin-right: 14px">
+                            <b:panel title="Dados do Aluno" collapsible="false"  title-style="" style="margin-left: auto; margin-right: auto; height: auto; width: auto;">
+                                <h:form>
+                                    <b:row>
+                                        <b:inputText value="#{alunoBean.nome}" label="Nome" placeholder="Digite o nome do aluno" type="text" 
+                                                     tiny-screen="one-third" required="true" />
+                                        <b:inputText value="#{alunoBean.cpf}" label="CPF" type="text" placeholder="___.___.___-__"
+                                                     col-xs="2" required="true" mask="999.999.999-99"/>
+                                        <b:inputText col-xs="2" value="#{alunoBean.data_nascimento}" label="Data de Nascimento" type="date" 
+                                                     required="true" />
+                                        <b:selectOneMenu value="#{alunoBean.sexo}" label="Sexo" col-xs="2" required="true" process="true">
+                                            <f:selectItem itemLabel="Selecione o Sexo" itemValue=""/>
+                                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                            <f:selectItem itemLabel="Feminino" itemValue="F"/>
+                                        </b:selectOneMenu>
+                                        <b:inputText value="#{alunoBean.cpf}" label="Telefone" type="text" placeholder="(__) _____-____"
+                                                     col-xs="2" required="true" mask="(99) 99999-9999"/>
+                                        <b:inputText value="#{funcionarioBean.email}" label="Email" placeholder="Digite o email do aluno" mask="email" 
+                                                     col-xs="4" required="true" /> 
+                                        <b:inputText value="#{alunoBean.nome}" label="Endereço" placeholder="Digite o endereço do aluno" type="text" 
+                                                     tiny-screen="two-thirds" required="true" />
+                                    </b:row>
+                                    <b:row>
+                                        <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
+                                                         title="Incluir Usuário" look="success" action="#{alunoBean.add()}" rendered="#{!alunoBean.editar}"/> 
+                                        <b:commandButton iconAwesome="refresh" icon-size="lg" value="Alterar" class="btn btn-lg btnIncluir" 
+                                                         title="Alterar" look="info" action="#{alunoBean.alterar()}" rendered="#{alunoBean.editar}"/>
+                                        <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
+                                                         title="Cancelar" look="danger" action="#{alunoBean.cancelar()}" immediate="true"/>
+                                    </b:row>
+                                </h:form>
+                            </b:panel>
+                            <b:panel title="Foto" collapsible="false" title-style="" style="margin-left: 5px; height: 279px; width: 250px;">
+                                <b:image value="#{alunoBean.fotoUsuario}" style="max-width:150px; max-height:150px"/>
+                                <h:form id="form" enctype="multipart/form-data">
+                                    <h:inputFile id="file" title="Foto" value="#{alunoBean.file}"/>
+                                    <b:commandButton value="Carregar Foto" look="info" size="xs" action="#{alunoBean.save()}" style="margin-top: 3px"/>
+                                </h:form>
+                            </b:panel>
+                        </h:panelGrid>
+                    </b:row>
+
                     <b:messages/>
                 </b:panel>
-                <h:form id="form" enctype="multipart/form-data">
-                    <h:inputFile id="file" value="#{alunoBean.file}"/>
-                    <h:commandButton value="Upload"
-                                     action="#{alunoBean.save()}"/>
-                </h:form>
-                <h:graphicImage value="#{alunoBean.fotoUsuario}" style="max-width:150px; max-height:200px"/>
             </div>
             <div>
                 <b:panel class="painel3" collapsible="false" title="Cadastrados" iconAwesome="table" icon-size="lg" look="info" rendered="true">
@@ -77,9 +91,9 @@
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
-                                                         title="Remover Usuário" look="danger"  action="#{usuarioBean.remover(lista)}"/>
+                                                         title="Remover Usuário" look="danger"  />
                                         <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
-                                                         title="Editar Usuário" look="info"  action="#{usuarioBean.iniciaEditar(lista)}"/>
+                                                         title="Editar Usuário" look="info"  />
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>
