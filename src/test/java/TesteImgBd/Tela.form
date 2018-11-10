@@ -104,15 +104,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnEscolherImg" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bntGravar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bntLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnApagar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="boxCodImg" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnEscolherImg" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntGravar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="bntLimpar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnApagar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="39" max="32767" attributes="0"/>

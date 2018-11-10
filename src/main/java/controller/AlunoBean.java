@@ -1,15 +1,27 @@
 package controller;
 
 import Util.Exibir;
+import Util.Obter;
 import entities.Aluno;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import sun.misc.IOUtils;
 
 /**
  * @Autor Winder Rezende
@@ -27,20 +39,21 @@ public class AlunoBean {
     private String endereco;
     private String telefone;
     private Part file;
+    private String fotoUsuario = "resources/img/usrFoto.jpg";
 
     public AlunoBean() {
     }
 
-    private String fileContent;
- 
-  public void save() {
-    try {
-      fileContent = new Scanner(file.getInputStream())
-          .useDelimiter("/img").next();
-    } catch (Exception e) {
-      // Error handling
+    public void save() {
+        try {
+            Path path = Paths.get(Obter.CaminhoArquivo("usrFotoTemp.jpg"));
+            Exibir.Mensagem(path.toString());
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            fotoUsuario = "resources/img/usrFotoTemp.jpg";
+        } catch (Exception e) {
+            Exibir.Mensagem("Erro ao Carregar Foto: " + e);
+        }
     }
-  }
 
     public String cancelar() {
         return ("cadastrarAluno");
@@ -66,6 +79,7 @@ public class AlunoBean {
 
     }
 
+    //Getters e Seters
     public String getCpf() {
         return cpf;
     }
@@ -128,5 +142,13 @@ public class AlunoBean {
 
     public void setFile(Part file) {
         this.file = file;
+    }
+
+    public String getFotoUsuario() {
+        return fotoUsuario;
+    }
+
+    public void setFotoUsuario(String fotoUsuario) {
+        this.fotoUsuario = fotoUsuario;
     }
 }
