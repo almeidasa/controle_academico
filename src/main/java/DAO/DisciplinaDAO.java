@@ -1,5 +1,6 @@
 package DAO;
 
+import Util.Exibir;
 import entities.Disciplina;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ public class DisciplinaDAO {
             BD.getConexao().close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao inserir Disciplina: " + ex);
+            Exibir.Mensagem("Erro ao inserir Disciplina: " + ex);
         }
     }
 
@@ -48,7 +49,7 @@ public class DisciplinaDAO {
             }
             System.out.println("Disciplinas obtidos com sucesso!");
         } catch (Exception ex) {
-            System.out.println("Erro ao obter Disciplinas!: \n" + ex);
+            Exibir.Mensagem("Erro ao obter Disciplinas!: \n" + ex);
         }
 
         return disciplina;
@@ -70,7 +71,7 @@ public class DisciplinaDAO {
             BD.getConexao().close();
             System.out.println("Alteração efetuada!");
         } catch (Exception ex) {
-            System.out.println("Erro ao Alterar disciplina!:\n" + ex);
+            Exibir.Mensagem("Erro ao Alterar disciplina!:\n" + ex);
         }
     }
 
@@ -84,7 +85,7 @@ public class DisciplinaDAO {
             BD.getConexao().close();
             System.out.println("Removido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao remover disciplina: " + ex);
+            Exibir.Mensagem("\nErro ao remover disciplina: " + ex);
         }
     }
 }

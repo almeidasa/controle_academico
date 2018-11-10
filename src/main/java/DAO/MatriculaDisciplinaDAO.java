@@ -1,5 +1,6 @@
 package DAO;
 
+import Util.Exibir;
 import entities.MatriculaDisciplina;
 import java.sql.PreparedStatement;
 
@@ -23,7 +24,7 @@ public class MatriculaDisciplinaDAO {
             BD.getConexao().close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao inserir MatriculaDisciplina: " + ex);
+            Exibir.Mensagem("Erro ao inserir MatriculaDisciplina: " + ex);
         }
     }
 }

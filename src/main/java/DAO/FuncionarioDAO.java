@@ -1,5 +1,6 @@
 package DAO;
 
+import Util.Exibir;
 import entities.Funcionario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class FuncionarioDAO {
             BD.getConexao().close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao inserir Funcionario: " + ex);
+            Exibir.Mensagem("Erro ao inserir Funcionario: " + ex);
         }
     }
 
@@ -51,7 +52,7 @@ public class FuncionarioDAO {
             }
             System.out.println("Funcionários obtidos com sucesso!");
         } catch (Exception ex) {
-            System.out.println("Erro ao obter Funcionários!: \n" + ex);
+            Exibir.Mensagem("Erro ao obter Funcionários!: \n" + ex);
         }
 
         return funcionario;
@@ -74,7 +75,7 @@ public class FuncionarioDAO {
             BD.getConexao().close();
             System.out.println("Alteração efetuada!");
         } catch (Exception ex) {
-            System.out.println("Erro ao Alterar Funcionário!:\n" + ex);
+            Exibir.Mensagem("Erro ao Alterar Funcionário!:\n" + ex);
         }
     }
 
@@ -88,7 +89,7 @@ public class FuncionarioDAO {
             BD.getConexao().close();
             System.out.println("Removido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao remover Funcionario: " + ex);
+            Exibir.Mensagem("Erro ao remover Funcionario: " + ex);
         }
     }
 }

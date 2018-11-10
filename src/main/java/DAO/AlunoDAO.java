@@ -1,5 +1,6 @@
 package DAO;
 
+import Util.Exibir;
 import entities.Aluno;
 import java.sql.PreparedStatement;
 
@@ -25,7 +26,7 @@ public class AlunoDAO {
             BD.getConexao().close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao inserir Aluno: " + ex);
+            Exibir.Mensagem("Erro ao inserir Aluno: " + ex);
         }
     }
 }

@@ -33,7 +33,6 @@ public class LoginBean {
             senha = null;
             return "index";
         } else if(cont != 3) {
-            Exibir.Mensagem("Usuário ou senha inválidos!");
             senha = null;
             cont++;
             return "login";
@@ -57,7 +56,6 @@ public class LoginBean {
             email = null;
             return "recuperar";
         } else {
-            Exibir.Mensagem("Usuário ou email não cadastrado!");
             senha = null;
             return "recuperar";
         }
@@ -78,7 +76,6 @@ public class LoginBean {
             return "alterar";
         } else {
             sessao = false;
-            Exibir.Mensagem("Usuário ou senha inválidos!");
             return "login";
         }
     }

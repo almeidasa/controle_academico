@@ -1,5 +1,6 @@
 package DAO;
 
+import Util.Exibir;
 import Util.Formatar;
 import entities.Curso;
 import entities.Disciplina;
@@ -26,7 +27,7 @@ public class CursoDAO {
             BD.getConexao().close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao inserir curso: " + ex);
+            Exibir.Mensagem("Erro ao inserir curso: " + ex);
         }
     }
     
@@ -49,7 +50,7 @@ public class CursoDAO {
             }
             System.out.println("Cursos obtidos com sucesso!");
         } catch (Exception ex) {
-            System.out.println("Erro ao obter Cursos!: \n" + ex);
+            Exibir.Mensagem("Erro ao obter Cursos!: \n" + ex);
         }
 
         return cursos;
@@ -71,7 +72,7 @@ public class CursoDAO {
             BD.getConexao().close();
             System.out.println("Alteração efetuada!");
         } catch (Exception ex) {
-            System.out.println("Erro ao Alterar Curso!:\n" + ex);
+            Exibir.Mensagem("Erro ao Alterar Curso!:\n" + ex);
         }
     }
 
@@ -85,7 +86,7 @@ public class CursoDAO {
             BD.getConexao().close();
             System.out.println("Removido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao remover curso: " + ex);
+            Exibir.Mensagem("\nErro ao remover curso: " + ex);
         }
     }
 }

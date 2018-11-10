@@ -1,5 +1,6 @@
 package DAO;
 
+import Util.Exibir;
 import Util.Formatar;
 import entities.Usuarios;
 import java.sql.PreparedStatement;
@@ -26,7 +27,7 @@ public class UsuariosDAO {
             BD.getConexao().close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
-            System.out.println("\nErro ao inserir usuário: " + ex);
+            Exibir.Mensagem("Erro ao inserir usuário: " + ex);
         }
     }
 
@@ -53,7 +54,7 @@ public class UsuariosDAO {
             }
             System.out.println("Usuários obtidos com sucesso!");
         } catch (Exception ex) {
-            System.out.println("Erro ao obter usuários!: \n" + ex);
+            Exibir.Mensagem("Erro ao obter usuários!: \n" + ex);
         }
 
         return usuarios;
@@ -86,7 +87,7 @@ public class UsuariosDAO {
             BD.getConexao().close();
             System.out.println("Alteração efetuada!");
         } catch (Exception ex) {
-            System.out.println("Erro ao Alterar Usuário!:\n" + ex);
+            Exibir.Mensagem("Erro ao Alterar Usuário!:\n" + ex);
         }
     }
 
@@ -101,61 +102,65 @@ public class UsuariosDAO {
             BD.getConexao().close();
             System.out.println("Usuário Apagado! ");
         } catch (Exception ex) {
-            System.out.println("Erro ao Apagar Usuário!:\n" + ex);
+            Exibir.Mensagem("Erro ao Apagar Usuário!:\n" + ex);
         }
     }
 
     public boolean verificaUsuarioSenha(String usuario, String senha) {
 
         boolean result = false;
-        String SQL = "SELECT login, senha FROM usuarios WHERE UPPER(login) = UPPER(?) AND senha = md5(?) AND situacao = true";
-        try {
-            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
-            pstm.setString(1, usuario.toUpperCase());
+        String SQL = "SELECT login, senha, situacao FROM usuarios WHERE UPPER(login) = UPPER(?) AND senha = md5(?)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)){
+            pstm.setString(1, usuario);
             pstm.setString(2, senha);
 
             ResultSet rs = pstm.executeQuery(); //envia o comando ao banco
 
             if (rs.next()) {
+                if (!rs.getBoolean("situacao")) {
+                    Exibir.Mensagem("Usuário desabilitado contate o administrador do sistema!");
+                    return false;
+                }
                 result = true;
                 pstm.close();
                 BD.getConexao().close();
-
             } else {
-                pstm.close();
                 BD.getConexao().close();
                 result = false;
+                Exibir.Mensagem("Usuário ou senha inválidos!");
             }
         } catch (Exception ex) {
-            System.out.println("Erro ao Verificar Usuário e Senha!: \n" + ex);
+            Exibir.Mensagem("Erro ao Verificar Usuário e Senha!: \n" + ex);
         }
-
         return result;
     }
-
+    
     public boolean verificaUsuarioEmail(String usuario, String email) {
 
         boolean result = false;
-        String SQL = "SELECT u.login, f.email FROM usuarios u INNER JOIN Funcionario f ON(f.fk_usuarios_id_user = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?);";
-        try {
-            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
-            pstm.setString(1, usuario.toUpperCase());
+        String SQL = "SELECT u.login, f.email, u.situacao FROM usuarios u INNER JOIN Funcionario f ON(f.fk_usuarios_id_user = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)){
+            pstm.setString(1, usuario);
             pstm.setString(2, email);
 
             ResultSet rs = pstm.executeQuery(); //envia o comando ao banco
 
             if (rs.next()) {
+                if (!rs.getBoolean("situacao")) {
+                    Exibir.Mensagem("Usuário desabilitado contate o administrador do sistema!");
+                    return false;
+                }
                 result = true;
                 pstm.close();
                 BD.getConexao().close();
-
             } else {
                 pstm.close();
                 BD.getConexao().close();
                 result = false;
+                Exibir.Mensagem("Usuário ou senha inválidos!");
             }
         } catch (Exception ex) {
-            System.out.println("Erro ao Verificar Usuário e Senha!: \n" + ex);
+            Exibir.Mensagem("Erro ao Verificar Usuário e Senha!: \n" + ex);
         }
         System.out.println(result);
         return result;
@@ -178,7 +183,7 @@ public class UsuariosDAO {
             BD.getConexao().close();
             System.out.println("Consulta Realizada na Tabela Usuario!");
         } catch (Exception ex) {
-            System.out.println("Erro ao Obter Login do Banco de Dados!: \n" + ex);
+            Exibir.Mensagem("Erro ao Obter Login do Banco de Dados!: \n" + ex);
         }
         System.out.println(UsrAtivo);
         return UsrAtivo;
@@ -197,7 +202,7 @@ public class UsuariosDAO {
             BD.getConexao().close();
             System.out.println("Alteração efetuada!");
         } catch (Exception ex) {
-            System.out.println("Erro ao Alterar Usuário!:\n" + ex);
+            Exibir.Mensagem("Erro ao Alterar Usuário!:\n" + ex);
         }
     }
 }
