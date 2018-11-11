@@ -19,15 +19,15 @@ import javax.servlet.http.Part;
 @ViewScoped
 public class AlunoBean {
 
-    private String cpf;
     private String nome;
+    private String cpf;
     private String data_nascimento;
     private String sexo;
-    private int cod_foto;
+    private String telefone;
     private String email;
     private String endereco;
-    private String telefone;
     private Part file;
+    private int cod_foto;
     private boolean editar;
     private String fotoUsuario = "resources/img/usrFoto.jpg";
 
@@ -70,20 +70,20 @@ public class AlunoBean {
     }
 
     //Getters e Seters
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getData_nascimento() {
@@ -102,12 +102,12 @@ public class AlunoBean {
         this.sexo = sexo;
     }
 
-    public int getCod_foto() {
-        return cod_foto;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setCod_foto(int cod_foto) {
-        this.cod_foto = cod_foto;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getEmail() {
@@ -126,20 +126,20 @@ public class AlunoBean {
         this.endereco = endereco;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
     public Part getFile() {
         return file;
     }
 
     public void setFile(Part file) {
         this.file = file;
+    }
+
+    public int getCod_foto() {
+        return cod_foto;
+    }
+
+    public void setCod_foto(int cod_foto) {
+        this.cod_foto = cod_foto;
     }
 
     public boolean isEditar() {
