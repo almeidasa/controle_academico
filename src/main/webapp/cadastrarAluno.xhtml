@@ -63,7 +63,7 @@
                                 <b:image value="#{alunoBean.fotoUsuario}" style="max-width:120px; max-height:160px; min-width:120px; min-height:160px;"/>
                                 <h:form enctype="multipart/form-data">
                                     <h:inputFile value="#{alunoBean.file}" style="margin-top: 3px"/>
-                                    <b:commandButton value="Carregar Foto" look="info" size="xs" action="#{alunoBean.save()}" style="margin-top: 3px"/>
+                                    <b:commandButton value="Carregar Foto" look="info" size="xs" action="#{alunoBean.carregarFoto()}" style="margin-top: 3px"/>
                                 </h:form>
                             </b:panel>
                         </h:panelGrid>

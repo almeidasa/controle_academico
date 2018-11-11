@@ -3,6 +3,7 @@ package DAO;
 import Util.Exibir;
 import Util.Formatar;
 import entities.Aluno;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class AlunoDAO {
 
-    public void inserirAluno(Aluno aluno) {
+    public void inserirAluno(Aluno aluno, InputStream fotoStream) {
         String SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, aluno.getCpf());
@@ -23,14 +24,32 @@ public class AlunoDAO {
             pstm.setString(5, aluno.getEmail());
             pstm.setString(6, aluno.getEndereco());
             pstm.setString(7, aluno.getTelefone());
-            //pstm.setInt(8, aluno.getFk_foto_id_foto());
 
             pstm.execute();
 
             BD.getConexao().close();
+            if (fotoStream != null) {
+                inserirFoto(fotoStream, aluno.getCpf());
+            }
             System.out.println("Aluno Inserido com Sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir Aluno: " + ex);
+        }
+    }
+    
+    public void inserirFoto(InputStream fotoStream, String cpf) {
+        String SQL = "INSERT INTO foto (bin_foto, fk_Aluno_cpf) VALUES (?, ?)";
+        
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setBinaryStream(1, fotoStream);
+            pstm.setString(2, cpf);
+            pstm.executeUpdate();
+            pstm.close();
+            BD.getConexao().close();
+            fotoStream.close();
+            System.out.println("Foto Gravada com Sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Gravar Foto!!!: \n" + ex);
         }
     }
     
@@ -52,8 +71,7 @@ public class AlunoDAO {
                         rs.getString("sexo"),
                         rs.getString("telefone"),
                         rs.getString("email"),
-                        rs.getString("endereco"),
-                        rs.getInt("fk_foto_id_foto")
+                        rs.getString("endereco")
                 );
                 alunos.add(usr);
             }

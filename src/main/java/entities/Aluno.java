@@ -15,12 +15,11 @@ public class Aluno {
     private String telefone;
     private String email;
     private String endereco;
-    private int fk_foto_id_foto;
 
     public Aluno() {
     }
 
-    public Aluno(String nome, String cpf, String data_nascimento, String sexo, String telefone, String email, String endereco, int fk_foto_id_foto) {
+    public Aluno(String nome, String cpf, String data_nascimento, String sexo, String telefone, String email, String endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.data_nascimento = data_nascimento;
@@ -28,9 +27,8 @@ public class Aluno {
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
-        this.fk_foto_id_foto = fk_foto_id_foto;
     }
-
+    
     public String getNome() {
         return nome;
     }
@@ -85,13 +83,5 @@ public class Aluno {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    public int getFk_foto_id_foto() {
-        return fk_foto_id_foto;
-    }
-
-    public void setFk_foto_id_foto(int fk_foto_id_foto) {
-        this.fk_foto_id_foto = fk_foto_id_foto;
     }
 }

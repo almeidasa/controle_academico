@@ -5,11 +5,15 @@ import Util.Exibir;
 import Util.Formatar;
 import Util.Obter;
 import entities.Aluno;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
@@ -29,7 +33,6 @@ public class AlunoBean {
     private String telefone;
     private String email;
     private String endereco;
-    private int fk_foto_id_foto;
     private Part file;
     private ArrayList<Aluno> alunos = new ArrayList<>();
     Aluno aluno;
@@ -37,6 +40,7 @@ public class AlunoBean {
     private String tempCpf;
     private boolean editar;
     private String fotoUsuario = "resources/img/usrFoto.jpg";
+    private InputStream fotoStream = null;
 
     public AlunoBean() {
         aluno = new Aluno();
@@ -44,12 +48,18 @@ public class AlunoBean {
         obter();
     }
 
-    public void save() {
+    public void carregarFoto() {
         try {
-            Path path = Paths.get(Obter.CaminhoArquivo("usrFotoTemp.jpg"));
-            Exibir.Mensagem(path.toString());
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-            fotoUsuario = "resources/img/usrFotoTemp.jpg";
+            if (file != null) {
+                fotoStream = file.getInputStream();
+                Path path = Paths.get(Obter.CaminhoArquivo("usrFotoTemp.jpg"));
+                Exibir.Mensagem(path.toString());
+                Files.copy(fotoStream, path, StandardCopyOption.REPLACE_EXISTING);
+                fotoUsuario = "resources/img/usrFotoTemp.jpg";
+            }
+            else{
+                Exibir.Mensagem("Selecione a foto primeiro!");
+            }
         } catch (Exception e) {
             Exibir.Mensagem("Erro ao Carregar Foto: " + e);
         }
@@ -63,7 +73,7 @@ public class AlunoBean {
         telefone = null;
         email = null;
         endereco = null;
-        fk_foto_id_foto = 0;
+        fotoStream = null;
         return ("cadastrarAluno");
     }
 
@@ -72,8 +82,8 @@ public class AlunoBean {
     }
 
     public void add() {
-        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco, fk_foto_id_foto);
-        alunoDao.inserirAluno(aluno);
+        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco);
+        alunoDao.inserirAluno(aluno, fotoStream);
         obter();
     }
 
@@ -87,11 +97,10 @@ public class AlunoBean {
         telefone = lista.getTelefone();
         email = lista.getEmail();
         endereco = lista.getEndereco();
-        fk_foto_id_foto = lista.getFk_foto_id_foto();
     }
 
     public void alterar() {
-        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco, fk_foto_id_foto);
+        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco);
         alunoDao.alterarUsuario(aluno, tempCpf);
         editar = false;
         obter();
@@ -158,14 +167,6 @@ public class AlunoBean {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    public int getFk_foto_id_foto() {
-        return fk_foto_id_foto;
-    }
-
-    public void setFk_foto_id_foto(int fk_foto_id_foto) {
-        this.fk_foto_id_foto = fk_foto_id_foto;
     }
 
     public Part getFile() {
