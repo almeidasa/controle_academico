@@ -138,7 +138,7 @@ public class UsuariosDAO {
     public boolean verificaUsuarioEmail(String usuario, String email) {
 
         boolean result = false;
-        String SQL = "SELECT u.login, f.email, u.situacao FROM usuarios u INNER JOIN Funcionario f ON(f.fk_usuarios_id_user = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?)";
+        String SQL = "SELECT u.login, f.email, u.situacao FROM usuarios u INNER JOIN funcionario f ON(f.fk_usuarios_id_user = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)){
             pstm.setString(1, usuario);
             pstm.setString(2, email);

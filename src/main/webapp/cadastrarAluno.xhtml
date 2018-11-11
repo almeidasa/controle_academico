@@ -44,7 +44,7 @@
                                         </b:selectOneMenu>
                                         <b:inputText value="#{alunoBean.cpf}" label="Telefone" type="text" placeholder="(__) _____-____"
                                                      col-xs="2" required="true" mask="(99) 99999-9999"/>
-                                        <b:inputText value="#{funcionarioBean.email}" label="Email" placeholder="Digite o email do aluno" mask="email" 
+                                        <b:inputText value="#{alunoBean.email}" label="Email" placeholder="Digite o email do aluno" mask="email" 
                                                      col-xs="4" required="true" /> 
                                         <b:inputText value="#{alunoBean.nome}" label="Endereço" placeholder="Digite o endereço do aluno" type="text" 
                                                      tiny-screen="two-thirds" required="true" />
@@ -59,10 +59,10 @@
                                     </b:row>
                                 </h:form>
                             </b:panel>
-                            <b:panel title="Foto" collapsible="false" title-style="" style="margin-left: 5px; height: 279px; width: 250px;">
-                                <b:image value="#{alunoBean.fotoUsuario}" style="max-width:150px; max-height:150px"/>
-                                <h:form id="form" enctype="multipart/form-data">
-                                    <h:inputFile id="file" title="Foto" value="#{alunoBean.file}"/>
+                            <b:panel title="Foto" collapsible="false" title-style="" style="margin-left: 5px; height: 279px; width: 220px; text-align: center">
+                                <b:image value="#{alunoBean.fotoUsuario}" style="max-width:120px; max-height:160px; min-width:120px; min-height:160px;"/>
+                                <h:form enctype="multipart/form-data">
+                                    <h:inputFile value="#{alunoBean.file}" style="margin-top: 3px"/>
                                     <b:commandButton value="Carregar Foto" look="info" size="xs" action="#{alunoBean.save()}" style="margin-top: 3px"/>
                                 </h:form>
                             </b:panel>
@@ -82,12 +82,13 @@
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
-                                <b:dataTableColumn value="#{lista.id_user}" label="ID"/>
-                                <b:dataTableColumn value="#{lista.login}" label="Login"/>
-                                <b:dataTableColumn value="#{lista.senha}" label="Senha"/>
-                                <b:dataTableColumn value="#{lista.tipo}" label="Tipo"/>
-                                <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
-                                <b:dataTableColumn value="#{lista.data_cad}" label="Data do Cadastro"/>
+                                <b:dataTableColumn value="#{lista.nome}" label="Nome"/>
+                                <b:dataTableColumn value="#{lista.cpf}" label="CPF"/>
+                                <b:dataTableColumn value="#{lista.data_nascimento}" label="Data de Nascimento"/>
+                                <b:dataTableColumn value="#{lista.sexo}" label="Sexo"/>
+                                <b:dataTableColumn value="#{lista.telefone}" label="Telefone"/>
+                                <b:dataTableColumn value="#{lista.email}" label="Email"/>
+                                <b:dataTableColumn value="#{lista.endereco}" label="Endereço"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
