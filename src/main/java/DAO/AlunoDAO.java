@@ -2,8 +2,15 @@ package DAO;
 
 import Util.Exibir;
 import Util.Formatar;
+import Util.Obter;
 import entities.Aluno;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,8 +21,16 @@ import java.util.ArrayList;
  */
 public class AlunoDAO {
 
-    public void inserirAluno(Aluno aluno, InputStream fotoStream) {
-        String SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void inserirAluno(Aluno aluno) {
+        String SQL;
+        InputStream fis = null;
+
+        if (aluno.getCaminhoFoto() != null) {
+            SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone, bin_foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        } else {
+            SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        }
+
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, aluno.getCpf());
             pstm.setString(2, aluno.getNome());
@@ -24,56 +39,44 @@ public class AlunoDAO {
             pstm.setString(5, aluno.getEmail());
             pstm.setString(6, aluno.getEndereco());
             pstm.setString(7, aluno.getTelefone());
-
+            if (aluno.getCaminhoFoto() != null) {
+                File file = new File(aluno.getCaminhoFoto());
+                fis = new FileInputStream(file);
+                pstm.setBinaryStream(8, fis, (int) file.length());
+            }
             pstm.execute();
-
+            pstm.close();
             BD.getConexao().close();
-            if (fotoStream != null) {
-                inserirFoto(fotoStream, aluno.getCpf());
+            if (fis != null) {
+                fis.close();
             }
             System.out.println("Aluno Inserido com Sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir Aluno: " + ex);
         }
     }
-    
-    public void inserirFoto(InputStream fotoStream, String cpf) {
-        String SQL = "INSERT INTO foto (bin_foto, fk_Aluno_cpf) VALUES (?, ?)";
-        
-        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-            pstm.setBinaryStream(1, fotoStream);
-            pstm.setString(2, cpf);
-            pstm.executeUpdate();
-            pstm.close();
-            BD.getConexao().close();
-            fotoStream.close();
-            System.out.println("Foto Gravada com Sucesso!");
-        } catch (Exception ex) {
-            Exibir.Mensagem("Erro ao Gravar Foto!!!: \n" + ex);
-        }
-    }
-    
+
     public ArrayList<Aluno> obterAlunos() {
 
         ArrayList<Aluno> alunos = new ArrayList<>();
 
-        String SQL = "SELECT * FROM aluno ORDER BY nome ASC";
-        try {
-            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+        String SQL = "SELECT cpf, nome, data_nascimento, sexo, telefone, email, endereco FROM aluno ORDER BY nome ASC";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
-            ResultSet rs = pstm.executeQuery(); //envia o comando ao banco
-
-            while (rs.next()) {
-                Aluno usr = new Aluno(
-                        rs.getString("nome"),
-                        rs.getString("cpf"),
-                        Formatar.data(rs.getDate("data_nascimento"), "dd/MM/yyyy"),
-                        rs.getString("sexo"),
-                        rs.getString("telefone"),
-                        rs.getString("email"),
-                        rs.getString("endereco")
-                );
-                alunos.add(usr);
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Aluno usr = new Aluno(
+                            rs.getString("nome"),
+                            rs.getString("cpf"),
+                            Formatar.data(rs.getDate("data_nascimento"), "dd/MM/yyyy"),
+                            rs.getString("sexo"),
+                            rs.getString("telefone"),
+                            rs.getString("email"),
+                            rs.getString("endereco")
+                    );
+                    alunos.add(usr);
+                }
+                pstm.close();
             }
             System.out.println("Alunos obtidos com sucesso!");
         } catch (Exception ex) {
@@ -81,10 +84,40 @@ public class AlunoDAO {
         }
         return alunos;
     }
-    
+
+    public void obterFoto(String cpf) {
+        String SQL = "SELECT bin_foto FROM aluno WHERE cpf = (?)";
+
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, cpf);
+
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                if (rs.getBinaryStream("bin_foto") != null) {
+                    Path path = Paths.get(Obter.CaminhoArquivo(cpf + ".jpg"));
+                    Files.copy(rs.getBinaryStream("bin_foto"), path, StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Foto obtida com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Obter Foto!!!: \n" + ex);
+        }
+    }
+
     public void alterarUsuario(Aluno aluno, String tempCpf) {
+        String SQL;
+        InputStream fis = null;
+
+        if (aluno.getCaminhoFoto() != null) {
+            SQL = "UPDATE aluno SET cpf = ?, nome = ?, data_nascimento = ?, sexo = ?, email = ?, endereco = ?, telefone = ?, bin_foto = ? WHERE cpf = ?";
+        } else {
+            SQL = "UPDATE aluno SET cpf = ?, nome = ?, data_nascimento = ?, sexo = ?, email = ?, endereco = ?, telefone = ? WHERE cpf = ?";
+        }
         
-        String SQL = "UPDATE aluno SET cpf = ?, nome = ?, data_nascimento = ?, sexo = ?, email = ?, endereco = ?, telefone = ? WHERE cpf = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, aluno.getCpf());
             pstm.setString(2, aluno.getNome());
@@ -93,12 +126,22 @@ public class AlunoDAO {
             pstm.setString(5, aluno.getEmail());
             pstm.setString(6, aluno.getEndereco());
             pstm.setString(7, aluno.getTelefone());
-            pstm.setString(8, tempCpf);
-            
+            if (aluno.getCaminhoFoto() != null) {
+                File file = new File(aluno.getCaminhoFoto());
+                fis = new FileInputStream(file);
+                pstm.setBinaryStream(8, fis, (int) file.length());
+                pstm.setString(9, tempCpf);
+            }else{
+                pstm.setString(8, tempCpf);
+            }
+
             pstm.executeUpdate();
 
             pstm.close();
             BD.getConexao().close();
+            if (fis != null) {
+                fis.close();
+            }
             System.out.println("Alteração efetuada!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao Alterar Usuário!:\n" + ex);

@@ -5,15 +5,12 @@ import Util.Exibir;
 import Util.Formatar;
 import Util.Obter;
 import entities.Aluno;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
@@ -33,6 +30,8 @@ public class AlunoBean {
     private String telefone;
     private String email;
     private String endereco;
+    private String caminhoFoto;
+    private InputStream bin_foto;
     private Part file;
     private ArrayList<Aluno> alunos = new ArrayList<>();
     Aluno aluno;
@@ -40,7 +39,6 @@ public class AlunoBean {
     private String tempCpf;
     private boolean editar;
     private String fotoUsuario = "resources/img/usrFoto.jpg";
-    private InputStream fotoStream = null;
 
     public AlunoBean() {
         aluno = new Aluno();
@@ -48,16 +46,55 @@ public class AlunoBean {
         obter();
     }
 
+    private void obter() {
+        alunos = alunoDao.obterAlunos();
+    }
+
+    public void add() {
+        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco, caminhoFoto);
+        alunoDao.inserirAluno(aluno);
+        alunoDao.obterFoto(cpf);
+        obter();
+        cancelar();
+    }
+
+    public void iniciaEditar(Aluno lista) {
+        editar = true;
+        nome = lista.getNome();
+        cpf = lista.getCpf();
+        tempCpf = lista.getCpf();
+        data_nascimento = Formatar.Data(lista.getData_nascimento(), "dd/MM/yyyy", "yyyy-MM-dd");
+        sexo = lista.getSexo();
+        telefone = lista.getTelefone();
+        email = lista.getEmail();
+        endereco = lista.getEndereco();
+        alunoDao.obterFoto(cpf);
+        fotoUsuario = "resources/img/" + cpf + ".jpg";
+    }
+
+    public void alterar() {
+        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco, caminhoFoto);
+        alunoDao.alterarUsuario(aluno, tempCpf);
+        editar = false;
+        alunoDao.obterFoto(cpf);
+        obter();
+        cancelar();
+    }
+
+    public void remover(Aluno lista) {
+        alunoDao.apagarUsuario(lista.getCpf());
+        obter();
+    }
+
     public void carregarFoto() {
         try {
             if (file != null) {
-                fotoStream = file.getInputStream();
-                Path path = Paths.get(Obter.CaminhoArquivo("usrFotoTemp.jpg"));
-                Exibir.Mensagem(path.toString());
-                Files.copy(fotoStream, path, StandardCopyOption.REPLACE_EXISTING);
-                fotoUsuario = "resources/img/usrFotoTemp.jpg";
-            }
-            else{
+                bin_foto = file.getInputStream();
+                Path path = Paths.get(Obter.CaminhoArquivo("fotoTemp.jpg"));
+                caminhoFoto = path.toString();
+                Files.copy(bin_foto, path, StandardCopyOption.REPLACE_EXISTING);
+                fotoUsuario = "resources/img/fotoTemp.jpg";
+            } else {
                 Exibir.Mensagem("Selecione a foto primeiro!");
             }
         } catch (Exception e) {
@@ -73,43 +110,9 @@ public class AlunoBean {
         telefone = null;
         email = null;
         endereco = null;
-        fotoStream = null;
+        bin_foto = null;
+        caminhoFoto = null;
         return ("cadastrarAluno");
-    }
-
-    private void obter() {
-        alunos = alunoDao.obterAlunos();
-    }
-
-    public void add() {
-        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco);
-        alunoDao.inserirAluno(aluno, fotoStream);
-        obter();
-    }
-
-    public void iniciaEditar(Aluno lista) {
-        editar = true;
-        nome = lista.getNome();
-        cpf = lista.getCpf();
-        tempCpf = lista.getCpf();
-        data_nascimento = Formatar.Data(lista.getData_nascimento(), "dd/MM/yyyy", "yyyy-MM-dd");
-        sexo = lista.getSexo();
-        telefone = lista.getTelefone();
-        email = lista.getEmail();
-        endereco = lista.getEndereco();
-    }
-
-    public void alterar() {
-        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco);
-        alunoDao.alterarUsuario(aluno, tempCpf);
-        editar = false;
-        obter();
-        cancelar();
-    }
-
-    public void remover(Aluno lista) {
-        alunoDao.apagarUsuario(lista.getCpf());
-        obter();
     }
 
     //Getters e Seters

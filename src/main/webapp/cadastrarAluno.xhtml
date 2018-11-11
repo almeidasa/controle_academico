@@ -4,8 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Inicio</title>
         <link rel="shortcut icon" href="resources/img/home.png"/>
@@ -62,8 +61,10 @@
                             <b:panel title="Foto" collapsible="false" title-style="" style="margin-left: 5px; height: 279px; width: 220px; text-align: center">
                                 <b:image value="#{alunoBean.fotoUsuario}" style="max-width:120px; max-height:160px; min-width:120px; min-height:160px;"/>
                                 <h:form enctype="multipart/form-data">
-                                    <h:inputFile value="#{alunoBean.file}" style="margin-top: 3px"/>
-                                    <b:commandButton value="Carregar Foto" look="info" size="xs" action="#{alunoBean.carregarFoto()}" style="margin-top: 3px"/>
+                                    <h:inputFile value="#{alunoBean.file}" style="margin-top: 3px">
+                                        <f:validator validatorId="fileUploadValidator"/>
+                                    </h:inputFile>
+                                    <b:commandButton value="Carregar Foto" look="warning" size="xs" action="#{alunoBean.carregarFoto()}" style="margin-top: 3px"/>
                                 </h:form>
                             </b:panel>
                         </h:panelGrid>
@@ -90,6 +91,9 @@
                                 <b:dataTableColumn value="#{lista.telefone}" label="Telefone"/>
                                 <b:dataTableColumn value="#{lista.email}" label="Email"/>
                                 <b:dataTableColumn value="#{lista.endereco}" label="Endereço"/>
+                                <b:dataTableColumn label="Foto">
+                                    <b:image value="resources/img/#{lista.cpf}.jpg" style="max-width:30px; max-height:40px; min-width:30px; min-height:40px;"/>
+                                </b:dataTableColumn>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"

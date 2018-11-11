@@ -23,6 +23,7 @@ public class DisciplinaDAO {
             pstm.execute();
 
             BD.getConexao().close();
+            pstm.close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir Disciplina: " + ex);
@@ -34,18 +35,19 @@ public class DisciplinaDAO {
         ArrayList<Disciplina> disciplina = new ArrayList<>();
 
         String SQL = "SELECT * FROM disciplina ORDER BY codigo";
-        try {
-            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
-            ResultSet rs = pstm.executeQuery();
-
-            while (rs.next()) {
-                Disciplina disc = new Disciplina(
-                        rs.getString("codigo"),
-                        rs.getString("nome"),
-                        rs.getString("situacao"),
-                        rs.getInt("fk_curso_cod")
-                );
-                disciplina.add(disc);
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)){
+            
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Disciplina disc = new Disciplina(
+                            rs.getString("codigo"),
+                            rs.getString("nome"),
+                            rs.getString("situacao"),
+                            rs.getInt("fk_curso_cod")
+                    );
+                    disciplina.add(disc);
+                }
+                pstm.close();
             }
             System.out.println("Disciplinas obtidos com sucesso!");
         } catch (Exception ex) {

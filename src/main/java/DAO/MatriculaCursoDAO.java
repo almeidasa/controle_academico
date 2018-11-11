@@ -23,6 +23,7 @@ public class MatriculaCursoDAO {
             pstm.execute();
 
             BD.getConexao().close();
+            pstm.close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir Disciplina: " + ex);

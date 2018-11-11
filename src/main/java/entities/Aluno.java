@@ -1,10 +1,8 @@
 package entities;
 
-import java.sql.Date;
-
 /**
- *
- * @author Alexandre Almeida
+ * @Autor Winder Rezende / Alexandre Almeida
+ * @Data 11/11/2018
  */
 public class Aluno {
 
@@ -15,6 +13,7 @@ public class Aluno {
     private String telefone;
     private String email;
     private String endereco;
+    private String caminhoFoto;
 
     public Aluno() {
     }
@@ -28,7 +27,18 @@ public class Aluno {
         this.email = email;
         this.endereco = endereco;
     }
-    
+
+    public Aluno(String nome, String cpf, String data_nascimento, String sexo, String telefone, String email, String endereco, String caminhoFoto) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.data_nascimento = data_nascimento;
+        this.sexo = sexo;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
+        this.caminhoFoto = caminhoFoto;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -83,5 +93,13 @@ public class Aluno {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
     }
 }

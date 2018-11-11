@@ -195,5 +195,4 @@ public class FuncionarioBean {
     public void setIcone(String icone) {
         this.icone = icone;
     }
-
 }

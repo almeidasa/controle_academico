@@ -24,6 +24,7 @@ public class ImgDAO {
         
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             fis = new FileInputStream(file);
+            System.out.println((int) file.length());
             pstm.setBinaryStream(1, fis, (int) file.length());
             pstm.executeUpdate();
             pstm.close();

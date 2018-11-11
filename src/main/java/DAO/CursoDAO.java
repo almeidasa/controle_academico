@@ -1,10 +1,7 @@
 package DAO;
 
 import Util.Exibir;
-import Util.Formatar;
 import entities.Curso;
-import entities.Disciplina;
-import entities.Funcionario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -25,6 +22,7 @@ public class CursoDAO {
             pstm.execute();
 
             BD.getConexao().close();
+            pstm.close();
             System.out.println("Inserido com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir curso: " + ex);
@@ -48,6 +46,8 @@ public class CursoDAO {
                 );
                 cursos.add(novo);
             }
+            pstm.close();
+            rs.close();
             System.out.println("Cursos obtidos com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao obter Cursos!: \n" + ex);
@@ -84,6 +84,7 @@ public class CursoDAO {
             pstm.execute();
 
             BD.getConexao().close();
+            pstm.close();
             System.out.println("Removido com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("\nErro ao remover curso: " + ex);

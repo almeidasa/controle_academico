@@ -50,6 +50,8 @@ public class FuncionarioDAO {
                 );
                 funcionario.add(func);
             }
+            pstm.close();
+            rs.close();
             System.out.println("Funcionários obtidos com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao obter Funcionários!: \n" + ex);
@@ -87,6 +89,7 @@ public class FuncionarioDAO {
             pstm.execute();
 
             BD.getConexao().close();
+            pstm.close();
             System.out.println("Removido com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao remover Funcionario: " + ex);
