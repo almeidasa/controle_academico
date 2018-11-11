@@ -42,11 +42,11 @@
                                             <f:selectItem itemLabel="Masculino" itemValue="M"/>
                                             <f:selectItem itemLabel="Feminino" itemValue="F"/>
                                         </b:selectOneMenu>
-                                        <b:inputText value="#{alunoBean.cpf}" label="Telefone" type="text" placeholder="(__) _____-____"
+                                        <b:inputText value="#{alunoBean.telefone}" label="Telefone" type="text" placeholder="(__) _____-____"
                                                      col-xs="2" required="true" mask="(99) 99999-9999"/>
                                         <b:inputText value="#{alunoBean.email}" label="Email" placeholder="Digite o email do aluno" mask="email" 
                                                      col-xs="4" required="true" /> 
-                                        <b:inputText value="#{alunoBean.nome}" label="Endereço" placeholder="Digite o endereço do aluno" type="text" 
+                                        <b:inputText value="#{alunoBean.endereco}" label="Endereço" placeholder="Digite o endereço do aluno" type="text" 
                                                      tiny-screen="two-thirds" required="true" />
                                     </b:row>
                                     <b:row>
@@ -93,9 +93,9 @@
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
-                                                         title="Remover Usuário" look="danger"  />
+                                                         title="Remover Usuário" look="danger" action="#{alunoBean.remover(lista)}"/>
                                         <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
-                                                         title="Editar Usuário" look="info"  />
+                                                         title="Editar Usuário" look="info" action="#{alunoBean.iniciaEditar(lista)}"/>
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>

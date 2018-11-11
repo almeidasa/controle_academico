@@ -2,6 +2,7 @@ package controller;
 
 import DAO.AlunoDAO;
 import Util.Exibir;
+import Util.Formatar;
 import Util.Obter;
 import entities.Aluno;
 import java.nio.file.Files;
@@ -33,6 +34,7 @@ public class AlunoBean {
     private ArrayList<Aluno> alunos = new ArrayList<>();
     Aluno aluno;
     AlunoDAO alunoDao;
+    private String tempCpf;
     private boolean editar;
     private String fotoUsuario = "resources/img/usrFoto.jpg";
 
@@ -76,15 +78,29 @@ public class AlunoBean {
     }
 
     public void iniciaEditar(Aluno lista) {
-
+        editar = true;
+        nome = lista.getNome();
+        cpf = lista.getCpf();
+        tempCpf = lista.getCpf();
+        data_nascimento = Formatar.Data(lista.getData_nascimento(), "dd/MM/yyyy", "yyyy-MM-dd");
+        sexo = lista.getSexo();
+        telefone = lista.getTelefone();
+        email = lista.getEmail();
+        endereco = lista.getEndereco();
+        fk_foto_id_foto = lista.getFk_foto_id_foto();
     }
 
     public void alterar() {
-
+        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco, fk_foto_id_foto);
+        alunoDao.alterarUsuario(aluno, tempCpf);
+        editar = false;
+        obter();
+        cancelar();
     }
 
     public void remover(Aluno lista) {
-
+        alunoDao.apagarUsuario(lista.getCpf());
+        obter();
     }
 
     //Getters e Seters

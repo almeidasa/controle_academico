@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class AlunoDAO {
 
     public void inserirAluno(Aluno aluno) {
-        String SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone, fk_foto_id_foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, aluno.getCpf());
             pstm.setString(2, aluno.getNome());
@@ -23,7 +23,7 @@ public class AlunoDAO {
             pstm.setString(5, aluno.getEmail());
             pstm.setString(6, aluno.getEndereco());
             pstm.setString(7, aluno.getTelefone());
-            pstm.setInt(8, aluno.getFk_foto_id_foto());
+            //pstm.setInt(8, aluno.getFk_foto_id_foto());
 
             pstm.execute();
 
@@ -62,5 +62,43 @@ public class AlunoDAO {
             Exibir.Mensagem("Erro ao obter alunos!: \n" + ex);
         }
         return alunos;
+    }
+    
+    public void alterarUsuario(Aluno aluno, String tempCpf) {
+        
+        String SQL = "UPDATE aluno SET cpf = ?, nome = ?, data_nascimento = ?, sexo = ?, email = ?, endereco = ?, telefone = ? WHERE cpf = ?";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, aluno.getCpf());
+            pstm.setString(2, aluno.getNome());
+            pstm.setDate(3, java.sql.Date.valueOf(aluno.getData_nascimento()));
+            pstm.setString(4, aluno.getSexo());
+            pstm.setString(5, aluno.getEmail());
+            pstm.setString(6, aluno.getEndereco());
+            pstm.setString(7, aluno.getTelefone());
+            pstm.setString(8, tempCpf);
+            
+            pstm.executeUpdate();
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Alteração efetuada!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Alterar Usuário!:\n" + ex);
+        }
+    }
+
+    public void apagarUsuario(String cpf) {
+
+        String SQL = "DELETE FROM aluno WHERE cpf = (?)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, cpf);
+            pstm.executeUpdate();
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Aluno Apagado! ");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Apagar Aluno!:\n" + ex);
+        }
     }
 }

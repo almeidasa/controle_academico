@@ -57,7 +57,6 @@ public class UsuarioBean {
         senha = lista.getSenha().equals("Privada") ? "" : "senha" ;
         tipo = lista.getTipo();
         situacao = lista.getSituacao().equals("Ativo") ? "true" : "false";
-        editar = true;
     }
     
     public void alterar(){
