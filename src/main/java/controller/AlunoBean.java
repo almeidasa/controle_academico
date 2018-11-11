@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.AlunoDAO;
 import Util.Exibir;
 import Util.Obter;
 import entities.Aluno;
@@ -7,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
@@ -26,12 +28,18 @@ public class AlunoBean {
     private String telefone;
     private String email;
     private String endereco;
+    private int fk_foto_id_foto;
     private Part file;
-    private int cod_foto;
+    private ArrayList<Aluno> alunos = new ArrayList<>();
+    Aluno aluno;
+    AlunoDAO alunoDao;
     private boolean editar;
     private String fotoUsuario = "resources/img/usrFoto.jpg";
 
     public AlunoBean() {
+        aluno = new Aluno();
+        alunoDao = new AlunoDAO();
+        obter();
     }
 
     public void save() {
@@ -46,15 +54,25 @@ public class AlunoBean {
     }
 
     public String cancelar() {
+        nome = null;
+        cpf = null;
+        data_nascimento = null;
+        sexo = null;
+        telefone = null;
+        email = null;
+        endereco = null;
+        fk_foto_id_foto = 0;
         return ("cadastrarAluno");
     }
 
     private void obter() {
-
+        alunos = alunoDao.obterAlunos();
     }
 
     public void add() {
-
+        aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco, fk_foto_id_foto);
+        alunoDao.inserirAluno(aluno);
+        obter();
     }
 
     public void iniciaEditar(Aluno lista) {
@@ -126,6 +144,14 @@ public class AlunoBean {
         this.endereco = endereco;
     }
 
+    public int getFk_foto_id_foto() {
+        return fk_foto_id_foto;
+    }
+
+    public void setFk_foto_id_foto(int fk_foto_id_foto) {
+        this.fk_foto_id_foto = fk_foto_id_foto;
+    }
+
     public Part getFile() {
         return file;
     }
@@ -134,12 +160,28 @@ public class AlunoBean {
         this.file = file;
     }
 
-    public int getCod_foto() {
-        return cod_foto;
+    public ArrayList<Aluno> getAlunos() {
+        return alunos;
     }
 
-    public void setCod_foto(int cod_foto) {
-        this.cod_foto = cod_foto;
+    public void setAlunos(ArrayList<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public AlunoDAO getAlunoDao() {
+        return alunoDao;
+    }
+
+    public void setAlunoDao(AlunoDAO alunoDao) {
+        this.alunoDao = alunoDao;
     }
 
     public boolean isEditar() {

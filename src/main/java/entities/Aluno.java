@@ -8,33 +8,27 @@ import java.sql.Date;
  */
 public class Aluno {
 
-    private String cpf;
     private String nome;
-    private Date data_nascimento;
+    private String cpf;
+    private String data_nascimento;
     private String sexo;
-    private int cod_foto;
-    private String endereco;
     private String telefone;
-
-    public Aluno(String cpf, String nome, Date data_nascimento, String sexo, int cod_foto, String endereco, String telefone) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.data_nascimento = data_nascimento;
-        this.sexo = sexo;
-        this.cod_foto = cod_foto;
-        this.endereco = endereco;
-        this.telefone = telefone;
-    }
+    private String email;
+    private String endereco;
+    private int fk_foto_id_foto;
 
     public Aluno() {
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
+    public Aluno(String nome, String cpf, String data_nascimento, String sexo, String telefone, String email, String endereco, int fk_foto_id_foto) {
+        this.nome = nome;
         this.cpf = cpf;
+        this.data_nascimento = data_nascimento;
+        this.sexo = sexo;
+        this.telefone = telefone;
+        this.email = email;
+        this.endereco = endereco;
+        this.fk_foto_id_foto = fk_foto_id_foto;
     }
 
     public String getNome() {
@@ -45,11 +39,19 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public Date getData_nascimento() {
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getData_nascimento() {
         return data_nascimento;
     }
 
-    public void setData_nascimento(Date data_nascimento) {
+    public void setData_nascimento(String data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
 
@@ -61,12 +63,20 @@ public class Aluno {
         this.sexo = sexo;
     }
 
-    public int getCod_foto() {
-        return cod_foto;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setCod_foto(int cod_foto) {
-        this.cod_foto = cod_foto;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getEndereco() {
@@ -77,12 +87,11 @@ public class Aluno {
         this.endereco = endereco;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public int getFk_foto_id_foto() {
+        return fk_foto_id_foto;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setFk_foto_id_foto(int fk_foto_id_foto) {
+        this.fk_foto_id_foto = fk_foto_id_foto;
     }
-
 }
