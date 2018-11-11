@@ -46,7 +46,10 @@
                     </b:listLinks>
                     <b:listLinks>
                         <b:navLink value="Gerenciar Alunos" active="true" iconAwesome="cog" icon-size="lg" style="background-color: #81C784" />
-                        <b:navLink href="#" value="Matricular" iconAwesome="leanpub"/>
+                        <b:dropMenu value="Matricular" icon-awesome="leanpub" >
+                            <b:navLink href="/controle_academico/matriculaCurso.xhtml" value="Aluno no Curso" iconAwesome="qrcode"/>
+                            <b:navLink href="/controle_academico/matriculaDisciplina.xhtml" value="Aluno nas Disciplinas" iconAwesome="sitemap"/>
+                        </b:dropMenu>
                         <b:navLink href="#" value="Aprovação" iconAwesome="line-chart"/>
                         <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap"/>
                     </b:listLinks>

@@ -43,7 +43,7 @@
                             </b:selectOneMenu>
 
                             <b:inputText value="#{funcionarioBean.telefone}" label="Telefone" placeholder="Digite o telefone do funcionário" type="text" 
-                                         tiny-screen="one-third" required="true" />
+                                         tiny-screen="one-third" required="true" mask="(99) 99999-9999" />
 
                             <b:selectOneMenu value="#{funcionarioBean.fk_Usuarios_id_user}" label="Usuário" tiny-screen="one-third">
                                 <f:selectItems value="#{funcionarioBean.itensBoxUsuarios.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
