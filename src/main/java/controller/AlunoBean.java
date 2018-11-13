@@ -33,7 +33,7 @@ public class AlunoBean {
     private String caminhoFoto;
     private InputStream bin_foto;
     private Part file;
-    private ArrayList<Aluno> alunos = new ArrayList<>();
+    private ArrayList<Aluno> alunos;
     Aluno aluno;
     AlunoDAO alunoDao;
     private String tempCpf;
@@ -41,6 +41,7 @@ public class AlunoBean {
     private String fotoUsuario = "resources/img/usrFoto.jpg";
 
     public AlunoBean() {
+        alunos = new ArrayList<>();
         aluno = new Aluno();
         alunoDao = new AlunoDAO();
         obter();

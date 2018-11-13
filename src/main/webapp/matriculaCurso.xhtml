@@ -27,10 +27,10 @@
                 <b:panel title="Matricula Curso" collapsible="true" look="info" iconAwesome="sitemap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{disciplinaBean.fk_curso_cod}" label="Aluno" tiny-screen="half" required="true">
-                                <f:selectItems value="#{disciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                            <b:selectOneMenu value="#{disciplinaBean.nome}" label="Aluno" tiny-screen="half" required="true">
+                                <f:selectItems value="#{disciplinaBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu value="#{disciplinaBean.fk_curso_cod}" label="Curso" tiny-screen="half" required="true">
+                            <b:selectOneMenu value="#{disciplinaBean.fk_Curso_cod}" label="Curso" tiny-screen="half" required="true">
                                 <f:selectItems value="#{disciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
@@ -71,7 +71,7 @@
                                          responsive="true">
 
                                 <b:dataTableColumn value="#{lista.codigo}" label="Matricula"/>
-                                <b:dataTableColumn value="#{disciplinaBean.itensBoxCurso.get(lista.fk_Curso_cod)}" label="Aluno"/>
+                                <b:dataTableColumn value="#{disciplinaBean.itensBoxAlunos.get(lista.nome)}" label="Aluno"/>
                                 <b:dataTableColumn value="#{disciplinaBean.itensBoxCurso.get(lista.fk_Curso_cod)}" label="Curso"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Data de Início"/>

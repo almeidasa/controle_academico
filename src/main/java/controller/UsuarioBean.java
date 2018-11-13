@@ -20,12 +20,13 @@ public class UsuarioBean {
     private String senha;
     private String tipo;
     private String situacao;
-    private ArrayList<Usuarios> usuarios = new ArrayList<>();
+    private ArrayList<Usuarios> usuarios;
     Usuarios usr;
     UsuariosDAO usrDao;
     private boolean editar;
     
     public UsuarioBean() {
+        usuarios = new ArrayList<>();
         usr = new Usuarios();
         usrDao = new UsuariosDAO();
         obter();

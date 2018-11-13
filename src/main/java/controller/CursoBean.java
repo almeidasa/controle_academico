@@ -23,14 +23,16 @@ public class CursoBean {
     private int cod;
     private String nome_curso;
     private int fk_Funcionario_id;
-    private ArrayList<Curso> cursos = new ArrayList<>();
-    private ArrayList<Funcionario> func = new ArrayList<>();
+    private ArrayList<Curso> cursos;
+    private ArrayList<Funcionario> func;
     private Map<Integer, String> ItensBoxFuncionarios;
 
     private String botao = "Incluir";
     private String icone = "plus-circle";
 
     public CursoBean() {
+        cursos = new ArrayList<>();
+        func = new ArrayList<>();
         obter();
         setBoxFuncionarios();
     }
@@ -85,9 +87,9 @@ public class CursoBean {
     }
 
     public void remover(Curso c) {
-        cursos.remove(c);
         CursoDAO novo = new CursoDAO();
         novo.removerCurso(c);
+        obter();
     }
 
     private void setBoxFuncionarios() {

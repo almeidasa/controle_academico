@@ -1,7 +1,9 @@
 package controller;
 
+import DAO.AlunoDAO;
 import DAO.CursoDAO;
 import DAO.DisciplinaDAO;
+import entities.Aluno;
 import entities.Curso;
 import entities.Disciplina;
 import java.util.ArrayList;
@@ -25,16 +27,20 @@ public class DisciplinaBean {
     private String situacao;
     private int fk_Curso_cod;
     private ArrayList<Disciplina> disciplina;
+    private ArrayList<Aluno> alunos;
     private ArrayList<Curso> curso;
+    private Map<String, String> ItensBoxAlunos;
     private Map<Integer, String> ItensBoxCurso;
 
     private String botao = "Incluir";
     private String icone = "plus-circle";
 
     public DisciplinaBean() {
+        this.alunos = new ArrayList<>();
         this.curso = new ArrayList<>();
         this.disciplina = new ArrayList<>();
         obter();
+        setBoxAlunos();
         setBoxCurso();
     }
 
@@ -98,9 +104,20 @@ public class DisciplinaBean {
     }
 
     public void remover(Disciplina d) {
-        disciplina.remove(d);
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
         disciplinaDAO.removerDisciplina(d);
+        obter();
+    }
+    
+    private void setBoxAlunos() {
+        ItensBoxAlunos = new LinkedHashMap<>();
+        AlunoDAO al = new AlunoDAO();
+        alunos = al.obterAlunos();
+
+        for (Aluno aluno : alunos) {
+            ItensBoxAlunos.put("A", "Selecione um Aluno");
+            ItensBoxAlunos.put(aluno.getCpf(), aluno.getNome());
+        }
     }
 
     private void setBoxCurso() {
@@ -114,14 +131,7 @@ public class DisciplinaBean {
         }
     }
 
-    public String getCod_antigo() {
-        return cod_antigo;
-    }
-
-    public void setCod_antigo(String cod_antigo) {
-        this.cod_antigo = cod_antigo;
-    }
-
+    //Getters e Seters
     public boolean isReadonly() {
         return readonly;
     }
@@ -130,12 +140,12 @@ public class DisciplinaBean {
         this.readonly = readonly;
     }
 
-    public int getFk_Curso_cod() {
-        return fk_Curso_cod;
+    public String getCod_antigo() {
+        return cod_antigo;
     }
 
-    public void setFk_Curso_cod(int fk_Curso_cod) {
-        this.fk_Curso_cod = fk_Curso_cod;
+    public void setCod_antigo(String cod_antigo) {
+        this.cod_antigo = cod_antigo;
     }
 
     public String getCodigo() {
@@ -162,11 +172,11 @@ public class DisciplinaBean {
         this.situacao = situacao;
     }
 
-    public int getFk_curso_cod() {
+    public int getFk_Curso_cod() {
         return fk_Curso_cod;
     }
 
-    public void setFk_curso_cod(int fk_Curso_cod) {
+    public void setFk_Curso_cod(int fk_Curso_cod) {
         this.fk_Curso_cod = fk_Curso_cod;
     }
 
@@ -178,12 +188,28 @@ public class DisciplinaBean {
         this.disciplina = disciplina;
     }
 
+    public ArrayList<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(ArrayList<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
     public ArrayList<Curso> getCurso() {
         return curso;
     }
 
     public void setCurso(ArrayList<Curso> curso) {
         this.curso = curso;
+    }
+
+    public Map<String, String> getItensBoxAlunos() {
+        return ItensBoxAlunos;
+    }
+
+    public void setItensBoxAlunos(Map<String, String> ItensBoxAlunos) {
+        this.ItensBoxAlunos = ItensBoxAlunos;
     }
 
     public Map<Integer, String> getItensBoxCurso() {
@@ -209,5 +235,4 @@ public class DisciplinaBean {
     public void setIcone(String icone) {
         this.icone = icone;
     }
-
 }
