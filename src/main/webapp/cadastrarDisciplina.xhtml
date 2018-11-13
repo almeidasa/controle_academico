@@ -35,7 +35,7 @@
                                 <f:selectItem itemLabel="Ativa" itemValue="Ativa" />
                                 <f:selectItem itemLabel="Inativa" itemValue="Inativa" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu value="#{disciplinaBean.fk_curso_cod}" label="Curso" tiny-screen="one-fourth" required="true">
+                            <b:selectOneMenu value="#{disciplinaBean.fk_Curso_cod}" label="Curso" tiny-screen="one-fourth" required="true">
                                 <f:selectItems value="#{disciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>

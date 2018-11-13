@@ -14,11 +14,11 @@ import javax.faces.bean.ViewScoped;
 
 /**
  * @Autor Alexandre Almeida
- * @Data 07/11/2018
+ * @Data 13/11/2018
  */
 @ManagedBean
 @ViewScoped
-public class DisciplinaBean {
+public class MatriculaCursoBean {
 
     private boolean readonly = false;
     private String cod_antigo;
@@ -27,6 +27,7 @@ public class DisciplinaBean {
     private String situacao;
     private int fk_Curso_cod;
     private ArrayList<Disciplina> disciplina;
+    private ArrayList<Aluno> alunos;
     private ArrayList<Curso> curso;
     private Map<String, String> ItensBoxAlunos;
     private Map<Integer, String> ItensBoxCurso;
@@ -34,14 +35,16 @@ public class DisciplinaBean {
     private String botao = "Incluir";
     private String icone = "plus-circle";
 
-    public DisciplinaBean() {
+    public MatriculaCursoBean() {
+        this.alunos = new ArrayList<>();
         this.curso = new ArrayList<>();
         this.disciplina = new ArrayList<>();
         obter();
+        setBoxAlunos();
         setBoxCurso();
     }
 
-    public DisciplinaBean(String cod_antigo, String codigo, String nome, String situacao, int fk_Curso_cod) {
+    public MatriculaCursoBean(String cod_antigo, String codigo, String nome, String situacao, int fk_Curso_cod) {
         this.cod_antigo = cod_antigo;
         this.codigo = codigo;
         this.nome = nome;
@@ -106,6 +109,16 @@ public class DisciplinaBean {
         obter();
     }
     
+    private void setBoxAlunos() {
+        ItensBoxAlunos = new LinkedHashMap<>();
+        AlunoDAO al = new AlunoDAO();
+        alunos = al.obterAlunos();
+
+        for (Aluno aluno : alunos) {
+            ItensBoxAlunos.put("A", "Selecione um Aluno");
+            ItensBoxAlunos.put(aluno.getCpf(), aluno.getNome());
+        }
+    }
 
     private void setBoxCurso() {
         ItensBoxCurso = new LinkedHashMap<>();
@@ -173,6 +186,14 @@ public class DisciplinaBean {
 
     public void setDisciplina(ArrayList<Disciplina> disciplina) {
         this.disciplina = disciplina;
+    }
+
+    public ArrayList<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(ArrayList<Aluno> alunos) {
+        this.alunos = alunos;
     }
 
     public ArrayList<Curso> getCurso() {
