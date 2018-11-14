@@ -33,20 +33,20 @@
                                         <b:inputText value="#{alunoBean.nome}" label="Nome" placeholder="Digite o nome do aluno" type="text" 
                                                      tiny-screen="one-third" required="true" />
                                         <b:inputText value="#{alunoBean.cpf}" label="CPF" type="text" placeholder="___.___.___-__"
-                                                     col-xs="2" required="true" mask="999.999.999-99"/>
-                                        <b:inputText col-xs="2" value="#{alunoBean.data_nascimento}" label="Data de Nascimento" type="date" 
+                                                     tiny-screen="one-third" required="true" mask="999.999.999-99"/>
+                                        <b:inputText tiny-screen="one-third" value="#{alunoBean.data_nascimento}" label="Data de Nascimento" type="date" 
                                                      required="true" />
-                                        <b:selectOneMenu value="#{alunoBean.sexo}" label="Sexo" col-xs="2" required="true" process="true">
+                                        <b:selectOneMenu value="#{alunoBean.sexo}" label="Sexo" tiny-screen="one-third" required="true" process="true">
                                             <f:selectItem itemLabel="Selecione o Sexo" itemValue=""/>
                                             <f:selectItem itemLabel="Masculino" itemValue="M"/>
                                             <f:selectItem itemLabel="Feminino" itemValue="F"/>
                                         </b:selectOneMenu>
                                         <b:inputText value="#{alunoBean.telefone}" label="Telefone" type="text" placeholder="(__) _____-____"
-                                                     col-xs="2" required="true" mask="(99) 99999-9999"/>
+                                                     tiny-screen="one-third" required="true" mask="(99) 99999-9999"/>
                                         <b:inputText value="#{alunoBean.email}" label="Email" placeholder="Digite o email do aluno" mask="email" 
                                                      col-xs="4" required="true" /> 
                                         <b:inputText value="#{alunoBean.endereco}" label="Endereço" placeholder="Digite o endereço do aluno" type="text" 
-                                                     tiny-screen="two-thirds" required="true" />
+                                                     tiny-screen="full-width" required="true" />
                                     </b:row>
                                     <b:row>
                                         <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
@@ -58,7 +58,7 @@
                                     </b:row>
                                 </h:form>
                             </b:panel>
-                            <b:panel title="Foto" collapsible="false" title-style="" style="margin-left: 5px; height: 279px; width: 220px; text-align: center">
+                            <b:panel title="Foto" collapsible="false" title-style="" style="margin-left: 5px; height: 351px; width: 220px; text-align: center">
                                 <b:image value="#{alunoBean.fotoUsuario}" style="max-width:120px; max-height:160px; min-width:120px; min-height:160px;"/>
                                 <h:form enctype="multipart/form-data">
                                     <h:inputFile value="#{alunoBean.file}" style="margin-top: 3px">
