@@ -80,6 +80,7 @@ public class AlunoBean {
         alunoDao.obterFoto(cpf);
         obter();
         cancelar();
+        fotoUsuario = "resources/img/usrFoto.jpg";
     }
 
     public void remover(Aluno lista) {
