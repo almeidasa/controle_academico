@@ -73,9 +73,9 @@
                                 <b:dataTableColumn value="#{lista.matricula}" label="Matricula"/>
                                 <b:dataTableColumn value="#{matriculaCursoBean.itensBoxAlunos.get(lista.fk_Aluno)}" label="Aluno"/>
                                 <b:dataTableColumn value="#{matriculaCursoBean.itensBoxCurso.get(lista.fk_Curso_cod)}" label="Curso"/>
-                                <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
                                 <b:dataTableColumn value="#{lista.data_inicio}" label="Data de Início"/>
                                 <b:dataTableColumn value="#{lista.duracao_curso}" label="Duração Semestres"/>
+                                <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"

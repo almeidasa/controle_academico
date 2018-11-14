@@ -2,11 +2,10 @@ package controller;
 
 import DAO.AlunoDAO;
 import DAO.CursoDAO;
-import DAO.DisciplinaDAO;
 import DAO.MatriculaCursoDAO;
+import Util.Formatar;
 import entities.Aluno;
 import entities.Curso;
-import entities.Disciplina;
 import entities.MatriculaCurso;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -69,6 +68,7 @@ public class MatriculaCursoBean {
         duracao_curso = "";
         fk_Curso_cod = 0;
         fk_Aluno = "A";
+        System.out.println("Teste");
     }
 
     public void add() {
@@ -92,13 +92,13 @@ public class MatriculaCursoBean {
 
     public String cancelar() {
         limpaTela();
-        return "cadastrarDisciplina";
+        return "matriculaCurso.xhtml";
     }
 
     public void editar(MatriculaCurso mc) {
         matricula = mc.getMatricula();
         situacao = mc.getSituacao();
-        data_inicio = mc.getData_inicio();
+        data_inicio = Formatar.Data(mc.getData_inicio(), "dd/MM/yyyy", "yyyy-MM-dd");
         duracao_curso = mc.getDuracao_curso();
         fk_Aluno = mc.getFk_Aluno();
         fk_Curso_cod = mc.getFk_Curso_cod();
