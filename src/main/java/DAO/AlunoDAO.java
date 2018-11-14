@@ -26,7 +26,7 @@ public class AlunoDAO {
         InputStream fis = null;
 
         if (aluno.getCaminhoFoto() != null) {
-            SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone, cod_foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone, bin_foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         } else {
             SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone) VALUES (?, ?, ?, ?, ?, ?, ?)";
         }
