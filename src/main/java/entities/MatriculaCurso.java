@@ -10,12 +10,12 @@ public class MatriculaCurso {
 
     private int matricula;
     private String situacao;
-    private Date data_inicio;
+    private String data_inicio;
     private String duracao_curso;
     private String fk_Aluno;
     private int fk_Curso_cod;
 
-    public MatriculaCurso(int matricula, String situacao, Date data_inicio, String duracao_curso, String fk_Aluno, int fk_Curso_cod) {
+    public MatriculaCurso(int matricula, String situacao, String data_inicio, String duracao_curso, String fk_Aluno, int fk_Curso_cod) {
         this.matricula = matricula;
         this.situacao = situacao;
         this.data_inicio = data_inicio;
@@ -43,11 +43,11 @@ public class MatriculaCurso {
         this.situacao = situacao;
     }
 
-    public Date getData_inicio() {
+    public String getData_inicio() {
         return data_inicio;
     }
 
-    public void setData_inicio(Date data_inicio) {
+    public void setData_inicio(String data_inicio) {
         this.data_inicio = data_inicio;
     }
 

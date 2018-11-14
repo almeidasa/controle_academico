@@ -27,19 +27,19 @@
                 <b:panel title="Matricula Curso" collapsible="true" look="info" iconAwesome="sitemap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{matriculaCursoBean.nome}" label="Aluno" tiny-screen="half" required="true">
+                            <b:selectOneMenu value="#{matriculaCursoBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
                                 <f:selectItems value="#{matriculaCursoBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu value="#{matriculaCursoBean.fk_Curso_cod}" label="Curso" tiny-screen="half" required="true">
+                            <b:selectOneMenu value="#{matriculaCursoBean.fk_Curso_cod}"  label="Curso" tiny-screen="half" required="true">
                                 <f:selectItems value="#{matriculaCursoBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
                         <b:row>
-                            <b:inputText value="" label="Matricula" readonly="#{matriculaCursoBean.readonly}" placeholder="Digite a matricula da disciplina" type="text" 
+                            <b:inputText value="#{matriculaCursoBean.matricula}" label="Matricula" readonly="true" placeholder="Digite a matricula da disciplina" type="number"
                                          tiny-screen="one-fourth" required="true" />
-                            <b:inputText value="#{matriculaCursoBean.nome}" label="Data de Início" placeholder="Digite a data de início do curso" type="date" 
+                            <b:inputText value="#{matriculaCursoBean.data_inicio}" label="Data de Início" placeholder="Digite a data de início do curso" type="date" 
                                          tiny-screen="one-fourth" required="true" />
-                            <b:inputText value="#{matriculaCursoBean.nome}" label="Duração" placeholder="Digite a duração do curso" type="text" 
+                            <b:inputText value="#{matriculaCursoBean.duracao_curso}" label="Duração Semestres" placeholder="Digite a duração do curso" type="text" 
                                          tiny-screen="one-fourth" required="true" />
                             <b:selectOneMenu value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
                                 <f:selectItem itemLabel="Cursando" itemValue="Cursando" />
@@ -65,17 +65,17 @@
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
                                          class="table table-striped table-bordered" 
-                                         value = "#{matriculaCursoBean.disciplina}"
+                                         value = "#{matriculaCursoBean.matriculaCurso}"
                                          var="lista"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
-                                <b:dataTableColumn value="#{lista.codigo}" label="Matricula"/>
-                                <b:dataTableColumn value="#{matriculaCursoBean.itensBoxAlunos.get(lista.nome)}" label="Aluno"/>
+                                <b:dataTableColumn value="#{lista.matricula}" label="Matricula"/>
+                                <b:dataTableColumn value="#{matriculaCursoBean.itensBoxAlunos.get(lista.fk_Aluno)}" label="Aluno"/>
                                 <b:dataTableColumn value="#{matriculaCursoBean.itensBoxCurso.get(lista.fk_Curso_cod)}" label="Curso"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
-                                <b:dataTableColumn value="#{lista.situacao}" label="Data de Início"/>
-                                <b:dataTableColumn value="#{lista.situacao}" label="Duração"/>
+                                <b:dataTableColumn value="#{lista.data_inicio}" label="Data de Início"/>
+                                <b:dataTableColumn value="#{lista.duracao_curso}" label="Duração Semestres"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"

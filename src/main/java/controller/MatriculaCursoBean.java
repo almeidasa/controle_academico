@@ -3,9 +3,11 @@ package controller;
 import DAO.AlunoDAO;
 import DAO.CursoDAO;
 import DAO.DisciplinaDAO;
+import DAO.MatriculaCursoDAO;
 import entities.Aluno;
 import entities.Curso;
 import entities.Disciplina;
+import entities.MatriculaCurso;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,13 +22,14 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class MatriculaCursoBean {
 
-    private boolean readonly = false;
-    private String cod_antigo;
-    private String codigo;
-    private String nome;
+    private int matricula;
     private String situacao;
+    private String data_inicio;
+    private String duracao_curso;
+    private String fk_Aluno;
     private int fk_Curso_cod;
-    private ArrayList<Disciplina> disciplina;
+
+    private ArrayList<MatriculaCurso> matriculaCurso;
     private ArrayList<Aluno> alunos;
     private ArrayList<Curso> curso;
     private Map<String, String> ItensBoxAlunos;
@@ -38,51 +41,52 @@ public class MatriculaCursoBean {
     public MatriculaCursoBean() {
         this.alunos = new ArrayList<>();
         this.curso = new ArrayList<>();
-        this.disciplina = new ArrayList<>();
+        this.matriculaCurso = new ArrayList<>();
         obter();
         setBoxAlunos();
         setBoxCurso();
     }
 
-    public MatriculaCursoBean(String cod_antigo, String codigo, String nome, String situacao, int fk_Curso_cod) {
-        this.cod_antigo = cod_antigo;
-        this.codigo = codigo;
-        this.nome = nome;
+    public MatriculaCursoBean(int matricula, String situacao, String data_inicio, String duracao_curso, String fk_Aluno, int fk_Curso_cod) {
+        this.matricula = matricula;
         this.situacao = situacao;
+        this.data_inicio = data_inicio;
+        this.duracao_curso = duracao_curso;
+        this.fk_Aluno = fk_Aluno;
         this.fk_Curso_cod = fk_Curso_cod;
     }
 
     private void obter() {
-        disciplina.clear();
-        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-        disciplina = disciplinaDAO.obterDisciplina();
+        matriculaCurso.clear();
+        MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
+        matriculaCurso = matCursoDAO.obterMatriculaCurso();
     }
 
     public void limpaTela() {
-        cod_antigo = "";
-        codigo = "";
-        nome = "";
+        matricula = 0;
         situacao = "";
+        data_inicio = "";
+        duracao_curso = "";
         fk_Curso_cod = 0;
-        readonly = false;
+        fk_Aluno = "A";
     }
 
     public void add() {
         if (botao.equals("Incluir")) {
-            DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-            Disciplina disc = new Disciplina(codigo, nome, situacao, fk_Curso_cod);
-            disciplinaDAO.inserirDisciplina(disc);
+            MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
+            MatriculaCurso matCurso = new MatriculaCurso(Integer.parseInt(fk_Curso_cod + fk_Aluno.replace(".", "").replace("-", "").substring(0, 5)),
+                    situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
+            matCursoDAO.inserirMatriculaCurso(matCurso);
             limpaTela();
             obter();
         } else {
-            DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-            Disciplina disc = new Disciplina(codigo, nome, situacao, fk_Curso_cod, cod_antigo);
-            disciplinaDAO.editarDisciplina(disc);
+            MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
+            MatriculaCurso matCurso = new MatriculaCurso(matricula, situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
+            matCursoDAO.editarMatriculaCurso(matCurso);
             limpaTela();
             obter();
             botao = "Incluir";
             icone = "plus-circle";
-            readonly = false;
         }
     }
 
@@ -91,24 +95,24 @@ public class MatriculaCursoBean {
         return "cadastrarDisciplina";
     }
 
-    public void editar(Disciplina d) {
-        cod_antigo = d.getCodigo();
-        codigo = d.getCodigo();
-        nome = d.getNome();
-        situacao = d.getSituacao();
-        fk_Curso_cod = d.getFk_Curso_cod();
-        
-        readonly = true;
+    public void editar(MatriculaCurso mc) {
+        matricula = mc.getMatricula();
+        situacao = mc.getSituacao();
+        data_inicio = mc.getData_inicio();
+        duracao_curso = mc.getDuracao_curso();
+        fk_Aluno = mc.getFk_Aluno();
+        fk_Curso_cod = mc.getFk_Curso_cod();
+
         botao = "Alterar";
         icone = "fa-refresh";
     }
 
-    public void remover(Disciplina d) {
-        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-        disciplinaDAO.removerDisciplina(d);
+    public void remover(MatriculaCurso matcurso) {
+        MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
+        matCursoDAO.removerMatriculaCurso(matcurso);
         obter();
     }
-    
+
     private void setBoxAlunos() {
         ItensBoxAlunos = new LinkedHashMap<>();
         AlunoDAO al = new AlunoDAO();
@@ -132,36 +136,12 @@ public class MatriculaCursoBean {
     }
 
     //Getters e Seters
-    public boolean isReadonly() {
-        return readonly;
+    public int getMatricula() {
+        return matricula;
     }
 
-    public void setReadonly(boolean readonly) {
-        this.readonly = readonly;
-    }
-
-    public String getCod_antigo() {
-        return cod_antigo;
-    }
-
-    public void setCod_antigo(String cod_antigo) {
-        this.cod_antigo = cod_antigo;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 
     public String getSituacao() {
@@ -172,6 +152,30 @@ public class MatriculaCursoBean {
         this.situacao = situacao;
     }
 
+    public String getData_inicio() {
+        return data_inicio;
+    }
+
+    public void setData_inicio(String data_inicio) {
+        this.data_inicio = data_inicio;
+    }
+
+    public String getDuracao_curso() {
+        return duracao_curso;
+    }
+
+    public void setDuracao_curso(String duracao_curso) {
+        this.duracao_curso = duracao_curso;
+    }
+
+    public String getFk_Aluno() {
+        return fk_Aluno;
+    }
+
+    public void setFk_Aluno(String fk_Aluno) {
+        this.fk_Aluno = fk_Aluno;
+    }
+
     public int getFk_Curso_cod() {
         return fk_Curso_cod;
     }
@@ -180,12 +184,12 @@ public class MatriculaCursoBean {
         this.fk_Curso_cod = fk_Curso_cod;
     }
 
-    public ArrayList<Disciplina> getDisciplina() {
-        return disciplina;
+    public ArrayList<MatriculaCurso> getMatriculaCurso() {
+        return matriculaCurso;
     }
 
-    public void setDisciplina(ArrayList<Disciplina> disciplina) {
-        this.disciplina = disciplina;
+    public void setMatriculaCurso(ArrayList<MatriculaCurso> matriculaCurso) {
+        this.matriculaCurso = matriculaCurso;
     }
 
     public ArrayList<Aluno> getAlunos() {
@@ -235,4 +239,5 @@ public class MatriculaCursoBean {
     public void setIcone(String icone) {
         this.icone = icone;
     }
+
 }
