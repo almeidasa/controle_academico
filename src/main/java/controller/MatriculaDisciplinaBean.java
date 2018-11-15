@@ -24,6 +24,7 @@ import javax.faces.bean.ViewScoped;
 public class MatriculaDisciplinaBean {
 
     private boolean readonly = false;
+    private int id;
     private String conceito;
     private String semestre;
     private int ano;
@@ -59,7 +60,8 @@ public class MatriculaDisciplinaBean {
         setListaDisciplina();
     }
 
-    public MatriculaDisciplinaBean(String conceito, String semestre, int ano, String situacao, String fk_Disciplina_codigo, String fk_Aluno_cpf) {
+    public MatriculaDisciplinaBean(int id, String conceito, String semestre, int ano, String situacao, String fk_Disciplina_codigo, String fk_Aluno_cpf) {
+        this.id = id;
         this.conceito = conceito;
         this.semestre = semestre;
         this.ano = ano;
@@ -75,12 +77,13 @@ public class MatriculaDisciplinaBean {
     }
 
     public void limpaTela() {
+        id = 0;
         conceito = "";
         semestre = "";
         ano = 0;
         situacao = "";
-        fk_Disciplina_codigo = "D";
-        fk_Aluno_cpf = "A";
+        fk_Disciplina_codigo = "";
+        fk_Aluno_cpf = "";
         fk_Curso_cod = 0;
         readonly = false;
     }
@@ -94,7 +97,7 @@ public class MatriculaDisciplinaBean {
             obter();
         } else {
             MatriculaDisciplinaDAO matriculaDisciplinaDAO = new MatriculaDisciplinaDAO();
-            MatriculaDisciplina matDisciplina = new MatriculaDisciplina(conceito, semestre, ano, situacao, fk_Disciplina_codigo, fk_Aluno_cpf);
+            MatriculaDisciplina matDisciplina = new MatriculaDisciplina(id, conceito, semestre, ano, situacao, fk_Disciplina_codigo, fk_Aluno_cpf);
             matriculaDisciplinaDAO.editarMatriculaDisciplina(matDisciplina);
             limpaTela();
             obter();
@@ -109,14 +112,13 @@ public class MatriculaDisciplinaBean {
     }
 
     public void editar(MatriculaDisciplina matDisciplina) {
+        id = matDisciplina.getId();
         conceito = matDisciplina.getConceito();
         semestre = matDisciplina.getSemestre();
         ano = matDisciplina.getAno();
         situacao = matDisciplina.getSituacao();
-        fk_Disciplina_codigo = matDisciplina.getFk_Disciplina_codigo();
         fk_Aluno_cpf = matDisciplina.getFk_Aluno_cpf();
-
-        setBoxCurso();
+        
         readonly = true;
         botao = "Alterar";
         icone = "fa-refresh";
@@ -133,7 +135,7 @@ public class MatriculaDisciplinaBean {
         alunos = al.obterAlunos();
 
         for (Aluno aluno : alunos) {
-            ItensBoxAlunos.put("A", "Selecione um Aluno");
+            ItensBoxAlunos.put("", "Selecione o Aluno");
             ItensBoxAlunos.put(aluno.getCpf(), aluno.getNome());
         }
     }
@@ -162,19 +164,18 @@ public class MatriculaDisciplinaBean {
         }
     }
 
-    public void testedocao() {
-        System.out.println("testedocao");
-    }
-
     private void setBoxDisciplina() {
         ItensBoxDisciplina = new LinkedHashMap<>();
-
         disciplina = new DisciplinaDAO().obterDisciplina();
-
+        ItensBoxDisciplina.clear();
         for (Disciplina disc : disciplina) {
-            ItensBoxDisciplina.put("D", "Selecione uma Disciplina");
+            ItensBoxDisciplina.put("", "Selecione uma Disciplina");
             if (disc.getFk_Curso_cod() == fk_Curso_cod) {
-                ItensBoxDisciplina.put(disc.getCodigo(), disc.getNome());
+                if (new MatriculaDisciplinaDAO().alunoMatriculado(fk_Aluno_cpf, disc.getCodigo())) {
+                    ItensBoxDisciplina.put(disc.getCodigo(), disc.getNome());
+                } else {
+                    ItensBoxDisciplina.remove(disc.getCodigo());
+                }
             }
         }
     }
@@ -327,6 +328,14 @@ public class MatriculaDisciplinaBean {
         this.icone = icone;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean isReadonly() {
         return readonly;
     }
@@ -334,4 +343,5 @@ public class MatriculaDisciplinaBean {
     public void setReadonly(boolean readonly) {
         this.readonly = readonly;
     }
+    
 }

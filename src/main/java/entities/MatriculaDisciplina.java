@@ -11,12 +11,23 @@ package entities;
  */
 public class MatriculaDisciplina {
 
+    private int id;
     private String conceito;
     private String semestre;
     private int ano;
     private String situacao;
     private String fk_Disciplina_codigo;
     private String fk_Aluno_cpf;
+
+    public MatriculaDisciplina(int id, String conceito, String semestre, int ano, String situacao, String fk_Disciplina_codigo, String fk_Aluno_cpf) {
+        this.id = id;
+        this.conceito = conceito;
+        this.semestre = semestre;
+        this.ano = ano;
+        this.situacao = situacao;
+        this.fk_Disciplina_codigo = fk_Disciplina_codigo;
+        this.fk_Aluno_cpf = fk_Aluno_cpf;
+    }
 
     public MatriculaDisciplina(String conceito, String semestre, int ano, String situacao, String fk_Disciplina_codigo, String fk_Aluno_cpf) {
         this.conceito = conceito;
@@ -25,6 +36,14 @@ public class MatriculaDisciplina {
         this.situacao = situacao;
         this.fk_Disciplina_codigo = fk_Disciplina_codigo;
         this.fk_Aluno_cpf = fk_Aluno_cpf;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public MatriculaDisciplina() {

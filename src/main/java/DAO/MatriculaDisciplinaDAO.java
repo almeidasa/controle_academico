@@ -42,6 +42,7 @@ public class MatriculaDisciplinaDAO {
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
                     MatriculaDisciplina mat = new MatriculaDisciplina(
+                            rs.getInt("id"),
                             rs.getString("conceito"),
                             rs.getString("semestre"),
                             rs.getInt("ano"),
@@ -60,15 +61,39 @@ public class MatriculaDisciplinaDAO {
         return matdis;
     }
 
+    public boolean alunoMatriculado(String cpf, String cod_disciplina) {
+        boolean pode_cursar = false;
+        String SQL = "SELECT * FROM matriculadisciplina WHERE fk_aluno_cpf = '" + cpf + "' AND fk_disciplina_codigo = '" + cod_disciplina + "'";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                if (!rs.next()) {
+                    pode_cursar = true;
+                    System.out.println("Não");
+                } else {
+                    while (rs.next()) {
+                        if ((rs.getString("conceito").equals("Insuficiente") && !rs.getString("situacao").equals("Cursando")) || !rs.getString("situacao").equals("Cursando")) {
+                            pode_cursar = true;
+                        }
+                    }
+                }
+                pstm.close();
+            }
+            System.out.println("Verificado aluno/disciplina com êxito!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao verificar  aluno/Disciplinas!: \n" + ex);
+        }
+        return pode_cursar;
+    }
+
     public void editarMatriculaDisciplina(MatriculaDisciplina md) {
-        String SQL = "UPDATE matriculadisciplina SET conceito = ?, semestre = ?, ano = ?, situacao = ? WHERE fk_disciplina_codigo = ? AND fk_aluno_cpf = ? ";
+        String SQL = "UPDATE matriculadisciplina SET conceito = ?, semestre = ?, ano = ?, situacao = ? WHERE  id = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, md.getConceito());
             pstm.setString(2, md.getSemestre());
             pstm.setInt(3, md.getAno());
             pstm.setString(4, md.getSituacao());
-            pstm.setString(5, md.getFk_Disciplina_codigo());
-            pstm.setString(6, md.getFk_Aluno_cpf());
+            pstm.setInt(5, md.getId());
 
             System.out.println(SQL);
             pstm.executeUpdate();
@@ -82,10 +107,9 @@ public class MatriculaDisciplinaDAO {
     }
 
     public void removerMatriculaDisciplina(MatriculaDisciplina md) {
-        String SQL = "DELETE FROM matriculadisciplina WHERE fk_disciplina_codigo = ? AND fk_aluno_cpf = ?";
+        String SQL = "DELETE FROM matriculadisciplina WHERE id = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-            pstm.setString(1, md.getFk_Disciplina_codigo());
-            pstm.setString(2, md.getFk_Aluno_cpf());
+            pstm.setInt(1, md.getId());
 
             pstm.execute();
 
