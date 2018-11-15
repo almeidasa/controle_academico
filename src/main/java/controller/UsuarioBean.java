@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.UsuariosDAO;
+import Util.Exibir;
 import entities.Usuarios;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -43,6 +44,7 @@ public class UsuarioBean {
     
     private void obter(){
         usuarios = usrDao.obterUsuarios();
+        System.out.println(editar);
     }
     
     public void add(){
