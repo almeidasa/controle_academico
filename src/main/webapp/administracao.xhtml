@@ -30,24 +30,67 @@
                 <b:panel title="Administração do Sistema" collapsible="true" look="primary" iconAwesome="user-secret" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            
-                            <b:selectOneMenu value="#{usuarioBean.tipo}" label="Tipo" tiny-screen="one-fourth">
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                                <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
-                                <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
-                                <f:selectItem itemLabel="Professor" itemValue="Professor" />
-                                <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
-                            </b:selectOneMenu>
-                            <b:switch value="#{usuarioBean.situacao}" readonly="#{usuarioBean.tipo.equalsIgnoreCase('Administrador')}" label="Situação" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo" tiny-screen="one-fourth"/>
-                        </b:row>
-                        <b:row>
-                            <b:commandButton iconAwesome="save" icon-size="lg" value="Salvar Permissões" class="btn btn-lg btnIncluir" 
-                                             title="Incluir Usuário" look="success" action="#{usuarioBean.add()}" rendered="#{!usuarioBean.editar}"/>
+                            <b:inputText value="#{permissaoBean.nomeNovaPerm}" label="Cadastrar Permissão" placeholder="Digite nome da permissão" type="text" 
+                                         tiny-screen="one-fourth" required="true" />
+                            <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
+                                             title="Incluir Usuário" look="success" action="#{permissaoBean.add()}" rendered="#{!usuarioBean.editar}"/> 
+                            <b:commandButton iconAwesome="refresh" icon-size="lg" value="Alterar" class="btn btn-lg btnIncluir" 
+                                             title="Alterar" look="info" action="#{usuarioBean.alterar()}" rendered="#{usuarioBean.editar}"/>
                             <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
-                                             title="Cancelar" look="danger" action="#{usuarioBean.cancelar()}" immediate="true"/>
+                                             title="Cancelar" look="danger" action="#{permissaoBean.teste()}" immediate="true"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
+                    <b:messages/>
+                </b:panel>
+            </div>
+            <div>
+                <b:panel class="painel3" collapsible="false" title="Permissões" iconAwesome="table" icon-size="lg" look="info" rendered="true">
+                    <b:form>
+                        <b:row style="padding: 15px">
+                            <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
+                                         class="table table-striped table-bordered" 
+                                         value = "#{permissaoBean.permissoes}"
+                                         var="lista"
+                                         style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
+                                         responsive="true">
+                                <b:dataTableColumn value="#{lista.nome}" label="Nome"/>
+                                <b:dataTableColumn  label="Administrador">
+                                    <b:switch value="#{lista.admin}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
+                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                    </b:switch>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn  label="Diretor">
+                                    <b:switch value="#{lista.diret}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
+                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                    </b:switch>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn  label="Coordenador">
+                                    <b:switch value="#{lista.coord}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
+                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                    </b:switch>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn  label="Funcionário">
+                                    <b:switch value="#{lista.func}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
+                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                    </b:switch>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn  label="Aluno">
+                                    <b:switch value="#{lista.aluno}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
+                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                    </b:switch>
+                                </b:dataTableColumn>
+                                <b:dataTableColumn label="Opções" style="width: 170px">
+                                    <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
+                                        <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
+                                                         title="Remover Usuário" look="danger"  action="#{usuarioBean.remover(lista)}"/>
+                                        <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
+                                                         title="Editar Usuário" look="info"  action="#{permissaoBean.teste()}"/>
+                                    </h:panelGrid>
+                                </b:dataTableColumn>
+                            </b:dataTable>
+                        </b:row>
+                    </b:form>
                 </b:panel>
             </div>
         </b:column>

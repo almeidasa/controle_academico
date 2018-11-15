@@ -5,7 +5,6 @@ import DAO.MatriculaCursoDAO;
 import DAO.MatriculaDisciplinaDAO;
 import Util.Formatar;
 import entities.Aluno;
-import entities.Curso;
 import entities.MatriculaCurso;
 import entities.MatriculaDisciplina;
 import java.util.ArrayList;
