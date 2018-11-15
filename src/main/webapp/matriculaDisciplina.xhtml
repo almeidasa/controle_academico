@@ -27,15 +27,15 @@
                 <b:panel title="Matricula Curso" collapsible="true" look="info" iconAwesome="sitemap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{matriculaDisciplinaBean.fk_Aluno_cpf}" label="Aluno" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu value="#{matriculaDisciplinaBean.fk_Aluno_cpf}" readonly="#{matriculaDisciplinaBean.readonly}" label="Aluno" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                                 <f:ajax event="change" immediate="false" render="boxcurso" listener="#{matriculaDisciplinaBean.obterBoxCurso()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu id="boxcurso" value="#{matriculaDisciplinaBean.fk_Curso_cod}"  label="Curso" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu id="boxcurso" value="#{matriculaDisciplinaBean.fk_Curso_cod}"  readonly="#{matriculaDisciplinaBean.readonly}" label="Curso" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                                 <f:ajax event="change" immediate="false" render="boxdisciplina" listener="#{matriculaDisciplinaBean.obterBoxDisciplina()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu id="boxdisciplina" value="#{matriculaDisciplinaBean.fk_Disciplina_codigo}"  label="Disciplina" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu id="boxdisciplina" value="#{matriculaDisciplinaBean.fk_Disciplina_codigo}" readonly="#{matriculaDisciplinaBean.readonly}"  label="Disciplina" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxDisciplina.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
@@ -51,8 +51,8 @@
                                 <f:selectItem itemLabel="Bom" itemValue="Bom" />
                                 <f:selectItem itemLabel="Ótimo" itemValue="Ótimo" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
-                                <f:selectItem itemLabel="Cursando" itemValue="Em Andamento" />
+                            <b:selectOneMenu value="#{matriculaDisciplinaBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
+                                <f:selectItem itemLabel="Cursando" itemValue="Cursando" />
                                 <f:selectItem  itemLabel="Concluído" itemValue="Concluída" />
                                 <f:selectItem itemLabel="Cancelado" itemValue="Cancelada" />
                             </b:selectOneMenu>
@@ -79,12 +79,12 @@
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
-                                <b:dataTableColumn value="#{lista.matricula}" label="Matricula"/>
-                                <b:dataTableColumn value="#{matriculaDisciplinaBean.itensBoxAlunos.get(lista.fk_Aluno)}" label="Aluno"/>
-                                <b:dataTableColumn value="#{matriculaDisciplinaBean.itensBoxCurso.get(lista.fk_Curso_cod)}" label="Curso"/>
-                                <b:dataTableColumn value="#{lista.data_inicio}" label="Data de Início"/>
-                                <b:dataTableColumn value="#{lista.duracao_curso}" label="Duração Semestres"/>
-                                <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
+                                <b:dataTableColumn value="#{matriculaDisciplinaBean.itensBoxAlunos.get(lista.fk_Aluno_cpf)}" label="Aluno"/>
+                                <b:dataTableColumn value="#{matriculaDisciplinaBean.listaDisciplina.get(lista.fk_Disciplina_codigo)}" label="Disciplina"/>
+                                <b:dataTableColumn value="#{lista.ano}" label="Ano"/>
+                                <b:dataTableColumn value="#{lista.situacao}" label="Situacao"/>
+                                <b:dataTableColumn value="#{lista.conceito}" label="Conceito"/>
+                                <b:dataTableColumn value="#{lista.semestre}" label="Semestre"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"

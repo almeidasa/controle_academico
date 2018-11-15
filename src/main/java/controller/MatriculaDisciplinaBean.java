@@ -5,9 +5,7 @@ import DAO.CursoDAO;
 import DAO.DisciplinaDAO;
 import DAO.MatriculaCursoDAO;
 import DAO.MatriculaDisciplinaDAO;
-import Util.Formatar;
 import entities.Aluno;
-import entities.Curso;
 import entities.Disciplina;
 import entities.MatriculaCurso;
 import entities.MatriculaDisciplina;
@@ -25,6 +23,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class MatriculaDisciplinaBean {
 
+    private boolean readonly = false;
     private String conceito;
     private String semestre;
     private int ano;
@@ -42,6 +41,7 @@ public class MatriculaDisciplinaBean {
     private Map<String, String> ItensBoxAlunos;
     private Map<Integer, String> ItensBoxCurso;
     private Map<String, String> ItensBoxDisciplina;
+    private Map<String, String> ListaDisciplina;
 
     private String botao = "Incluir";
     private String icone = "plus-circle";
@@ -56,6 +56,7 @@ public class MatriculaDisciplinaBean {
         setBoxAlunos();
         setBoxCurso();
         setBoxDisciplina();
+        setListaDisciplina();
     }
 
     public MatriculaDisciplinaBean(String conceito, String semestre, int ano, String situacao, String fk_Disciplina_codigo, String fk_Aluno_cpf) {
@@ -74,42 +75,55 @@ public class MatriculaDisciplinaBean {
     }
 
     public void limpaTela() {
-
+        conceito = "";
+        semestre = "";
+        ano = 0;
+        situacao = "";
+        fk_Disciplina_codigo = "D";
+        fk_Aluno_cpf = "A";
+        fk_Curso_cod = 0;
+        readonly = false;
     }
 
     public void add() {
-//        if (botao.equals("Incluir")) {
-//            MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
-//            MatriculaCurso matCurso = new MatriculaCurso(Integer.parseInt(fk_Curso_cod + fk_Aluno.replace(".", "").replace("-", "").substring(0, 5)),
-//                    situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
-//            matCursoDAO.inserirMatriculaCurso(matCurso);
-//            limpaTela();
-//            obter();
-//        } else {
-//            MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
-//            MatriculaCurso matCurso = new MatriculaCurso(matricula, situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
-//            matCursoDAO.editarMatriculaCurso(matCurso);
-//            limpaTela();
-//            obter();
-//            botao = "Incluir";
-//            icone = "plus-circle";
-//        }
+        if (botao.equals("Incluir")) {
+            MatriculaDisciplinaDAO matriculaDisciplinaDAO = new MatriculaDisciplinaDAO();
+            MatriculaDisciplina matDisciplina = new MatriculaDisciplina(conceito, semestre, ano, situacao, fk_Disciplina_codigo, fk_Aluno_cpf);
+            matriculaDisciplinaDAO.inserirMatriculaDisciplina(matDisciplina);
+            limpaTela();
+            obter();
+        } else {
+            MatriculaDisciplinaDAO matriculaDisciplinaDAO = new MatriculaDisciplinaDAO();
+            MatriculaDisciplina matDisciplina = new MatriculaDisciplina(conceito, semestre, ano, situacao, fk_Disciplina_codigo, fk_Aluno_cpf);
+            matriculaDisciplinaDAO.editarMatriculaDisciplina(matDisciplina);
+            limpaTela();
+            obter();
+            botao = "Incluir";
+            icone = "plus-circle";
+        }
     }
 
     public String cancelar() {
-//        limpaTela();
+        limpaTela();
         return "matriculaDisciplina.xhtml";
     }
 
-    public void editar(MatriculaCurso mc) {
+    public void editar(MatriculaDisciplina matDisciplina) {
+        conceito = matDisciplina.getConceito();
+        semestre = matDisciplina.getSemestre();
+        ano = matDisciplina.getAno();
+        situacao = matDisciplina.getSituacao();
+        fk_Disciplina_codigo = matDisciplina.getFk_Disciplina_codigo();
+        fk_Aluno_cpf = matDisciplina.getFk_Aluno_cpf();
 
+        setBoxCurso();
+        readonly = true;
         botao = "Alterar";
         icone = "fa-refresh";
     }
 
-    public void remover(MatriculaCurso matcurso) {
-        MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
-        matCursoDAO.removerMatriculaCurso(matcurso);
+    public void remover(MatriculaDisciplina matDisciplina) {
+        new MatriculaDisciplinaDAO().removerMatriculaDisciplina(matDisciplina);
         obter();
     }
 
@@ -165,11 +179,22 @@ public class MatriculaDisciplinaBean {
         }
     }
 
+    private void setListaDisciplina() {
+        ListaDisciplina = new LinkedHashMap<>();
+
+        disciplina = new DisciplinaDAO().obterDisciplina();
+
+        for (Disciplina disc : disciplina) {
+            ListaDisciplina.put("D", "Selecione uma Disciplina");
+            ListaDisciplina.put(disc.getCodigo(), disc.getNome());
+        }
+    }
+
+    //Getters e Seters
     public int getFk_Curso_cod() {
         return fk_Curso_cod;
     }
 
-    //Getters e Seters
     public void setFk_Curso_cod(int fk_Curso_cod) {
         this.fk_Curso_cod = fk_Curso_cod;
     }
@@ -278,6 +303,14 @@ public class MatriculaDisciplinaBean {
         this.ItensBoxDisciplina = ItensBoxDisciplina;
     }
 
+    public Map<String, String> getListaDisciplina() {
+        return ListaDisciplina;
+    }
+
+    public void setListaDisciplina(Map<String, String> ListaDisciplina) {
+        this.ListaDisciplina = ListaDisciplina;
+    }
+
     public String getBotao() {
         return botao;
     }
@@ -294,4 +327,11 @@ public class MatriculaDisciplinaBean {
         this.icone = icone;
     }
 
+    public boolean isReadonly() {
+        return readonly;
+    }
+
+    public void setReadonly(boolean readonly) {
+        this.readonly = readonly;
+    }
 }
