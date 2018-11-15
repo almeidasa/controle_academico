@@ -1,7 +1,6 @@
 package controller;
 
 import DAO.AlunoDAO;
-import DAO.CursoDAO;
 import DAO.MatriculaCursoDAO;
 import DAO.MatriculaDisciplinaDAO;
 import Util.Formatar;
@@ -31,17 +30,18 @@ public class MatriculaDisciplinaBean {
     private int fk_Curso_cod;
 
     private ArrayList<MatriculaDisciplina> matriculaDisciplina;
-    private ArrayList<Aluno> alunos;
-    private ArrayList<Curso> curso;
     private Map<String, String> ItensBoxAlunos;
-    private Map<Integer, String> ItensBoxDisciplina;
+    private Map<Integer, String> ItensBoxDisciplina;    
+    private ArrayList<Aluno> alunos;
+    private ArrayList<MatriculaCurso> matCurso;
+
 
     private String botao = "Incluir";
     private String icone = "plus-circle";
 
     public MatriculaDisciplinaBean() {
         this.alunos = new ArrayList<>();
-        this.curso = new ArrayList<>();
+        this.matCurso = new ArrayList<>();
         this.matriculaDisciplina = new ArrayList<>();
         obter();
         setBoxAlunos();
@@ -136,7 +136,9 @@ public class MatriculaDisciplinaBean {
         if(fk_Aluno.equals("A")){
             ItensBoxDisciplina.put(0, "Selecione um Aluno");
         } else {
-            new MatriculaCursoDAO().obterCursoDoAluno(fk_Aluno);
+            matCurso = new MatriculaCursoDAO().obterCursoDoAluno(fk_Aluno);
+            
+            
         }
 
         for (Curso cursos : curso) {
@@ -212,13 +214,15 @@ public class MatriculaDisciplinaBean {
         this.alunos = alunos;
     }
 
-    public ArrayList<Curso> getCurso() {
-        return curso;
+    public ArrayList<MatriculaCurso> getMatCurso() {
+        return matCurso;
     }
 
-    public void setCurso(ArrayList<Curso> curso) {
-        this.curso = curso;
+    public void setMatCurso(ArrayList<MatriculaCurso> matCurso) {
+        this.matCurso = matCurso;
     }
+
+
 
     public Map<String, String> getItensBoxAlunos() {
         return ItensBoxAlunos;
@@ -228,13 +232,15 @@ public class MatriculaDisciplinaBean {
         this.ItensBoxAlunos = ItensBoxAlunos;
     }
 
-    public Map<Integer, String> getItensBoxCurso() {
-        return ItensBoxCurso;
+    public Map<Integer, String> getItensBoxDisciplina() {
+        return ItensBoxDisciplina;
     }
 
-    public void setItensBoxCurso(Map<Integer, String> ItensBoxCurso) {
-        this.ItensBoxCurso = ItensBoxCurso;
+    public void setItensBoxDisciplina(Map<Integer, String> ItensBoxDisciplina) {
+        this.ItensBoxDisciplina = ItensBoxDisciplina;
     }
+
+
 
     public String getBotao() {
         return botao;

@@ -69,7 +69,7 @@ public class MatriculaCursoDAO {
         
         ArrayList<MatriculaCurso> matcurso = new ArrayList<>();
         
-        String SQL = "SELECT fk_curso_cod FROM matriculacurso WHERE fk_aluno_cpf = '" + cpf + "'";
+        String SQL = "SELECT * FROM matriculacurso WHERE fk_aluno_cpf = '" + cpf + "'";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             try (ResultSet rs = pstm.executeQuery()) {
