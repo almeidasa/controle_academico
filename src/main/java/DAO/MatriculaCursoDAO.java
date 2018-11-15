@@ -65,34 +65,6 @@ public class MatriculaCursoDAO {
         return matcurso;
     }
 
-    public ArrayList<MatriculaCurso> obterCursoDoAluno(String cpf) {
-        
-        ArrayList<MatriculaCurso> matcurso = new ArrayList<>();
-        
-        String SQL = "SELECT * FROM matriculacurso WHERE fk_aluno_cpf = '" + cpf + "'";
-        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-
-            try (ResultSet rs = pstm.executeQuery()) {
-                while (rs.next()) {
-                    MatriculaCurso mat = new MatriculaCurso(
-                            rs.getInt("matricula"),
-                            rs.getString("situacao"),
-                            Formatar.data(rs.getDate("data_inicio"), "dd/MM/yyyy"),
-                            rs.getString("duracao_curso"),
-                            rs.getString("fk_aluno_cpf"),
-                            rs.getInt("fk_curso_cod")
-                    );
-                    matcurso.add(mat);
-                }
-                pstm.close();
-            }
-            System.out.println("MatriculaCurso do aluno obtidas com sucesso!");
-        } catch (Exception ex) {
-            Exibir.Mensagem("Erro ao obter MatriculaCurso do aluno!: \n" + ex);
-        }
-        return matcurso;
-    }
-
     public void editarMatriculaCurso(MatriculaCurso mc) {
         String SQL = "UPDATE matriculacurso SET situacao = ?, data_inicio = ?, duracao_curso = ?, fk_aluno_cpf = ?, fk_curso_cod = ? WHERE matricula = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {

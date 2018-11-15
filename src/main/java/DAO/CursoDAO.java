@@ -28,7 +28,7 @@ public class CursoDAO {
             Exibir.Mensagem("Erro ao inserir curso: " + ex);
         }
     }
-    
+
     public ArrayList<Curso> obterCursos() {
 
         ArrayList<Curso> cursos = new ArrayList<>();
@@ -55,7 +55,27 @@ public class CursoDAO {
 
         return cursos;
     }
-    
+
+    public String obterNomeCurso(int cod) {
+        String nome = "";
+        String SQL = "SELECT nome_curso FROM curso WHERE cod = " + cod;
+        try {
+            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                nome = rs.getString("nome_curso");
+            }
+            pstm.close();
+            rs.close();
+            System.out.println("Nome do Curso obtido com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao nome do obter Curso!: \n" + ex);
+            return nome;
+        }
+        return nome;
+    }
+
     public void editarCurso(Curso c) {
         String SQL = "UPDATE curso SET cod = ?, nome_curso = ?, fk_Funcionario_id = ? WHERE cod = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {

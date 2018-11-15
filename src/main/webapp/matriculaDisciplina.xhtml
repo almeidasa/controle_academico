@@ -27,27 +27,31 @@
                 <b:panel title="Matricula Curso" collapsible="true" look="info" iconAwesome="sitemap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{matriculaDisciplinaBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
+                            <b:selectOneMenu value="#{matriculaDisciplinaBean.fk_Aluno_cpf}" label="Aluno" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
-                                <f:ajax event="change"  immediate="true" listener="#{matriculaDisciplinaBean.teste()}"/>
+                                <f:ajax event="change" immediate="false" render="boxcurso" listener="#{matriculaDisciplinaBean.obterBoxCurso()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu value="#{matriculaCursoBean.fk_Curso_cod}"  label="Disciplina" tiny-screen="half" required="true">
+                            <b:selectOneMenu id="boxcurso" value="#{matriculaDisciplinaBean.fk_Curso_cod}"  label="Curso" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change" immediate="false" render="boxdisciplina" listener="#{matriculaDisciplinaBean.obterBoxDisciplina()}"/>
+                            </b:selectOneMenu>
+                            <b:selectOneMenu id="boxdisciplina" value="#{matriculaDisciplinaBean.fk_Disciplina_codigo}"  label="Disciplina" tiny-screen="one-third" required="true">
+                                <f:selectItems value="#{matriculaDisciplinaBean.itensBoxDisciplina.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
                         <b:row>
-                            <b:inputText value="" label="Semestre" placeholder="Semestre" type="number"
+                            <b:inputText value="#{matriculaDisciplinaBean.semestre}" label="Semestre" placeholder="Semestre" mask="9{0,2}" 
                                          tiny-screen="one-fourth" />
-                            <b:inputText value="" label="Ano" placeholder="2018" mask="9{0,4}" 
+                            <b:inputText value="#{matriculaDisciplinaBean.ano}" label="Ano" placeholder="2018" mask="9{0,4}" 
                                          tiny-screen="one-fourth" required="true" />
-                            <b:selectOneMenu value="" tooltip="Deve ser preenchido ao concluir o semestre" label="Conceito" tiny-screen="one-fourth">
+                            <b:selectOneMenu value="#{matriculaDisciplinaBean.conceito}" tooltip="Deve ser preenchido ao concluir o semestre" label="Conceito" tiny-screen="one-fourth">
                                 <f:selectItem itemLabel="" itemValue="" />
                                 <f:selectItem itemLabel="Insuficiente" itemValue="Insuficiente" />
                                 <f:selectItem itemLabel="Suficiente" itemValue="Suficiente" />
                                 <f:selectItem itemLabel="Bom" itemValue="Bom" />
                                 <f:selectItem itemLabel="Ótimo" itemValue="Ótimo" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu immediate="true" onclick="#{matriculaDisciplinaBean.teste()}" value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
+                            <b:selectOneMenu value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
                                 <f:selectItem itemLabel="Cursando" itemValue="Em Andamento" />
                                 <f:selectItem  itemLabel="Concluído" itemValue="Concluída" />
                                 <f:selectItem itemLabel="Cancelado" itemValue="Cancelada" />
@@ -70,6 +74,7 @@
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
                                          class="table table-striped table-bordered"
+                                         value = "#{matriculaDisciplinaBean.matriculaDisciplina}"
                                          var="lista"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
