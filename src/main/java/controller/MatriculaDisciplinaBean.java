@@ -34,7 +34,7 @@ public class MatriculaDisciplinaBean {
     private ArrayList<Aluno> alunos;
     private ArrayList<Curso> curso;
     private Map<String, String> ItensBoxAlunos;
-    private Map<Integer, String> ItensBoxCurso;
+    private Map<Integer, String> ItensBoxDisciplina;
 
     private String botao = "Incluir";
     private String icone = "plus-circle";
@@ -45,7 +45,7 @@ public class MatriculaDisciplinaBean {
         this.matriculaDisciplina = new ArrayList<>();
         obter();
         setBoxAlunos();
-        setBoxCurso();
+        setBoxDisciplina();
     }
 
     public MatriculaDisciplinaBean(int matricula, String situacao, String data_inicio, String duracao_curso, String fk_Aluno, int fk_Curso_cod) {
@@ -73,6 +73,10 @@ public class MatriculaDisciplinaBean {
         System.out.println("Teste");
     }
 
+    public void teste(){
+        System.out.println(       );
+    }
+    
     public void add() {
         if (botao.equals("Incluir")) {
             MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
@@ -126,14 +130,18 @@ public class MatriculaDisciplinaBean {
         }
     }
 
-    private void setBoxCurso() {
-        ItensBoxCurso = new LinkedHashMap<>();
-        CursoDAO c = new CursoDAO();
-        curso = c.obterCursos();
+    private void setBoxDisciplina() {
+        ItensBoxDisciplina = new LinkedHashMap<>();
+        
+        if(fk_Aluno.equals("A")){
+            ItensBoxDisciplina.put(0, "Selecione um Aluno");
+        } else {
+            new MatriculaCursoDAO().obterCursoDoAluno(fk_Aluno);
+        }
 
         for (Curso cursos : curso) {
-            ItensBoxCurso.put(0, "Selecione um Curso");
-            ItensBoxCurso.put(cursos.getCod(), cursos.getNome_curso());
+            ItensBoxDisciplina.put(0, "Selecione um Curso");
+            ItensBoxDisciplina.put(cursos.getCod(), cursos.getNome_curso());
         }
     }
 

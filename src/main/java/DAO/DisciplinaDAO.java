@@ -35,8 +35,35 @@ public class DisciplinaDAO {
         ArrayList<Disciplina> disciplina = new ArrayList<>();
 
         String SQL = "SELECT * FROM disciplina ORDER BY codigo";
-        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)){
-            
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Disciplina disc = new Disciplina(
+                            rs.getString("codigo"),
+                            rs.getString("nome"),
+                            rs.getString("situacao"),
+                            rs.getInt("fk_curso_cod")
+                    );
+                    disciplina.add(disc);
+                }
+                pstm.close();
+            }
+            System.out.println("Disciplinas obtidos com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter Disciplinas!: \n" + ex);
+        }
+
+        return disciplina;
+    }
+
+    public ArrayList<Disciplina> obterDisciplinaPorCurso(int cod_curso) {
+
+        ArrayList<Disciplina> disciplina = new ArrayList<>();
+
+        String SQL = "SELECT * FROM disciplina WHERE fk_curso_cod = " + cod_curso + " ORDER BY codigo";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
                     Disciplina disc = new Disciplina(

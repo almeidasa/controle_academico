@@ -29,6 +29,7 @@
                         <b:row>
                             <b:selectOneMenu value="#{matriculaDisciplinaBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change"  immediate="true" listener="#{matriculaDisciplinaBean.teste()}"/>
                             </b:selectOneMenu>
                             <b:selectOneMenu value="#{matriculaCursoBean.fk_Curso_cod}"  label="Disciplina" tiny-screen="half" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
@@ -46,9 +47,9 @@
                                 <f:selectItem itemLabel="Bom" itemValue="Bom" />
                                 <f:selectItem itemLabel="Ótimo" itemValue="Ótimo" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu onchange="#{matriculaDisciplinaBean.teste()}" value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
+                            <b:selectOneMenu immediate="true" onclick="#{matriculaDisciplinaBean.teste()}" value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
                                 <f:selectItem itemLabel="Cursando" itemValue="Em Andamento" />
-                                <f:selectItem itemLabel="Concluído" itemValue="Concluída" />
+                                <f:selectItem  itemLabel="Concluído" itemValue="Concluída" />
                                 <f:selectItem itemLabel="Cancelado" itemValue="Cancelada" />
                             </b:selectOneMenu>
                         </b:row>
