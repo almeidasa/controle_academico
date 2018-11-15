@@ -3,11 +3,16 @@ package controller;
 import DAO.AlunoDAO;
 import DAO.CursoDAO;
 import DAO.MatriculaCursoDAO;
+import DAO.UsuariosDAO;
 import Util.Formatar;
+import Util.Gerar;
+import Util.JavaMailApp;
 import entities.Aluno;
 import entities.Curso;
 import entities.MatriculaCurso;
+import entities.Usuarios;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -68,14 +73,30 @@ public class MatriculaCursoBean {
         duracao_curso = "";
         fk_Curso_cod = 0;
         fk_Aluno = "A";
-        System.out.println("Teste");
+    }
+
+    public void criarUsuario(int mat_criada, String cpf) {
+        String senha = Gerar.Senha();
+        String email = new AlunoDAO().obterEmail(cpf);
+        Usuarios us = new Usuarios();
+        us.setLogin(Integer.toString(mat_criada));
+        us.setSenha(senha);
+        us.setTipo("Aluno");
+        us.setSituacao("true");
+        new UsuariosDAO().inserirUsuario(us);
+        new JavaMailApp().enviarEmail(email, senha);
     }
 
     public void add() {
         if (botao.equals("Incluir")) {
+            System.out.println("Incluir");
             MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
-            MatriculaCurso matCurso = new MatriculaCurso(Integer.parseInt(fk_Curso_cod + fk_Aluno.replace(".", "").replace("-", "").substring(0, 5)),
+            int mat_criada = Integer.parseInt(fk_Curso_cod + fk_Aluno.replace(".", "").replace("-", "").substring(0, 5));
+            MatriculaCurso matCurso = new MatriculaCurso(mat_criada,
                     situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
+
+            criarUsuario(mat_criada, fk_Aluno);
+            
             matCursoDAO.inserirMatriculaCurso(matCurso);
             limpaTela();
             obter();

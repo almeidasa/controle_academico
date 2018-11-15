@@ -85,6 +85,26 @@ public class AlunoDAO {
         return alunos;
     }
 
+    public String obterEmail(String cpf) {
+        String email="";
+        System.out.println(cpf);
+        String SQL = "SELECT email FROM aluno WHERE cpf = '" + cpf + "'";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    email = rs.getString("email");
+                }
+                pstm.close();
+            }
+            System.out.println("Email do aluno obtido com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter email do aluno!: \n" + ex);
+            return "";
+        }
+        return email;
+    }
+
     public void obterFoto(String cpf) {
         String SQL = "SELECT bin_foto FROM aluno WHERE cpf = (?)";
 
@@ -117,7 +137,7 @@ public class AlunoDAO {
         } else {
             SQL = "UPDATE aluno SET cpf = ?, nome = ?, data_nascimento = ?, sexo = ?, email = ?, endereco = ?, telefone = ? WHERE cpf = ?";
         }
-        
+
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, aluno.getCpf());
             pstm.setString(2, aluno.getNome());
@@ -131,7 +151,7 @@ public class AlunoDAO {
                 fis = new FileInputStream(file);
                 pstm.setBinaryStream(8, fis, (int) file.length());
                 pstm.setString(9, tempCpf);
-            }else{
+            } else {
                 pstm.setString(8, tempCpf);
             }
 
