@@ -12,7 +12,6 @@ import entities.Curso;
 import entities.MatriculaCurso;
 import entities.Usuarios;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;

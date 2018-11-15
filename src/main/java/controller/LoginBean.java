@@ -6,6 +6,7 @@ import Util.Gerar;
 import Util.JavaMailApp;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  * @Autor Winder Rezende
@@ -22,9 +23,9 @@ public class LoginBean {
     private String novaSenhaConf;
     private String email;
     private boolean sessao = false;
-    public int cont=0;
+    public int cont = 0;
     private String tipoUsr;
-    
+
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
 
@@ -33,7 +34,7 @@ public class LoginBean {
             login.obterLogin(this);
             senha = null;
             return "index";
-        } else if(cont != 3) {
+        } else if (cont != 3) {
             senha = null;
             cont++;
             sessao = false;
@@ -45,7 +46,7 @@ public class LoginBean {
             return "recuperar";
         }
     }
-    
+
     public String soliictarSenha() {
         UsuariosDAO login = new UsuariosDAO();
 
@@ -67,6 +68,8 @@ public class LoginBean {
     public String logOff() {
         sessao = false;
         senha = null;
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "login";
     }
 
@@ -101,7 +104,7 @@ public class LoginBean {
             return "alterar";
         }
     }
-    
+
     public String recuperarSenha() {
         sessao = false;
         senha = null;

@@ -173,7 +173,6 @@ public class UsuariosDAO {
 
     public void obterLogin(LoginBean login) {
 
-        String UsrAtivo = "";
         String SQL = "SELECT login, tipo FROM usuarios WHERE UPPER(login) = UPPER(?)";
 
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
@@ -191,7 +190,6 @@ public class UsuariosDAO {
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao Obter Login do Banco de Dados!: \n" + ex);
         }
-        System.out.println(UsrAtivo);
     }
 
     public void alterarSenha(String login, String novaSenha) {
