@@ -23,23 +23,25 @@ public class LoginBean {
     private String email;
     private boolean sessao = false;
     public int cont=0;
-    private String tipoUsr = "B";
+    private String tipoUsr;
     
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
 
         if (login.verificaUsuarioSenha(usuario, senha)) {
             sessao = true;
-            nomeUsr = login.obterLogin(usuario);
+            login.obterLogin(this);
             senha = null;
             return "index";
         } else if(cont != 3) {
             senha = null;
             cont++;
+            sessao = false;
             return "login";
         } else {
             senha = null;
             cont = 0;
+            sessao = false;
             return "recuperar";
         }
     }

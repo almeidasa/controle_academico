@@ -42,7 +42,6 @@ public class UsuarioBean {
     
     private void obter(){
         usuarios = usrDao.obterUsuarios();
-        System.out.println(situacao);
     }
     
     public void add(){
