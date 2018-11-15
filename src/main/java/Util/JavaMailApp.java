@@ -4,7 +4,6 @@ package Util;
  * @Data: 27/04/2018
  * @Autor: m159255
  */
-import controller.LoginBean;
 import java.util.Properties;
 import javax.mail.Address;
 import javax.mail.Message;

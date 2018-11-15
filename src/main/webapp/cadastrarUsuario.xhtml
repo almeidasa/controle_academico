@@ -40,7 +40,7 @@
                                 <f:selectItem itemLabel="Professor" itemValue="Professor" />
                                 <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
                             </b:selectOneMenu>
-                            <b:switch value="#{usuarioBean.situacao}" label="Situação" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo" tiny-screen="one-fourth"/>
+                            <b:switch value="#{usuarioBean.situacao}" readonly="#{usuarioBean.tipo.equalsIgnoreCase('Administrador')}" label="Situação" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo" tiny-screen="one-fourth"/>
                         </b:row>
                         <b:row>
                             <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 

@@ -23,6 +23,7 @@ public class LoginBean {
     private String email;
     private boolean sessao = false;
     public int cont=0;
+    private String tipoUsr = "B";
     
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
@@ -160,5 +161,13 @@ public class LoginBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTipoUsr() {
+        return tipoUsr;
+    }
+
+    public void setTipoUsr(String tipoUsr) {
+        this.tipoUsr = tipoUsr;
     }
 }

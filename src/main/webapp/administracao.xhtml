@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Inicio</title>
+        <link rel="shortcut icon" href="resources/img/home.png"/>
+        <link rel="StyleSheet" type="text/css" href="resources/css/cadastrarUsuario.css" media="screen" />
+
+        <script language="JavaScript">
+            if (!#{loginBean.sessao}) {
+                window.location.href = "/controle_academico/index.xhtml";
+            }
+            if (!#{loginBean.tipoUsr == 'Administrador'}) {
+                window.location.href = "/controle_academico/index.xhtml";
+            }
+        </script>        
+    </h:head>
+    <h:body>
+        <div id="header">
+            <ui:insert name="templateAdmin" >
+                <ui:include src="/templates/templateAdmin.xhtml" />
+            </ui:insert>
+        </div>
+        <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
+            <div>
+                <b:panel title="Administração do Sistema" collapsible="true" look="primary" iconAwesome="user-secret" icon-size="lg" >
+                    <b:form>
+                        <b:row>
+                            
+                            <b:selectOneMenu value="#{usuarioBean.tipo}" label="Tipo" tiny-screen="one-fourth">
+                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                                <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
+                                <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
+                                <f:selectItem itemLabel="Professor" itemValue="Professor" />
+                                <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
+                            </b:selectOneMenu>
+                            <b:switch value="#{usuarioBean.situacao}" readonly="#{usuarioBean.tipo.equalsIgnoreCase('Administrador')}" label="Situação" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo" tiny-screen="one-fourth"/>
+                        </b:row>
+                        <b:row>
+                            <b:commandButton iconAwesome="save" icon-size="lg" value="Salvar Permissões" class="btn btn-lg btnIncluir" 
+                                             title="Incluir Usuário" look="success" action="#{usuarioBean.add()}" rendered="#{!usuarioBean.editar}"/>
+                            <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
+                                             title="Cancelar" look="danger" action="#{usuarioBean.cancelar()}" immediate="true"/>
+                        </b:row>
+                    </b:form>
+                    <b:messages/>
+                </b:panel>
+            </div>
+        </b:column>
+    </h:body>
+</html>
+

@@ -44,19 +44,20 @@
 
             </b:navbarLinks>
             <b:navbarLinks pull="right">
-                <b:dropMenu value="#{loginBean.nomeUsr}" icon-awesome="user" >
+                <b:dropMenu value="#{loginBean.nomeUsr}" icon-awesome="user" icon-size="lg">
                     <h:form style="margin-left: 20px">
                         <b:navLink href="/controle_academico/alterar.xhtml" value="Alterar Senha" icon-awesome="key"/>
                         <b:navCommandLink action="#{loginBean.logOff()}" value="Sair" icon-awesome="sign-out"/>
                     </h:form>
                 </b:dropMenu>
-                <b:dropMenu value="Ajuda" icon-awesome="question-circle" >
+                 <b:navLink href="/controle_academico/administracao.xhtml" value="Administração" iconAwesome="user-secret" icon-size="lg"/>
+                <b:dropMenu value="Ajuda" icon-awesome="question-circle" icon-size="lg">
                     <b:button value="Sobre" look="link" p:data-target="#amodal" p:data-toggle="modal" icon-awesome="file-code-o" style="color: #0033cc"/>
                 </b:dropMenu>
             </b:navbarLinks>
         </b:navBar>
         <b:modal id="amodal" title="Sobre" styleClass="modalPseudoClass">
-            <p>SHAA - SISTEMA DE HISTÓRICO ACADÊMICO DE ALUNOS - v0.11</p>
+            <p>SHAA - SISTEMA DE HISTÓRICO ACADÊMICO DE ALUNOS - v0.4</p>
             <p>SENAC GO - Programação para Internet GTI IV – 2018.</p>
             <p>Desenvolvido por: WAAL Software > Alexandre Almeida - Winder Rezende - Lucio Torres.</p>
             <p>© Todos os Direitos Reservados.</p>
