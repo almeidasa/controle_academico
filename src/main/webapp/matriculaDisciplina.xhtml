@@ -27,11 +27,11 @@
                 <b:panel title="Matricula Curso" collapsible="true" look="info" iconAwesome="sitemap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{matriculaCursoBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
-                                <f:selectItems value="#{matriculaCursoBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                            <b:selectOneMenu value="#{matriculaDisciplinaBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
+                                <f:selectItems value="#{matriculaDisciplinaBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                             <b:selectOneMenu value="#{matriculaCursoBean.fk_Curso_cod}"  label="Disciplina" tiny-screen="half" required="true">
-                                <f:selectItems value="#{matriculaCursoBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:selectItems value="#{matriculaDisciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
                         <b:row>
@@ -46,7 +46,7 @@
                                 <f:selectItem itemLabel="Bom" itemValue="Bom" />
                                 <f:selectItem itemLabel="Ótimo" itemValue="Ótimo" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu onchange="#{matriculaCursoBean.teste()}" value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
+                            <b:selectOneMenu onchange="#{matriculaDisciplinaBean.teste()}" value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
                                 <f:selectItem itemLabel="Cursando" itemValue="Em Andamento" />
                                 <f:selectItem itemLabel="Concluído" itemValue="Concluída" />
                                 <f:selectItem itemLabel="Cancelado" itemValue="Cancelada" />
@@ -54,10 +54,10 @@
                         </b:row>
                         <!--Divisão de painéis-->
                         <b:row>
-                            <b:commandButton iconAwesome="#{matriculaCursoBean.icone}" icon-size="lg" value="#{matriculaCursoBean.botao}" class="btn btn-lg btnIncluir" 
-                                             title="#{matriculaCursoBean.botao}" look="success" action="#{matriculaCursoBean.add()}"/>   
+                            <b:commandButton iconAwesome="#{matriculaDisciplinaBean.icone}" icon-size="lg" value="#{matriculaDisciplinaBean.botao}" class="btn btn-lg btnIncluir" 
+                                             title="#{matriculaDisciplinaBean.botao}" look="success" action="#{matriculaDisciplinaBean.add()}"/>   
                             <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
-                                             title="Cancelar" look="danger" action="#{matriculaCursoBean.cancelar()}" immediate="true"/>
+                                             title="Cancelar" look="danger" action="#{matriculaDisciplinaBean.cancelar()}" immediate="true"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
@@ -68,24 +68,23 @@
                     <b:form>
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
-                                         class="table table-striped table-bordered" 
-                                         value = "#{matriculaCursoBean.matriculaCurso}"
+                                         class="table table-striped table-bordered"
                                          var="lista"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
                                 <b:dataTableColumn value="#{lista.matricula}" label="Matricula"/>
-                                <b:dataTableColumn value="#{matriculaCursoBean.itensBoxAlunos.get(lista.fk_Aluno)}" label="Aluno"/>
-                                <b:dataTableColumn value="#{matriculaCursoBean.itensBoxCurso.get(lista.fk_Curso_cod)}" label="Curso"/>
+                                <b:dataTableColumn value="#{matriculaDisciplinaBean.itensBoxAlunos.get(lista.fk_Aluno)}" label="Aluno"/>
+                                <b:dataTableColumn value="#{matriculaDisciplinaBean.itensBoxCurso.get(lista.fk_Curso_cod)}" label="Curso"/>
                                 <b:dataTableColumn value="#{lista.data_inicio}" label="Data de Início"/>
                                 <b:dataTableColumn value="#{lista.duracao_curso}" label="Duração Semestres"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
-                                                         title="Remover Item" look="danger"   action="#{matriculaCursoBean.remover(lista)}"/>
+                                                         title="Remover Item" look="danger"   action="#{matriculaDisciplinaBean.remover(lista)}"/>
                                         <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
-                                                         title="Editar Item" look="info"  action="#{matriculaCursoBean.editar(lista)}" />
+                                                         title="Editar Item" look="info"  action="#{matriculaDisciplinaBean.editar(lista)}" />
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>
