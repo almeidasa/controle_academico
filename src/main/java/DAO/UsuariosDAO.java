@@ -2,6 +2,7 @@ package DAO;
 
 import Util.Exibir;
 import Util.Formatar;
+import controller.LoginBean;
 import entities.Usuarios;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -170,27 +171,27 @@ public class UsuariosDAO {
         return result;
     }
 
-    public String obterLogin(String login) {
+    public void obterLogin(LoginBean login) {
 
         String UsrAtivo = "";
-        String SQL = "SELECT login FROM usuarios WHERE UPPER(login) = UPPER(?)";
+        String SQL = "SELECT login, tipo FROM usuarios WHERE UPPER(login) = UPPER(?)";
 
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-            pstm.setString(1, login);
+            pstm.setString(1, login.getUsuario());
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
-                    UsrAtivo = rs.getString("login");
+                    login.setNomeUsr(rs.getString("login"));
+                    login.setTipoUsr(rs.getString("tipo"));
                 }
 
                 pstm.close();
                 BD.getConexao().close();
             }
-            System.out.println("Consulta Realizada na Tabela Usuario!");
+            System.out.println("Login obtidos com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao Obter Login do Banco de Dados!: \n" + ex);
         }
         System.out.println(UsrAtivo);
-        return UsrAtivo;
     }
 
     public void alterarSenha(String login, String novaSenha) {

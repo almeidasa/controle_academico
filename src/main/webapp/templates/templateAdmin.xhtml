@@ -50,7 +50,8 @@
                         <b:navCommandLink action="#{loginBean.logOff()}" value="Sair" icon-awesome="sign-out"/>
                     </h:form>
                 </b:dropMenu>
-                 <b:navLink href="/controle_academico/administracao.xhtml" value="Administração" iconAwesome="user-secret" icon-size="lg"/>
+                <b:navLink href="/controle_academico/administracao.xhtml" value="Administração" iconAwesome="user-secret" 
+                           icon-size="lg" rendered="#{loginBean.tipoUsr.equalsIgnoreCase('Administrador')}"/>
                 <b:dropMenu value="Ajuda" icon-awesome="question-circle" icon-size="lg">
                     <b:button value="Sobre" look="link" p:data-target="#amodal" p:data-toggle="modal" icon-awesome="file-code-o" style="color: #0033cc"/>
                 </b:dropMenu>
