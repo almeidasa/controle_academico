@@ -141,10 +141,10 @@ public class MatriculaDisciplinaBean {
             
         }
 
-        for (Curso cursos : curso) {
-            ItensBoxDisciplina.put(0, "Selecione um Curso");
-            ItensBoxDisciplina.put(cursos.getCod(), cursos.getNome_curso());
-        }
+//        for (Curso cursos : curso) {
+//            ItensBoxDisciplina.put(0, "Selecione um Curso");
+//            ItensBoxDisciplina.put(cursos.getCod(), cursos.getNome_curso());
+//        }
     }
 
     //Getters e Seters
