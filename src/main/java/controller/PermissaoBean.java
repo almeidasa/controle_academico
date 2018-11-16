@@ -6,22 +6,25 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  * @Autor Winder Rezende
  * @Data 15/11/2018, 15:31:40
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PermissaoBean {
 
     private String nomeNovaPerm;
+    private String nomePermAnterior;
     private String nome;
     private boolean admin;
     private boolean diret;
     private boolean coord;
     private boolean func;
     private boolean aluno;
+    private boolean editar;
     PermissaoDAO perm;
     private ArrayList<PermissaoBean> permissoes;
     private Map<String, Boolean> permissao;
@@ -35,50 +38,51 @@ public class PermissaoBean {
 
     public void add() {
         perm.inserirPermissao(nomeNovaPerm);
-    }
-
-    public void teste(PermissaoBean p) {
-        System.out.println("admin" + ": " + p.nome + " - " + p.admin);
-        if (p.isAdmin()) {
-            //perm.alterarPermissao("admin", p.admin, p.nome);
-            System.out.println("admin" + ": " + p.nome + " - " + p.admin);
-        }
-        else if(p.isDiret()){
-            //perm.alterarPermissao("diret", p.admin, p.nome);
-            System.out.println("diret" + ": " + p.nome + " - " + p.admin);
-        }
-        else if(p.isCoord()){
-            //perm.alterarPermissao("coord", p.admin, p.nome);
-            System.out.println("coord" + ": " + p.nome + " - " + p.admin);
-        }
-        else if(p.isFunc()){
-            //perm.alterarPermissao("func", p.admin, p.nome);
-            System.out.println("prof" + ": " + p.nome + " - " + p.admin);
-        }
-        else if(p.isAluno()){
-            //perm.alterarPermissao("aluno", p.admin, p.nome);
-            System.out.println("func" + ": " + p.nome + " - " + p.admin);
-        }
+        obter();
     }
     
-    public void alterarPermAdmin() {
-        perm.inserirPermissao(nomeNovaPerm);
+    public String cancelar(){
+        nomeNovaPerm = null;
+        editar = false;
+        return ("administracao");
     }
     
-    public void alterarPermDiret() {
-        perm.inserirPermissao(nomeNovaPerm);
+    public void iniciaEditar(PermissaoBean p) {
+        nomePermAnterior = p.nome;
+        editar = true;
+        nomeNovaPerm = p.nome;
     }
     
-    public void alterarPermCoord() {
-        perm.inserirPermissao(nomeNovaPerm);
+    public void alterar(){
+        perm.alterarPermissao(nomeNovaPerm, nomePermAnterior);
+        editar = false;
+        obter();
+        cancelar();
     }
     
-    public void alterarPermFunc() {
-        perm.inserirPermissao(nomeNovaPerm);
+    public void remover(PermissaoBean p) {
+        perm.apagarPermissao(p.nome);
+        obter();
     }
     
-    public void alterarPermAluno() {
-        perm.inserirPermissao(nomeNovaPerm);
+    public void alterarPermAdmin(PermissaoBean p) {
+        perm.alterarPermissaoUsr("admin", p.admin, p.nome);
+    }
+    
+    public void alterarPermDiret(PermissaoBean p) {
+        perm.alterarPermissaoUsr("diret", p.diret, p.nome);
+    }
+    
+    public void alterarPermCoord(PermissaoBean p) {
+        perm.alterarPermissaoUsr("coord", p.coord, p.nome);
+    }
+    
+    public void alterarPermFunc(PermissaoBean p) {
+        perm.alterarPermissaoUsr("func", p.func, p.nome);
+    }
+    
+    public void alterarPermAluno(PermissaoBean p) {
+        perm.alterarPermissaoUsr("aluno", p.aluno, p.nome);
     }
 
     public PermissaoBean(String nome, boolean admin, boolean diret, boolean coord, boolean func, boolean aluno) {
@@ -173,5 +177,21 @@ public class PermissaoBean {
 
     public void setPermissao(Map<String, Boolean> permissao) {
         this.permissao = permissao;
+    }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+
+    public String getNomePermAnterior() {
+        return nomePermAnterior;
+    }
+
+    public void setNomePermAnterior(String nomePermAnterior) {
+        this.nomePermAnterior = nomePermAnterior;
     }
 }

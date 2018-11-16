@@ -21,9 +21,9 @@ public class PermissaoDAO {
 
             BD.getConexao().close();
             pstm.close();
-            System.out.println("Inserido com sucesso!");
+            System.out.println("Permissão inserida com sucesso!");
         } catch (Exception ex) {
-            Exibir.Mensagem("Erro ao inserir usuário: " + ex);
+            Exibir.Mensagem("Erro ao inserir Permissão: " + ex);
         }
     }
 
@@ -31,7 +31,7 @@ public class PermissaoDAO {
 
         ArrayList<PermissaoBean> permissoes = new ArrayList<>();
 
-        String SQL = "SELECT * FROM permissao";
+        String SQL = "SELECT * FROM permissao ORDER BY nome";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             try (ResultSet rs = pstm.executeQuery()) {
@@ -50,12 +50,29 @@ public class PermissaoDAO {
             }
             System.out.println("Permissões obtidas com sucesso!");
         } catch (Exception ex) {
-            Exibir.Mensagem("Erro ao obter usuários!: \n" + ex);
+            Exibir.Mensagem("Erro ao obter Permissões!: \n" + ex);
         }
         return permissoes;
     }
+    
+    public void alterarPermissao(String nomeAcesso, String omeAcessAnterior) {
 
-    public void alterarPermissao(String usr, boolean situacao, String nomeAcesso) {
+        String SQL = "UPDATE permissao SET nome = ? WHERE nome = ?";
+        System.out.println(SQL);
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, nomeAcesso);
+            pstm.setString(2, omeAcessAnterior);
+            pstm.executeUpdate();
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Permissão Alterada!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Alterar Permissão!:\n" + ex);
+        }
+    }
+
+    public void alterarPermissaoUsr(String usr, boolean situacao, String nomeAcesso) {
 
         String SQL = "UPDATE permissao SET " + usr + " = ? WHERE nome = ?";
         System.out.println(SQL);
@@ -68,7 +85,22 @@ public class PermissaoDAO {
             BD.getConexao().close();
             System.out.println("Permissão Alterada!");
         } catch (Exception ex) {
-            Exibir.Mensagem("Erro ao Alterar Usuário!:\n" + ex);
+            Exibir.Mensagem("Erro ao Alterar Permissão!:\n" + ex);
+        }
+    }
+    
+    public void apagarPermissao(String nomeAcesso) {
+
+        String SQL = "DELETE FROM permissao WHERE nome = (?)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, nomeAcesso);
+            pstm.executeUpdate();
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Permissão Apagada! ");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Apagar Permissão!:\n" + ex);
         }
     }
 }

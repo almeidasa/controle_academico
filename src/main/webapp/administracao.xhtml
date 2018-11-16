@@ -33,11 +33,11 @@
                             <b:inputText value="#{permissaoBean.nomeNovaPerm}" label="Cadastrar Permissão" placeholder="Digite nome da permissão" type="text" 
                                          tiny-screen="one-fourth" required="true" />
                             <b:commandButton iconAwesome="plus-circle" icon-size="lg" value="Incluir" class="btn btn-lg btnIncluir" 
-                                             title="Incluir Usuário" look="success" action="#{permissaoBean.add()}" rendered="#{!usuarioBean.editar}"/> 
+                                             title="Incluir Usuário" look="success" action="#{permissaoBean.add()}" rendered="#{!permissaoBean.editar}"/> 
                             <b:commandButton iconAwesome="refresh" icon-size="lg" value="Alterar" class="btn btn-lg btnIncluir" 
-                                             title="Alterar" look="info" action="#{usuarioBean.alterar()}" rendered="#{usuarioBean.editar}"/>
+                                             title="Alterar" look="info" action="#{permissaoBean.alterar()}" rendered="#{permissaoBean.editar}"/>
                             <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
-                                             title="Cancelar" look="danger" action="#{permissaoBean.teste()}" immediate="true"/>
+                                             title="Cancelar" look="danger" action="#{permissaoBean.cancelar()}" immediate="true"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
@@ -57,35 +57,35 @@
                                 <b:dataTableColumn value="#{lista.nome}" label="Nome"/>
                                 <b:dataTableColumn  label="Administrador">
                                     <b:switch value="#{lista.admin}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
-                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                        <f:ajax listener="#{permissaoBean.alterarPermAdmin(lista)}"/>
                                     </b:switch>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn  label="Diretor">
                                     <b:switch value="#{lista.diret}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
-                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                        <f:ajax listener="#{permissaoBean.alterarPermDiret(lista)}"/>
                                     </b:switch>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn  label="Coordenador">
                                     <b:switch value="#{lista.coord}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
-                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                        <f:ajax listener="#{permissaoBean.alterarPermCoord(lista)}"/>
                                     </b:switch>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn  label="Funcionário">
                                     <b:switch value="#{lista.func}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
-                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                        <f:ajax listener="#{permissaoBean.alterarPermFunc(lista)}"/>
                                     </b:switch>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn  label="Aluno">
                                     <b:switch value="#{lista.aluno}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
-                                        <f:ajax listener="#{permissaoBean.teste(lista)}"/>
+                                        <f:ajax listener="#{permissaoBean.alterarPermAluno(lista)}"/>
                                     </b:switch>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
-                                                         title="Remover Usuário" look="danger"  action="#{usuarioBean.remover(lista)}"/>
+                                                         title="Remover Usuário" look="danger"  action="#{permissaoBean.remover(lista)}"/>
                                         <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
-                                                         title="Editar Usuário" look="info"  action="#{permissaoBean.teste()}"/>
+                                                         title="Editar Usuário" look="info"  action="#{permissaoBean.iniciaEditar(lista)}"/>
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>
