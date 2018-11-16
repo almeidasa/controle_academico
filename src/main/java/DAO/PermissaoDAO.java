@@ -80,9 +80,6 @@ public class PermissaoDAO {
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             try (ResultSet rs = pstm.executeQuery()) {
-                if (!rs.next()) {
-                    inserirPermissoesPadrao();
-                }
                 while (rs.next()) {
                     PermissaoBean perm = new PermissaoBean(
                             rs.getString("nome"),
@@ -93,6 +90,9 @@ public class PermissaoDAO {
                             rs.getBoolean("aluno")
                     );
                     permissoes.add(perm);
+                    if (rs.getString("nome") == null) {
+                        inserirPermissoesPadrao();
+                    }
                 }
 
                 pstm.close();
