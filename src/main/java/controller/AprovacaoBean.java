@@ -29,6 +29,7 @@ public class AprovacaoBean {
     private String situacao;
     private String conceito;
     private int fk_Curso_cod;
+    private String fk_Disciplina_codigo;
 
     private Map<String, String> ItensBoxAlunos;
     private Map<Integer, String> ItensBoxCurso;
@@ -48,12 +49,30 @@ public class AprovacaoBean {
         this.curso = new ArrayList<>();
 
         setBoxCurso();
+        setBoxDisciplina();
+        setBoxAlunos();
+    }
+
+    public AprovacaoBean(boolean conceito_readonly, String situacao, String conceito, int fk_Curso_cod, String fk_Disciplina_codigo) {
+        this.conceito_readonly = conceito_readonly;
+        this.situacao = situacao;
+        this.conceito = conceito;
+        this.fk_Curso_cod = fk_Curso_cod;
+        this.fk_Disciplina_codigo = fk_Disciplina_codigo;
+    }
+
+    public String limpar() {
+        return "aprovacao.xhtml";
+    }
+
+    public void buscar() {
+        obter();
     }
 
     private void obter() {
         matriculaDisciplina.clear();
         MatriculaDisciplinaDAO matDisciplinaDAO = new MatriculaDisciplinaDAO();
-        matriculaDisciplina = matDisciplinaDAO.obterMatriculaDisciplina();
+        matriculaDisciplina = matDisciplinaDAO.obterMatriculaPorDisciplina(fk_Disciplina_codigo);
     }
 
     private void setBoxAlunos() {
@@ -62,7 +81,6 @@ public class AprovacaoBean {
         alunos = al.obterAlunos();
 
         for (Aluno aluno : alunos) {
-            ItensBoxAlunos.put("", "Selecione o Aluno");
             ItensBoxAlunos.put(aluno.getCpf(), aluno.getNome());
         }
     }
@@ -78,9 +96,11 @@ public class AprovacaoBean {
     private void setBoxCurso() {
         try {
             ItensBoxCurso = new LinkedHashMap<>();
-            System.out.println("tipo " + LoginBean.tipo);
-            curso = new CursoDAO().obterCursosPorCoordenador(new FuncionarioDAO().obterFuncionarioPorUsuario(LoginBean.id_logado));
-            ItensBoxCurso.clear();
+            if (LoginBean.tipo.equals("Administrador")) {
+                curso = new CursoDAO().obterCursos();
+            } else {
+                curso = new CursoDAO().obterCursosPorCoordenador(new FuncionarioDAO().obterFuncionarioPorUsuario(LoginBean.id_logado));
+            }
             for (Curso c : curso) {
                 ItensBoxCurso.put(0, "Selecione um Curso");
                 ItensBoxCurso.put(c.getCod(), c.getNome_curso());
@@ -93,17 +113,26 @@ public class AprovacaoBean {
     private void setBoxDisciplina() {
         ItensBoxDisciplina = new LinkedHashMap<>();
         disciplina = new DisciplinaDAO().obterDisciplina();
-        ItensBoxDisciplina.clear();
         for (Disciplina disc : disciplina) {
             ItensBoxDisciplina.put("", "Selecione uma Disciplina");
             if (disc.getFk_Curso_cod() == fk_Curso_cod) {
-
                 ItensBoxDisciplina.put(disc.getCodigo(), disc.getNome());
-
-                ItensBoxDisciplina.remove(disc.getCodigo());
-
             }
         }
+    }
+
+    public void alteraSituacao(MatriculaDisciplina m) {
+        conceito_readonly = !m.getSituacao().equals("Concluida");
+
+    }
+
+    public String verificaConceito(MatriculaDisciplina m) {
+        return m.getConceito();
+    }
+
+    public boolean verificaSituacao(MatriculaDisciplina m) {
+        conceito_readonly = !m.getSituacao().equals("Concluida");
+        return conceito_readonly;
     }
 
     //getSeters
@@ -193,6 +222,14 @@ public class AprovacaoBean {
 
     public void setFk_Curso_cod(int fk_Curso_cod) {
         this.fk_Curso_cod = fk_Curso_cod;
+    }
+
+    public String getFk_Disciplina_codigo() {
+        return fk_Disciplina_codigo;
+    }
+
+    public void setFk_Disciplina_codigo(String fk_Disciplina_codigo) {
+        this.fk_Disciplina_codigo = fk_Disciplina_codigo;
     }
 
 }

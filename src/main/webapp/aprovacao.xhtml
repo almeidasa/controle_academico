@@ -31,16 +31,16 @@
                                 <f:selectItems value="#{aprovacaoBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                                 <f:ajax event="change" immediate="false" render="boxdisciplina" listener="#{aprovacaoBean.obterBoxDisciplina()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu id="boxdisciplina" value="#{matriculaDisciplinaBean.fk_Disciplina_codigo}" readonly="#{matriculaDisciplinaBean.readonly}" label="Disciplina" tiny-screen="one-third" required="true">
-                                <f:selectItems value="#{matriculaDisciplinaBean.itensBoxDisciplina.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                            <b:selectOneMenu id="boxdisciplina" value="#{aprovacaoBean.fk_Disciplina_codigo}" label="Disciplina" tiny-screen="one-third" required="true">
+                                <f:selectItems value="#{aprovacaoBean.itensBoxDisciplina.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
                         <!--Divisão de painéis-->
                         <b:row>
                             <b:commandButton iconAwesome="search" icon-size="lg" value="Buscar" class="btn btn-lg btnIncluir" 
-                                             title="#{matriculaDisciplinaBean.botao}" look="info" action="#{matriculaDisciplinaBean.add()}"/>   
+                                             title="Buscar" look="info" action="#{aprovacaoBean.buscar()}"/>   
                             <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
-                                             title="Cancelar" look="danger" action="#{matriculaDisciplinaBean.cancelar()}" immediate="true"/>
+                                             title="Cancelar" look="danger" action="#{aprovacaoBean.limpar()}" immediate="true"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
@@ -52,22 +52,22 @@
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
                                          class="table table-striped table-bordered"
-                                         value = "#{matriculaDisciplinaBean.matriculaDisciplina}"
+                                         value = "#{aprovacaoBean.matriculaDisciplina}"
                                          var="lista"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
-                                <b:dataTableColumn value="#{matriculaDisciplinaBean.itensBoxAlunos.get(lista.fk_Aluno_cpf)}" label="Aluno"/>
-                                <b:dataTableColumn value="#{matriculaDisciplinaBean.listaDisciplina.get(lista.fk_Disciplina_codigo)}" label="Disciplina"/>
+                                <b:dataTableColumn value="#{aprovacaoBean.itensBoxAlunos.get(lista.fk_Aluno_cpf)}" label="Aluno"/>
+                                <b:dataTableColumn value="#{aprovacaoBean.itensBoxDisciplina.get(lista.fk_Disciplina_codigo)}" label="Disciplina"/>
                                 <b:dataTableColumn value="#{lista.ano}" label="Ano"/>
                                 <b:dataTableColumn value="#{lista.semestre}" label="Semestre"/>
                                 <b:dataTableColumn style="width: 40px" label="Situação">
-                                    <b:switch tiny-screen="one-fourth" value="#{aprovacaoBean.conceito_readonly}" onColor="warning" offColor="success" on-text="Cursando" off-text="Concluído">
-                                        <f:ajax event="change" immediate="false" render="conceito"/>
+                                    <b:switch tiny-screen="one-fourth" value="#{aprovacaoBean.verificaSituacao(lista)}" onColor="warning" offColor="success" on-text="Cursando" off-text="Concluído">
+                                        <f:ajax event="change" immediate="false" render="conceito" execute="#{aprovacaoBean.alteraSituacao(lista)}"/>
                                     </b:switch>
                                 </b:dataTableColumn>                       
                                 <b:dataTableColumn label="Conceito" style="width: 170px">
-                                    <b:selectOneMenu id="conceito" readonly="#{aprovacaoBean.conceito_readonly}" value="" tiny-screen="one-third" required="true">
+                                    <b:selectOneMenu id="conceito" readonly="#{aprovacaoBean.conceito_readonly}" value="#{aprovacaoBean.verificaConceito(lista)}" tiny-screen="one-third" required="true">
                                         <f:selectItem itemLabel="Insuficiente" itemValue="Insuficiente" />
                                         <f:selectItem itemLabel="Suficiente" itemValue="Suficiente" />
                                         <f:selectItem itemLabel="Bom" itemValue="Bom" />

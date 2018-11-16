@@ -61,6 +61,35 @@ public class MatriculaDisciplinaDAO {
         return matdis;
     }
 
+    public ArrayList<MatriculaDisciplina> obterMatriculaPorDisciplina(String fk_disciplina_codigo) {
+
+        ArrayList<MatriculaDisciplina> matdis = new ArrayList<>();
+
+        String SQL = "SELECT * FROM matriculadisciplina WHERE situacao !='Cancelada' AND fk_disciplina_codigo = '" + fk_disciplina_codigo + "'";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    MatriculaDisciplina mat = new MatriculaDisciplina(
+                            rs.getInt("id"),
+                            rs.getString("conceito"),
+                            rs.getString("semestre"),
+                            rs.getInt("ano"),
+                            rs.getString("situacao"),
+                            rs.getString("fk_disciplina_codigo"),
+                            rs.getString("fk_aluno_cpf")
+                    );
+                    matdis.add(mat);
+                }
+                pstm.close();
+            }
+            System.out.println("Disciplinas obtidos com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter Disciplinas!: \n" + ex);
+        }
+        return matdis;
+    }
+    
     public boolean alunoMatriculado(String cpf, String cod_disciplina) {
         boolean pode_cursar = false;
         String SQL = "SELECT * FROM matriculadisciplina WHERE fk_aluno_cpf = '" + cpf + "' AND fk_disciplina_codigo = '" + cod_disciplina + "'";
