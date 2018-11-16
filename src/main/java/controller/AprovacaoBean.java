@@ -25,9 +25,13 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class AprovacaoBean {
 
-    private boolean conceito_readonly;
+    private boolean conceito_readonly = true;
+    private boolean editando = false;
+
+    private int id;
     private String situacao;
     private String conceito;
+    private String fk_Aluno_cpf;
     private int fk_Curso_cod;
     private String fk_Disciplina_codigo;
 
@@ -53,8 +57,7 @@ public class AprovacaoBean {
         setBoxAlunos();
     }
 
-    public AprovacaoBean(boolean conceito_readonly, String situacao, String conceito, int fk_Curso_cod, String fk_Disciplina_codigo) {
-        this.conceito_readonly = conceito_readonly;
+    public AprovacaoBean(String situacao, String conceito, int fk_Curso_cod, String fk_Disciplina_codigo) {
         this.situacao = situacao;
         this.conceito = conceito;
         this.fk_Curso_cod = fk_Curso_cod;
@@ -75,6 +78,26 @@ public class AprovacaoBean {
         matriculaDisciplina = matDisciplinaDAO.obterMatriculaPorDisciplina(fk_Disciplina_codigo);
     }
 
+    public void editar(MatriculaDisciplina md) {
+        id = md.getId();
+        fk_Aluno_cpf = md.getFk_Aluno_cpf();
+        fk_Disciplina_codigo = md.getFk_Disciplina_codigo();
+        situacao = md.getSituacao();
+        conceito = md.getConceito();
+        verificaConceito();
+        
+        editando = true;
+    }
+
+    public String salvar() {
+        MatriculaDisciplina md = new MatriculaDisciplina();
+        md.setConceito(conceito);
+        md.setSituacao(situacao);
+        md.setId(id);
+        new MatriculaDisciplinaDAO().alterarSituacaoDisciplina(md);
+        return "aprovacao.xhtml";
+    }
+
     private void setBoxAlunos() {
         ItensBoxAlunos = new LinkedHashMap<>();
         AlunoDAO al = new AlunoDAO();
@@ -83,6 +106,11 @@ public class AprovacaoBean {
         for (Aluno aluno : alunos) {
             ItensBoxAlunos.put(aluno.getCpf(), aluno.getNome());
         }
+    }
+
+    public void verificaConceito() {
+        conceito_readonly = !situacao.equals("Concluido");
+        System.out.println(situacao + " re " + conceito_readonly);
     }
 
     public void obterBoxCurso() {
@@ -121,27 +149,9 @@ public class AprovacaoBean {
         }
     }
 
-    public void alteraSituacao(MatriculaDisciplina m) {
-        conceito_readonly = !m.getSituacao().equals("Concluida");
-
-    }
-
-    public String verificaConceito(MatriculaDisciplina m) {
-        return m.getConceito();
-    }
-
-    public boolean verificaSituacao(MatriculaDisciplina m) {
-        conceito_readonly = !m.getSituacao().equals("Concluida");
-        return conceito_readonly;
-    }
-
     //getSeters
     public String getSituacao() {
         return situacao;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
     }
 
     public boolean isConceito_readonly() {
@@ -150,6 +160,10 @@ public class AprovacaoBean {
 
     public void setConceito_readonly(boolean conceito_readonly) {
         this.conceito_readonly = conceito_readonly;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
     public String getConceito() {
@@ -230,6 +244,22 @@ public class AprovacaoBean {
 
     public void setFk_Disciplina_codigo(String fk_Disciplina_codigo) {
         this.fk_Disciplina_codigo = fk_Disciplina_codigo;
+    }
+
+    public boolean isEditando() {
+        return editando;
+    }
+
+    public void setEditando(boolean editando) {
+        this.editando = editando;
+    }
+
+    public String getFk_Aluno_cpf() {
+        return fk_Aluno_cpf;
+    }
+
+    public void setFk_Aluno_cpf(String fk_Aluno_cpf) {
+        this.fk_Aluno_cpf = fk_Aluno_cpf;
     }
 
 }

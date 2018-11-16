@@ -27,15 +27,15 @@
                 <b:panel title="Matricula Disciplina" collapsible="true" look="info" iconAwesome="sitemap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{matriculaDisciplinaBean.fk_Aluno_cpf}" readonly="#{matriculaDisciplinaBean.readonly}" label="Aluno" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu select2="true" value="#{matriculaDisciplinaBean.fk_Aluno_cpf}" readonly="#{matriculaDisciplinaBean.readonly}" label="Aluno" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                                 <f:ajax event="change" immediate="false" render="boxcurso" listener="#{matriculaDisciplinaBean.obterBoxCurso()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu id="boxcurso" value="#{matriculaDisciplinaBean.fk_Curso_cod}" readonly="#{matriculaDisciplinaBean.readonly}" label="Curso" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu select2="true" id="boxcurso" value="#{matriculaDisciplinaBean.fk_Curso_cod}" readonly="#{matriculaDisciplinaBean.readonly}" label="Curso" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                                 <f:ajax event="change" immediate="false" render="boxdisciplina" listener="#{matriculaDisciplinaBean.obterBoxDisciplina()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu id="boxdisciplina" value="#{matriculaDisciplinaBean.fk_Disciplina_codigo}" readonly="#{matriculaDisciplinaBean.readonly}" label="Disciplina" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu select2="true" id="boxdisciplina" value="#{matriculaDisciplinaBean.fk_Disciplina_codigo}" readonly="#{matriculaDisciplinaBean.readonly}" label="Disciplina" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxDisciplina.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>

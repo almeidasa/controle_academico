@@ -27,18 +27,37 @@
                 <b:panel title="Aprovação" collapsible="true" look="info" iconAwesome="line-chart" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu id="boxcurso" value="#{aprovacaoBean.fk_Curso_cod}" label="Curso" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu rendered="#{aprovacaoBean.editando}" readonly="true" value="#{aprovacaoBean.fk_Aluno_cpf}" label="Aluno" tiny-screen="one-third" required="true">
+                                <f:selectItems value="#{aprovacaoBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                            </b:selectOneMenu>
+                            <b:selectOneMenu select2="true" id="boxcurso" readonly="#{aprovacaoBean.editando}" value="#{aprovacaoBean.fk_Curso_cod}" label="Curso" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{aprovacaoBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                                 <f:ajax event="change" immediate="false" render="boxdisciplina" listener="#{aprovacaoBean.obterBoxDisciplina()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu id="boxdisciplina" value="#{aprovacaoBean.fk_Disciplina_codigo}" label="Disciplina" tiny-screen="one-third" required="true">
+                            <b:selectOneMenu select2="true" id="boxdisciplina" readonly="#{aprovacaoBean.editando}" value="#{aprovacaoBean.fk_Disciplina_codigo}" label="Disciplina" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{aprovacaoBean.itensBoxDisciplina.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
+                        <b:row rendered="#{aprovacaoBean.editando}">
+                            <b:selectOneMenu label="Situação" tiny-screen="one-fourth" value="#{aprovacaoBean.situacao}" required="true">
+                                <f:selectItem itemLabel="Concluído" itemValue="Concluido" />
+                                <f:selectItem itemLabel="Cursando" itemValue="Cursando" />
+                                <f:ajax event="change" immediate="false" render="conceito" listener="#{aprovacaoBean.verificaConceito()}"/>
+                            </b:selectOneMenu>
+                            <b:selectOneMenu label="Conceito" id="conceito" readonly="#{aprovacaoBean.conceito_readonly}" value="#{aprovacaoBean.conceito}" tiny-screen="one-third" required="true">
+                                <f:selectItem itemLabel="" itemValue="" />
+                                <f:selectItem itemLabel="Insuficiente" itemValue="Insuficiente" />
+                                <f:selectItem itemLabel="Suficiente" itemValue="Suficiente" />
+                                <f:selectItem itemLabel="Bom" itemValue="Bom" />
+                                <f:selectItem itemLabel="Ótimo" itemValue="Ótimo" />
+                            </b:selectOneMenu>
+                        </b:row>                        
                         <!--Divisão de painéis-->
                         <b:row>
-                            <b:commandButton iconAwesome="search" icon-size="lg" value="Buscar" class="btn btn-lg btnIncluir" 
+                            <b:commandButton rendered="#{!aprovacaoBean.editando}" iconAwesome="search" icon-size="lg" value="Buscar" class="btn btn-lg btnIncluir" 
                                              title="Buscar" look="info" action="#{aprovacaoBean.buscar()}"/>   
+                            <b:commandButton rendered="#{aprovacaoBean.editando}" iconAwesome="floppy-o" icon-size="lg" value="Salvar" class="btn btn-lg btnIncluir" 
+                                             title="Salvar" look="success" action="#{aprovacaoBean.salvar()}"/>  
                             <b:commandButton iconAwesome="remove" icon-size="lg" value="Cancelar" class="btn btn-lg btnIncluir" 
                                              title="Cancelar" look="danger" action="#{aprovacaoBean.limpar()}" immediate="true"/>
                         </b:row>
@@ -61,18 +80,13 @@
                                 <b:dataTableColumn value="#{aprovacaoBean.itensBoxDisciplina.get(lista.fk_Disciplina_codigo)}" label="Disciplina"/>
                                 <b:dataTableColumn value="#{lista.ano}" label="Ano"/>
                                 <b:dataTableColumn value="#{lista.semestre}" label="Semestre"/>
-                                <b:dataTableColumn style="width: 40px" label="Situação">
-                                    <b:switch tiny-screen="one-fourth" value="#{aprovacaoBean.verificaSituacao(lista)}" onColor="warning" offColor="success" on-text="Cursando" off-text="Concluído">
-                                        <f:ajax event="change" immediate="false" render="conceito" execute="#{aprovacaoBean.alteraSituacao(lista)}"/>
-                                    </b:switch>
-                                </b:dataTableColumn>                       
-                                <b:dataTableColumn label="Conceito" style="width: 170px">
-                                    <b:selectOneMenu id="conceito" readonly="#{aprovacaoBean.conceito_readonly}" value="#{aprovacaoBean.verificaConceito(lista)}" tiny-screen="one-third" required="true">
-                                        <f:selectItem itemLabel="Insuficiente" itemValue="Insuficiente" />
-                                        <f:selectItem itemLabel="Suficiente" itemValue="Suficiente" />
-                                        <f:selectItem itemLabel="Bom" itemValue="Bom" />
-                                        <f:selectItem itemLabel="Ótimo" itemValue="Ótimo" />
-                                    </b:selectOneMenu>
+                                <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
+                                <b:dataTableColumn value="#{lista.conceito}" label="Conceito"/>
+                                <b:dataTableColumn label="Opções" style="width: 85px">
+                                    <h:panelGrid style="width: 85px; margin-left: auto; margin-right: auto" columns="1">
+                                        <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
+                                                         title="Editar Item" look="info"  action="#{aprovacaoBean.editar(lista)}" />
+                                    </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:row>

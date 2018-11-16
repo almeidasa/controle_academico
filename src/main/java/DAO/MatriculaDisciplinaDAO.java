@@ -135,6 +135,24 @@ public class MatriculaDisciplinaDAO {
         }
     }
 
+    public void alterarSituacaoDisciplina(MatriculaDisciplina md) {
+        String SQL = "UPDATE matriculadisciplina SET conceito = ?, situacao = ? WHERE  id = ?";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setString(1, md.getConceito());
+            pstm.setString(2, md.getSituacao());
+            pstm.setInt(3, md.getId());
+
+            System.out.println(SQL);
+            pstm.executeUpdate();
+
+            pstm.close();
+            BD.getConexao().close();
+            System.out.println("Alteração efetuada!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Alterar matriculaDisciplina!:\n" + ex);
+        }
+    }
+    
     public void removerMatriculaDisciplina(MatriculaDisciplina md) {
         String SQL = "DELETE FROM matriculadisciplina WHERE id = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
