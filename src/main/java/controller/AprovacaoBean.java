@@ -28,6 +28,7 @@ public class AprovacaoBean {
     private boolean conceito_readonly;
     private String situacao;
     private String conceito;
+    private int fk_Curso_cod;
 
     private Map<String, String> ItensBoxAlunos;
     private Map<Integer, String> ItensBoxCurso;
@@ -40,7 +41,12 @@ public class AprovacaoBean {
 
     //construtores e métodos
     public AprovacaoBean() {
-        
+        this.matriculaDisciplina = new ArrayList<>();
+
+        this.disciplina = new ArrayList<>();
+        this.alunos = new ArrayList<>();
+        this.curso = new ArrayList<>();
+
         setBoxCurso();
     }
 
@@ -72,7 +78,8 @@ public class AprovacaoBean {
     private void setBoxCurso() {
         try {
             ItensBoxCurso = new LinkedHashMap<>();
-            curso = new CursoDAO().obterCursosPorCoordenador(new FuncionarioDAO().obterFuncionarioPorUsuario(new LoginBean().getId_user()));
+            System.out.println("tipo " + LoginBean.tipo);
+            curso = new CursoDAO().obterCursosPorCoordenador(new FuncionarioDAO().obterFuncionarioPorUsuario(LoginBean.id_logado));
             ItensBoxCurso.clear();
             for (Curso c : curso) {
                 ItensBoxCurso.put(0, "Selecione um Curso");
@@ -84,19 +91,19 @@ public class AprovacaoBean {
     }
 
     private void setBoxDisciplina() {
-//        ItensBoxDisciplina = new LinkedHashMap<>();
-//        disciplina = new DisciplinaDAO().obterDisciplina();
-//        ItensBoxDisciplina.clear();
-//        for (Disciplina disc : disciplina) {
-//            ItensBoxDisciplina.put("", "Selecione uma Disciplina");
-//            if (disc.getFk_Curso_cod() == fk_Curso_cod) {
-//                if (new MatriculaDisciplinaDAO().alunoMatriculado(fk_Aluno_cpf, disc.getCodigo())) {
-//                    ItensBoxDisciplina.put(disc.getCodigo(), disc.getNome());
-//                } else {
-//                    ItensBoxDisciplina.remove(disc.getCodigo());
-//                }
-//            }
-//        }
+        ItensBoxDisciplina = new LinkedHashMap<>();
+        disciplina = new DisciplinaDAO().obterDisciplina();
+        ItensBoxDisciplina.clear();
+        for (Disciplina disc : disciplina) {
+            ItensBoxDisciplina.put("", "Selecione uma Disciplina");
+            if (disc.getFk_Curso_cod() == fk_Curso_cod) {
+
+                ItensBoxDisciplina.put(disc.getCodigo(), disc.getNome());
+
+                ItensBoxDisciplina.remove(disc.getCodigo());
+
+            }
+        }
     }
 
     //getSeters
@@ -115,4 +122,77 @@ public class AprovacaoBean {
     public void setConceito_readonly(boolean conceito_readonly) {
         this.conceito_readonly = conceito_readonly;
     }
+
+    public String getConceito() {
+        return conceito;
+    }
+
+    public void setConceito(String conceito) {
+        this.conceito = conceito;
+    }
+
+    public Map<String, String> getItensBoxAlunos() {
+        return ItensBoxAlunos;
+    }
+
+    public void setItensBoxAlunos(Map<String, String> ItensBoxAlunos) {
+        this.ItensBoxAlunos = ItensBoxAlunos;
+    }
+
+    public Map<Integer, String> getItensBoxCurso() {
+        return ItensBoxCurso;
+    }
+
+    public void setItensBoxCurso(Map<Integer, String> ItensBoxCurso) {
+        this.ItensBoxCurso = ItensBoxCurso;
+    }
+
+    public Map<String, String> getItensBoxDisciplina() {
+        return ItensBoxDisciplina;
+    }
+
+    public void setItensBoxDisciplina(Map<String, String> ItensBoxDisciplina) {
+        this.ItensBoxDisciplina = ItensBoxDisciplina;
+    }
+
+    public ArrayList<MatriculaDisciplina> getMatriculaDisciplina() {
+        return matriculaDisciplina;
+    }
+
+    public void setMatriculaDisciplina(ArrayList<MatriculaDisciplina> matriculaDisciplina) {
+        this.matriculaDisciplina = matriculaDisciplina;
+    }
+
+    public ArrayList<Disciplina> getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(ArrayList<Disciplina> disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public ArrayList<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(ArrayList<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public ArrayList<Curso> getCurso() {
+        return curso;
+    }
+
+    public void setCurso(ArrayList<Curso> curso) {
+        this.curso = curso;
+    }
+
+    public int getFk_Curso_cod() {
+        return fk_Curso_cod;
+    }
+
+    public void setFk_Curso_cod(int fk_Curso_cod) {
+        this.fk_Curso_cod = fk_Curso_cod;
+    }
+
 }

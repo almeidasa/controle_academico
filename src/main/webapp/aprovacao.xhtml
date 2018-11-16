@@ -27,9 +27,9 @@
                 <b:panel title="Aprovação" collapsible="true" look="info" iconAwesome="line-chart" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu id="boxcurso" value="#{matriculaDisciplinaBean.fk_Curso_cod}" readonly="#{matriculaDisciplinaBean.readonly}" label="Curso" tiny-screen="one-third" required="true">
-                                <f:selectItems value="#{matriculaDisciplinaBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
-                                <f:ajax event="change" immediate="false" render="boxdisciplina" listener="#{matriculaDisciplinaBean.obterBoxDisciplina()}"/>
+                            <b:selectOneMenu id="boxcurso" value="#{aprovacaoBean.fk_Curso_cod}" label="Curso" tiny-screen="one-third" required="true">
+                                <f:selectItems value="#{aprovacaoBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change" immediate="false" render="boxdisciplina" listener="#{aprovacaoBean.obterBoxDisciplina()}"/>
                             </b:selectOneMenu>
                             <b:selectOneMenu id="boxdisciplina" value="#{matriculaDisciplinaBean.fk_Disciplina_codigo}" readonly="#{matriculaDisciplinaBean.readonly}" label="Disciplina" tiny-screen="one-third" required="true">
                                 <f:selectItems value="#{matriculaDisciplinaBean.itensBoxDisciplina.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />

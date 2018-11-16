@@ -173,7 +173,7 @@ public class UsuariosDAO {
 
     public void obterLogin(LoginBean login) {
 
-        String SQL = "SELECT login, tipo FROM usuarios WHERE UPPER(login) = UPPER(?)";
+        String SQL = "SELECT login, tipo, id_user FROM usuarios WHERE UPPER(login) = UPPER(?)";
 
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, login.getUsuario());
@@ -181,7 +181,8 @@ public class UsuariosDAO {
                 while (rs.next()) {
                     login.setNomeUsr(rs.getString("login"));
                     login.setTipoUsr(rs.getString("tipo"));
-                    login.setId_user(rs.getInt("id_user"));
+                    LoginBean.tipo = rs.getString("tipo");
+                    LoginBean.id_logado = rs.getInt("id_user");
                 }
 
                 pstm.close();

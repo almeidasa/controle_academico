@@ -18,7 +18,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class LoginBean {
-
+    public static int id_logado;
+    public static String tipo;
     private String usuario;
     private String senha;
     private String nomeUsr;
@@ -26,7 +27,6 @@ public class LoginBean {
     private String novaSenhaConf;
     private String email;
     private boolean sessao = false;
-    private int id_user;
     public int cont = 0;
     private String tipoUsr;
     private Map<String, Boolean> permissao;
@@ -199,13 +199,5 @@ public class LoginBean {
 
     public void setPermissao(Map<String, Boolean> permissao) {
         this.permissao = permissao;
-    }
-
-    public int getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
     }
 }
