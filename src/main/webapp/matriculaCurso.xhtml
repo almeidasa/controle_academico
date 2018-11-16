@@ -27,10 +27,10 @@
                 <b:panel title="Matricula Curso" collapsible="true" look="info" iconAwesome="qrcode" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{matriculaCursoBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
+                            <b:selectOneMenu select2="true" value="#{matriculaCursoBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
                                 <f:selectItems value="#{matriculaCursoBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
-                            <b:selectOneMenu value="#{matriculaCursoBean.fk_Curso_cod}"  label="Curso" tiny-screen="half" required="true">
+                            <b:selectOneMenu select2="true" value="#{matriculaCursoBean.fk_Curso_cod}"  label="Curso" tiny-screen="half" required="true">
                                 <f:selectItems value="#{matriculaCursoBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
