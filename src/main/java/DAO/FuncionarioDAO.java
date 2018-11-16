@@ -60,6 +60,26 @@ public class FuncionarioDAO {
         return funcionario;
     }
 
+    public int obterFuncionarioPorUsuario(int id_user) {
+        int id = 0;
+
+        String SQL = "SELECT id FROM funcionario WHERE fk_Usuarios_id_user = " + id_user;
+        try {
+            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+            pstm.close();
+            rs.close();
+            System.out.println("Funcionário obtido com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter Funcionário por usuário!: \n" + ex);
+        }
+        return id;
+    }
+
     public void editarFuncionario(Funcionario f) {
         String SQL = "UPDATE funcionario SET nome = ?, cargo = ?, email = ?, telefone = ?, fk_Usuarios_id_user = ? WHERE id = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {

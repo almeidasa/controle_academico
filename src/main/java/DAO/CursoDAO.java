@@ -56,6 +56,33 @@ public class CursoDAO {
         return cursos;
     }
 
+     public ArrayList<Curso> obterCursosPorCoordenador(int fk_Funcionario_id) {
+
+        ArrayList<Curso> cursos = new ArrayList<>();
+
+        String SQL = "SELECT * FROM curso WHERE fk_Funcionario_id = " + fk_Funcionario_id ;
+        try {
+            PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
+            ResultSet rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Curso novo = new Curso(
+                        rs.getInt("cod"),
+                        rs.getString("nome_curso"),
+                        rs.getInt("fk_Funcionario_id")
+                );
+                cursos.add(novo);
+            }
+            pstm.close();
+            rs.close();
+            System.out.println("Cursos obtidos com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter Cursos!: \n" + ex);
+        }
+
+        return cursos;
+    }
+    
     public String obterNomeCurso(int cod) {
         String nome = "";
         String SQL = "SELECT nome_curso FROM curso WHERE cod = " + cod;
