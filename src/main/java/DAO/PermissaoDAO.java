@@ -5,6 +5,8 @@ import controller.PermissaoBean;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @Autor Winder Rezende
@@ -25,6 +27,27 @@ public class PermissaoDAO {
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir Permissão: " + ex);
         }
+    }
+
+    public Map<String, Boolean> obterPermissoesSessao(String tpUsr) {
+
+        Map<String, Boolean> permissao = new LinkedHashMap<>();
+
+        String SQL = "SELECT nome, " + tpUsr + " FROM permissao";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    permissao.put(rs.getString("nome"), rs.getBoolean(tpUsr));
+                    System.out.println(rs.getString("nome"));
+                }
+                pstm.close();
+            }
+            System.out.println("Permissões da sessão obtidas com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter as permissões da sessao!: \n" + ex);
+        }
+        return permissao;
     }
 
     public ArrayList<PermissaoBean> obterPermissoes() {
@@ -54,7 +77,7 @@ public class PermissaoDAO {
         }
         return permissoes;
     }
-    
+
     public void alterarPermissao(String nomeAcesso, String omeAcessAnterior) {
 
         String SQL = "UPDATE permissao SET nome = ? WHERE nome = ?";
@@ -88,7 +111,7 @@ public class PermissaoDAO {
             Exibir.Mensagem("Erro ao Alterar Permissão!:\n" + ex);
         }
     }
-    
+
     public void apagarPermissao(String nomeAcesso) {
 
         String SQL = "DELETE FROM permissao WHERE nome = (?)";

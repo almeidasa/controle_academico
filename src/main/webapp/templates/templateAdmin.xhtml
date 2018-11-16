@@ -11,7 +11,7 @@
             <b:navbarLinks pull="left">
                 <b:navLink value="Inicio" href="/controle_academico/index.xhtml" style="font-size: 18px" icon-awesome="home" icon-size="lg"></b:navLink>
 
-                <b:dropMenu value="Cadastrar" iconAwesome="vcard" icon-size="lg" >
+                <b:dropMenu value="Cadastrar" iconAwesome="vcard" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('OK', false)}">
                     <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Usuários" icon-awesome="user-circle-o" />
                     <b:navLink href="/controle_academico/cadastrarFuncionario.xhtml" value="Funcionários" icon-awesome="id-badge" />
                     <b:navLink href="/controle_academico/cadastrarCurso.xhtml" value="Cursos" icon-awesome="qrcode" />
@@ -70,7 +70,7 @@
         <b:container fluid="true">
             <b:row>
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
+                    <b:listLinks rendered="#{loginBean.permissao.getOrDefault('OK', false)}">
                         <b:navLink value="Cadastrar" active="true" iconAwesome="vcard" icon-size="lg" style="background-color: #428BCA"/>
                         <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Usuários" icon-awesome="user-circle-o" />
                         <b:navLink href="/controle_academico/cadastrarFuncionario.xhtml" value="Funcionários" icon-awesome="id-badge" />

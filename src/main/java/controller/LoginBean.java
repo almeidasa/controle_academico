@@ -1,9 +1,12 @@
 package controller;
 
+import DAO.PermissaoDAO;
 import DAO.UsuariosDAO;
 import Util.Exibir;
 import Util.Gerar;
 import Util.JavaMailApp;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -23,8 +26,14 @@ public class LoginBean {
     private String novaSenhaConf;
     private String email;
     private boolean sessao = false;
+    private int id_user;
     public int cont = 0;
     private String tipoUsr;
+    private Map<String, Boolean> permissao;
+
+    public LoginBean() {
+        permissao = new LinkedHashMap<>();
+    }
 
     public String efetuarLogin() {
         UsuariosDAO login = new UsuariosDAO();
@@ -32,6 +41,7 @@ public class LoginBean {
         if (login.verificaUsuarioSenha(usuario, senha)) {
             sessao = true;
             login.obterLogin(this);
+            setPermissoes();
             senha = null;
             return "index";
         } else if (cont != 3) {
@@ -45,6 +55,13 @@ public class LoginBean {
             sessao = false;
             return "recuperar";
         }
+    }
+    
+    private void setPermissoes() {
+        permissao = new LinkedHashMap<>();
+        PermissaoDAO permiss = new PermissaoDAO();
+        permissao = permiss.obterPermissoesSessao("admin");
+        System.out.println(permissao.getOrDefault("OK", false));
     }
 
     public String soliictarSenha() {
@@ -174,5 +191,21 @@ public class LoginBean {
 
     public void setTipoUsr(String tipoUsr) {
         this.tipoUsr = tipoUsr;
+    }
+
+    public Map<String, Boolean> getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(Map<String, Boolean> permissao) {
+        this.permissao = permissao;
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
 }

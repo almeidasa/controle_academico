@@ -181,12 +181,13 @@ public class UsuariosDAO {
                 while (rs.next()) {
                     login.setNomeUsr(rs.getString("login"));
                     login.setTipoUsr(rs.getString("tipo"));
+                    login.setId_user(rs.getInt("id_user"));
                 }
 
                 pstm.close();
                 BD.getConexao().close();
             }
-            System.out.println("Login obtidos com sucesso!");
+            System.out.println("Login obtido com sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao Obter Login do Banco de Dados!: \n" + ex);
         }

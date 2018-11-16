@@ -2,10 +2,7 @@ package controller;
 
 import DAO.PermissaoDAO;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -27,12 +24,10 @@ public class PermissaoBean {
     private boolean editar;
     PermissaoDAO perm;
     private ArrayList<PermissaoBean> permissoes;
-    private Map<String, Boolean> permissao;
 
     public PermissaoBean() {
         perm = new PermissaoDAO();
         permissoes = new ArrayList<>();
-        permissao = new LinkedHashMap<>();
         obter();
     }
 
@@ -107,6 +102,14 @@ public class PermissaoBean {
         this.nomeNovaPerm = nomeNovaPerm;
     }
 
+    public String getNomePermAnterior() {
+        return nomePermAnterior;
+    }
+
+    public void setNomePermAnterior(String nomePermAnterior) {
+        this.nomePermAnterior = nomePermAnterior;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -155,6 +158,14 @@ public class PermissaoBean {
         this.aluno = aluno;
     }
 
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+
     public PermissaoDAO getPerm() {
         return perm;
     }
@@ -169,29 +180,5 @@ public class PermissaoBean {
 
     public void setPermissoes(ArrayList<PermissaoBean> permissoes) {
         this.permissoes = permissoes;
-    }
-
-    public Map<String, Boolean> getPermissao() {
-        return permissao;
-    }
-
-    public void setPermissao(Map<String, Boolean> permissao) {
-        this.permissao = permissao;
-    }
-
-    public boolean isEditar() {
-        return editar;
-    }
-
-    public void setEditar(boolean editar) {
-        this.editar = editar;
-    }
-
-    public String getNomePermAnterior() {
-        return nomePermAnterior;
-    }
-
-    public void setNomePermAnterior(String nomePermAnterior) {
-        this.nomePermAnterior = nomePermAnterior;
     }
 }
