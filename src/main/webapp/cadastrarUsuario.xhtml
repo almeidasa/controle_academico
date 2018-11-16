@@ -37,7 +37,6 @@
                                 <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
                                 <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
                                 <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
-                                <f:selectItem itemLabel="Professor" itemValue="Professor" />
                                 <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
                             </b:selectOneMenu>
                             <b:switch value="#{usuarioBean.situacao}" readonly="#{usuarioBean.tipo.equalsIgnoreCase('Administrador')}" label="Situação" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo" tiny-screen="one-fourth"/>

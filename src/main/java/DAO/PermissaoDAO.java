@@ -31,6 +31,28 @@ public class PermissaoDAO {
 
     public Map<String, Boolean> obterPermissoesSessao(String tpUsr) {
 
+        switch (tpUsr) {
+            case "Administrador":
+                tpUsr = "admin";
+                break;
+            case "Diretor":
+                tpUsr = "diret";
+                break;
+            case "Coordenador":
+                tpUsr = "coord";
+                break;
+            case "Funcionário":
+                tpUsr = "func";
+                break;
+            case "Aluno":
+                tpUsr = "aluno";
+                break;
+            default:
+                break;
+        }
+        
+        System.out.println("Tipo de Usuário: " + tpUsr);
+
         Map<String, Boolean> permissao = new LinkedHashMap<>();
 
         String SQL = "SELECT nome, " + tpUsr + " FROM permissao";
@@ -58,6 +80,9 @@ public class PermissaoDAO {
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             try (ResultSet rs = pstm.executeQuery()) {
+                if (!rs.next()) {
+                    inserirPermissoesPadrao();
+                }
                 while (rs.next()) {
                     PermissaoBean perm = new PermissaoBean(
                             rs.getString("nome"),
@@ -69,6 +94,7 @@ public class PermissaoDAO {
                     );
                     permissoes.add(perm);
                 }
+
                 pstm.close();
             }
             System.out.println("Permissões obtidas com sucesso!");
@@ -78,10 +104,43 @@ public class PermissaoDAO {
         return permissoes;
     }
 
+    public void inserirPermissoesPadrao() {
+        String SQL = "INSERT INTO Permissao(nome, admin, diret, coord, func, aluno) VALUES \n"
+                + "	('Cadastrar Geral', false, false, false, false, false),\n"
+                + "	('Cadastrar Usuários', false, false, false, false, false),\n"
+                + "	('Cadastrar Funcionários', false, false, false, false, false),\n"
+                + "	('Cadastrar Cursos', false, false, false, false, false),\n"
+                + "	('Cadastrar Disciplinas', false, false, false, false, false),\n"
+                + "	('Cadastrar Alunos', false, false, false, false, false),\n"
+                + "	('Gerenciar Alunos', false, false, false, false, false),\n"
+                + "	('Gerenciar Matricular', false, false, false, false, false),\n"
+                + "	('Gerenciar Matricular Aluno no Curso', false, false, false, false, false),\n"
+                + "	('Gerenciar Matricular Aluno nas Disciplinas', false, false, false, false, false),\n"
+                + "	('Gerenciar Aprovação', false, false, false, false, false),\n"
+                + "	('Gerenciar Histórico Acadêmico', false, false, false, false, false),\n"
+                + "	('Relatórios Geral', false, false, false, false, false),\n"
+                + "	('Relatórios Relação de Alunos', false, false, false, false, false),\n"
+                + "	('Relatórios Relação de Alunos Matriculados', false, false, false, false, false),\n"
+                + "	('Relatórios Relação de Alunos Poderão Colar Grau', false, false, false, false, false),\n"
+                + "	('Relatórios Relação de Alunos Podem Colar Grau', false, false, false, false, false),\n"
+                + "	('Relatórios Relação de Funcionários', false, false, false, false, false),\n"
+                + "	('Relatórios Relação de Funcionários Coordenadores', false, false, false, false, false),\n"
+                + "	('Relatórios Relação de Funcionários Outros', false, false, false, false, false),\n"
+                + "	('Relatórios Outros Geral', false, false, false, false, false)";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.execute();
+
+            BD.getConexao().close();
+            pstm.close();
+            System.out.println("Permissões padrão inseridas com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao inserir permissões padrão: " + ex);
+        }
+    }
+
     public void alterarPermissao(String nomeAcesso, String omeAcessAnterior) {
 
         String SQL = "UPDATE permissao SET nome = ? WHERE nome = ?";
-        System.out.println(SQL);
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, nomeAcesso);
             pstm.setString(2, omeAcessAnterior);

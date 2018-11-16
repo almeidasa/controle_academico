@@ -48,6 +48,7 @@ public class UsuarioBean {
         usr = new Usuarios(login, senha, tipo, situacao);
         usrDao.inserirUsuario(usr);
         obter();
+        cancelar();
     }
     
     public void iniciaEditar(Usuarios lista) {

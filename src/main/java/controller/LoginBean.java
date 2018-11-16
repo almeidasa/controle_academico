@@ -60,7 +60,8 @@ public class LoginBean {
     private void setPermissoes() {
         permissao = new LinkedHashMap<>();
         PermissaoDAO permiss = new PermissaoDAO();
-        permissao = permiss.obterPermissoesSessao("admin");
+        System.out.println(tipoUsr);
+        permissao = permiss.obterPermissoesSessao(tipoUsr);
         System.out.println(permissao.getOrDefault("OK", false));
     }
 

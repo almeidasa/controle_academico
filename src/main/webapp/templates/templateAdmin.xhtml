@@ -11,34 +11,34 @@
             <b:navbarLinks pull="left">
                 <b:navLink value="Inicio" href="/controle_academico/index.xhtml" style="font-size: 18px" icon-awesome="home" icon-size="lg"></b:navLink>
 
-                <b:dropMenu value="Cadastrar" iconAwesome="vcard" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('OK', false)}">
-                    <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Usuários" icon-awesome="user-circle-o" />
-                    <b:navLink href="/controle_academico/cadastrarFuncionario.xhtml" value="Funcionários" icon-awesome="id-badge" />
-                    <b:navLink href="/controle_academico/cadastrarCurso.xhtml" value="Cursos" icon-awesome="qrcode" />
-                    <b:navLink href="/controle_academico/cadastrarDisciplina.xhtml" value="Disciplinas" icon-awesome="sitemap" />
-                    <b:navLink href="/controle_academico/cadastrarAluno.xhtml" value="Alunos" icon-awesome="child" />
+                <b:dropMenu value="Cadastrar" iconAwesome="vcard" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Geral', false)}">
+                    <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Usuários" icon-awesome="user-circle-o" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Usuários', false)}"/>
+                    <b:navLink href="/controle_academico/cadastrarFuncionario.xhtml" value="Funcionários" icon-awesome="id-badge" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Funcionários', false)}"/>
+                    <b:navLink href="/controle_academico/cadastrarCurso.xhtml" value="Cursos" icon-awesome="qrcode" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Cursos', false)}"/>
+                    <b:navLink href="/controle_academico/cadastrarDisciplina.xhtml" value="Disciplinas" icon-awesome="sitemap" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Disciplinas', false)}"/>
+                    <b:navLink href="/controle_academico/cadastrarAluno.xhtml" value="Alunos" icon-awesome="child" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Alunos', false)}"/>
                 </b:dropMenu>
 
-                <b:dropMenu value="Gerenciar Alunos" iconAwesome="cog" icon-size="lg" >
-                    <b:dropMenu value="Matricular" icon-awesome="leanpub" >
-                        <b:navLink href="/controle_academico/matriculaCurso.xhtml" value="Aluno no Curso" iconAwesome="qrcode"/>
-                        <b:navLink href="/controle_academico/matriculaDisciplina.xhtml" value="Aluno nas Disciplinas" iconAwesome="sitemap"/>
+                <b:dropMenu value="Gerenciar Alunos" iconAwesome="cog" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Alunos', false)}">
+                    <b:dropMenu value="Matricular" icon-awesome="leanpub" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular', false)}">
+                        <b:navLink href="/controle_academico/matriculaCurso.xhtml" value="Aluno no Curso" iconAwesome="qrcode" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno no Curso', false)}"/>
+                        <b:navLink href="/controle_academico/matriculaDisciplina.xhtml" value="Aluno nas Disciplinas" iconAwesome="sitemap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno nas Disciplinas', false)}"/>
                     </b:dropMenu>
-                    <b:navLink href="/controle_academico/aprovacao.xhtml" value="Aprovação" iconAwesome="line-chart"/>
-                    <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap"/>                    
+                    <b:navLink href="/controle_academico/aprovacao.xhtml" value="Aprovação" iconAwesome="line-chart" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Aprovação', false)}"/>
+                    <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Histórico Acadêmico', false)}"/>                    
                 </b:dropMenu>
 
-                <b:dropMenu value="Relatórios" iconAwesome="list-alt" icon-size="lg" >
-                    <b:dropMenu value="Relação de Alunos" icon-awesome="drivers-license-o" >
-                        <b:navLink href="#" value="Matriculados" icon-awesome="address-book-o" />
-                        <b:navLink href="#" value="Poderão Colar Grau" icon-awesome="graduation-cap" />
-                        <b:navLink href="#" value="Podem Colar Grau" icon-awesome="flag" />
+                <b:dropMenu value="Relatórios" iconAwesome="list-alt" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('Relatórios Geral', false)}">
+                    <b:dropMenu value="Relação de Alunos" icon-awesome="drivers-license-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos', false)}">
+                        <b:navLink href="#" value="Matriculados" icon-awesome="address-book-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Matriculados', false)}"/>
+                        <b:navLink href="#" value="Poderão Colar Grau" icon-awesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Poderão Colar Grau', false)}"/>
+                        <b:navLink href="#" value="Podem Colar Grau" icon-awesome="flag" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Podem Colar Grau', false)}"/>
                     </b:dropMenu>
-                    <b:dropMenu value="Relação de Funcionários" icon-awesome="group" >
-                        <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" />
-                        <b:navLink href="#" value="Outros" icon-awesome="th-list" />
+                    <b:dropMenu value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários', false)}">
+                        <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Coordenadores', false)}"/>
+                        <b:navLink href="#" value="Outros" icon-awesome="th-list" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Outros', false)}"/>
                     </b:dropMenu>
-                    <b:navLink href="#" value="Outros" icon-awesome="pie-chart"/>
+                    <b:navLink href="#" value="Outros" icon-awesome="pie-chart" rendered="#{loginBean.permissao.getOrDefault('Relatórios Outros Geral', false)}"/>
                 </b:dropMenu>
 
             </b:navbarLinks>
@@ -69,36 +69,35 @@
         <b:container fluid="true">
             <b:row>
                 <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks rendered="#{loginBean.permissao.getOrDefault('OK', false)}">
+                    <b:listLinks rendered="#{loginBean.permissao.getOrDefault('Cadastrar Geral', false)}">
                         <b:navLink value="Cadastrar" active="true" iconAwesome="vcard" icon-size="lg" style="background-color: #428BCA"/>
-                        <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Usuários" icon-awesome="user-circle-o" />
-                        <b:navLink href="/controle_academico/cadastrarFuncionario.xhtml" value="Funcionários" icon-awesome="id-badge" />
-                        <b:navLink href="/controle_academico/cadastrarCurso.xhtml" value="Cursos" icon-awesome="qrcode" />
-                        <b:navLink href="/controle_academico/cadastrarDisciplina.xhtml" value="Disciplinas" icon-awesome="sitemap" />
-                        <b:navLink href="/controle_academico/cadastrarAluno.xhtml" value="Alunos" icon-awesome="child" />
+                        <b:navLink href="/controle_academico/cadastrarUsuario.xhtml" value="Usuários" icon-awesome="user-circle-o" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Usuários', false)}"/>
+                        <b:navLink href="/controle_academico/cadastrarFuncionario.xhtml" value="Funcionários" icon-awesome="id-badge" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Funcionários', false)}"/>
+                        <b:navLink href="/controle_academico/cadastrarCurso.xhtml" value="Cursos" icon-awesome="qrcode" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Cursos', false)}"/>
+                        <b:navLink href="/controle_academico/cadastrarDisciplina.xhtml" value="Disciplinas" icon-awesome="sitemap" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Disciplinas', false)}"/>
+                        <b:navLink href="/controle_academico/cadastrarAluno.xhtml" value="Alunos" icon-awesome="child" rendered="#{loginBean.permissao.getOrDefault('Cadastrar Alunos', false)}"/>
                     </b:listLinks>
-                    <b:listLinks>
+                    <b:listLinks rendered="#{loginBean.permissao.getOrDefault('Gerenciar Alunos', false)}">
                         <b:navLink value="Gerenciar Alunos" active="true" iconAwesome="cog" icon-size="lg" style="background-color: #81C784" />
-                        <b:dropMenu value="Matricular" icon-awesome="leanpub" >
-                            <b:navLink href="/controle_academico/matriculaCurso.xhtml" value="Aluno no Curso" iconAwesome="qrcode"/>
-                            <b:navLink href="/controle_academico/matriculaDisciplina.xhtml" value="Aluno nas Disciplinas" iconAwesome="sitemap"/>
+                        <b:dropMenu value="Matricular" icon-awesome="leanpub" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular', false)}">
+                            <b:navLink href="/controle_academico/matriculaCurso.xhtml" value="Aluno no Curso" iconAwesome="qrcode" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno no Curso', false)}"/>
+                            <b:navLink href="/controle_academico/matriculaDisciplina.xhtml" value="Aluno nas Disciplinas" iconAwesome="sitemap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno nas Disciplinas', false)}"/>
                         </b:dropMenu>
-                        <b:navLink href="/controle_academico/aprovacao.xhtml" value="Aprovação" iconAwesome="line-chart"/>
-                        <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap"/>
+                        <b:navLink href="/controle_academico/aprovacao.xhtml" value="Aprovação" iconAwesome="line-chart" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Aprovação', false)}"/>
+                        <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Histórico Acadêmico', false)}"/>
                     </b:listLinks>
-                    <b:listLinks>
+                    <b:listLinks rendered="#{loginBean.permissao.getOrDefault('Relatórios Geral', false)}">
                         <b:navLink href="#" value="Relatórios" active="true" iconAwesome="list-alt" icon-size="lg" style="background-color: #e57373" />
-                        <b:dropMenu value="Relação de Alunos" icon-awesome="drivers-license-o" >
-                            <b:navLink href="#" value="Matriculados" icon-awesome="address-book-o" />
-                            <b:navLink href="#" value="Poderão Colar Grau" icon-awesome="graduation-cap" />
-                            <b:navLink href="#" value="Podem Colar Grau" icon-awesome="flag" />
+                        <b:dropMenu value="Relação de Alunos" icon-awesome="drivers-license-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos', false)}">
+                            <b:navLink href="#" value="Matriculados" icon-awesome="address-book-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Matriculados', false)}"/>
+                            <b:navLink href="#" value="Poderão Colar Grau" icon-awesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Poderão Colar Grau', false)}"/>
+                            <b:navLink href="#" value="Podem Colar Grau" icon-awesome="flag" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Podem Colar Grau', false)}"/>
                         </b:dropMenu>
-                        <b:dropMenu value="Relação de Funcionários" icon-awesome="group" >
-                            <b:navLink href="#" value="Professores" icon-awesome="id-badge" />
-                            <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" />
-                            <b:navLink href="#" value="Outros" icon-awesome="th-list" />
+                        <b:dropMenu value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários', false)}">
+                            <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Coordenadores', false)}"/>
+                            <b:navLink href="#" value="Outros" icon-awesome="th-list" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Outros', false)}"/>
                         </b:dropMenu>
-                        <b:navLink href="#" value="Outros" icon-awesome="pie-chart"/>
+                        <b:navLink href="#" value="Outros" icon-awesome="pie-chart" rendered="#{loginBean.permissao.getOrDefault('Relatórios Outros Geral', false)}"/>
                     </b:listLinks>
                 </b:column>
             </b:row>
