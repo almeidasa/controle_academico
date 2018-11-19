@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.UsuariosDAO;
+import Util.Relatorio;
 import entities.Usuarios;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
@@ -71,6 +72,11 @@ public class UsuarioBean {
     public void remover(Usuarios lista) {
         usrDao.apagarUsuario(lista.getId_user());
         obter();
+    }
+    
+    public void gerarRelatorio(){
+        Relatorio gerar = new Relatorio();
+        gerar.getRelatorio(usuarios);
     }
 
     //Getters e Seters

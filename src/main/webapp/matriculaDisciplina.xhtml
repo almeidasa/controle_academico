@@ -14,6 +14,9 @@
             if (!#{loginBean.sessao}) {
                 window.location.href = "/controle_academico/login.xhtml";
             }
+            if (!#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno nas Disciplinas', false)}) {
+                window.location.href = "/controle_academico/naoAutorizado.xhtml";
+            }
         </script>
     </h:head>
     <h:body>

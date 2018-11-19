@@ -6,6 +6,12 @@
         <title>Login</title>
         <link rel="shortcut icon" href="resources/img/academico.png"/>
         <link rel="StyleSheet" type="text/css" href="resources/css/login.css" media="screen" />
+        
+        <script language="JavaScript">
+            if (#{loginBean.sessao}) {
+                window.location.href = "/controle_academico/index.xhtml";
+            }
+        </script>
     </h:head>
     <h:body class="body"> 
         <div class="divLogo">
