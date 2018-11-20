@@ -59,6 +59,12 @@
                                          class="table table-striped table-bordered" 
                                          value = "#{usuarioBean.usuarios}"
                                          var="lista"
+                                         excel="true"
+                                         csv="true"
+                                         pdf="true"
+                                         columnVisibility="true"
+                                         copy="true"
+                                         print="true"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
                                 <b:dataTableColumn value="#{lista.login}" label="Login"/>

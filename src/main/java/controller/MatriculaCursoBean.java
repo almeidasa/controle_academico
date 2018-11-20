@@ -91,8 +91,7 @@ public class MatriculaCursoBean {
             System.out.println("Incluir");
             MatriculaCursoDAO matCursoDAO = new MatriculaCursoDAO();
             int mat_criada = Integer.parseInt(fk_Curso_cod + fk_Aluno.replace(".", "").replace("-", "").substring(0, 5));
-            MatriculaCurso matCurso = new MatriculaCurso(mat_criada,
-                    situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
+            MatriculaCurso matCurso = new MatriculaCurso(mat_criada, situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
 
             criarUsuario(mat_criada, fk_Aluno);
             

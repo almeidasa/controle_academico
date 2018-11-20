@@ -76,7 +76,7 @@
                                     </b:switch>
                                 </b:dataTableColumn>
                                 <b:dataTableColumn  label="Aluno">
-                                    <b:switch value="#{lista.aluno}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo">
+                                    <b:switch value="#{lista.aluno}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo" >
                                         <f:ajax listener="#{permissaoBean.alterarPermAluno(lista)}"/>
                                     </b:switch>
                                 </b:dataTableColumn>

@@ -140,13 +140,26 @@ public class UsuariosDAO {
 
     public boolean verificaUsuarioEmail(String usuario, String email) {
 
+        String SQL = "";
         boolean result = false;
-        String SQL = "SELECT u.login, f.email, u.situacao FROM usuarios u INNER JOIN funcionario f ON(f.fk_usuarios_id_user = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?)";
-        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-            pstm.setString(1, usuario);
-            pstm.setString(2, email);
+        if (usuario.matches("[0-9]+")) {
+            SQL = "SELECT m.matricula, a.email, (SELECT situacao FROM usuarios WHERE login = ?) FROM aluno a INNER JOIN MatriculaCurso m ON(m.fk_Aluno_cpf = a.cpf) WHERE m.matricula = ? AND UPPER(a.email) = UPPER(?)";
+        } else {
+            SQL = "SELECT u.login, f.email, u.situacao FROM usuarios u INNER JOIN funcionario f ON(f.fk_usuarios_id_user = u.id_user) WHERE UPPER(login) = UPPER(?) AND UPPER(email) = UPPER(?)";
+        }
 
-            ResultSet rs = pstm.executeQuery(); //envia o comando ao banco
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
+            if (usuario.matches("[0-9]+")) {
+                pstm.setString(1, usuario);
+                pstm.setInt(2, Integer.parseInt(usuario));
+                pstm.setString(3, email);
+            } else {
+                pstm.setString(1, usuario);
+                pstm.setString(2, email);
+            }
+
+            ResultSet rs = pstm.executeQuery();
 
             if (rs.next()) {
                 if (!rs.getBoolean("situacao")) {
