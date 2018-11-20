@@ -157,7 +157,6 @@ public class PermissaoDAO {
     public void alterarPermissaoUsr(String usr, boolean situacao, String nomeAcesso) {
 
         String SQL = "UPDATE permissao SET " + usr + " = ? WHERE nome = ?";
-        System.out.println(SQL);
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setBoolean(1, situacao);
             pstm.setString(2, nomeAcesso);

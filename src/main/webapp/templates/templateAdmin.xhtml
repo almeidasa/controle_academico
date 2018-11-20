@@ -25,7 +25,7 @@
                         <b:navLink href="/controle_academico/matriculaDisciplina.xhtml" value="Aluno nas Disciplinas" iconAwesome="sitemap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno nas Disciplinas', false)}"/>
                     </b:dropMenu>
                     <b:navLink href="/controle_academico/aprovacao.xhtml" value="Aprovação" iconAwesome="line-chart" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Aprovação', false)}"/>
-                    <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Histórico Acadêmico', false)}"/>                    
+                    <b:navLink href="/controle_academico/historicoAcademico.xhtml" value="Histórico Acadêmico" iconAwesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Histórico Acadêmico', false)}"/>                    
                 </b:dropMenu>
 
                 <b:dropMenu value="Relatórios" iconAwesome="list-alt" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('Relatórios Geral', false)}">
@@ -86,7 +86,7 @@
                             <b:navLink href="/controle_academico/matriculaDisciplina.xhtml" value="Aluno nas Disciplinas" iconAwesome="sitemap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno nas Disciplinas', false)}"/>
                         </b:dropMenu>
                         <b:navLink href="/controle_academico/aprovacao.xhtml" value="Aprovação" iconAwesome="line-chart" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Aprovação', false)}"/>
-                        <b:navLink href="#" value="Histórico Acadêmico" iconAwesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Histórico Acadêmico', false)}"/>
+                        <b:navLink href="/controle_academico/historicoAcademico.xhtml" value="Histórico Acadêmico" iconAwesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Gerenciar Histórico Acadêmico', false)}"/>
                     </b:listLinks>
                     <b:listLinks rendered="#{loginBean.permissao.getOrDefault('Relatórios Geral', false)}">
                         <b:navLink href="#" value="Relatórios" active="true" iconAwesome="list-alt" icon-size="lg" style="background-color: #e57373" />
