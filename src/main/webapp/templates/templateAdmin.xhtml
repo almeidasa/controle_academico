@@ -38,7 +38,9 @@
                         <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Coordenadores', false)}"/>
                         <b:navLink href="#" value="Outros" icon-awesome="th-list" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Outros', false)}"/>
                     </b:dropMenu>
-                    <b:navLink href="#" value="Outros" icon-awesome="pie-chart" rendered="#{loginBean.permissao.getOrDefault('Relatórios Outros Geral', false)}"/>
+                    <b:dropMenu value="Outros" icon-awesome="pie-chart" rendered="#{loginBean.permissao.getOrDefault('Relatórios Outros Geral', false)}">
+                        <b:navLink href="/controle_academico/relacaoUsuarios.xhtml"  value="Relação de Usuários Teste Jasper Report" icon-awesome="user-circle-o"/>
+                    </b:dropMenu>
                 </b:dropMenu>
 
             </b:navbarLinks>
