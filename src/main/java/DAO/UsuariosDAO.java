@@ -192,7 +192,7 @@ public class UsuariosDAO {
             pstm.setString(1, login.getUsuario());
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
-                    login.setNomeUsr(rs.getString("login"));
+                    login.setNomeUsr(rs.getString("login").matches("[0-9]+") ? nomeAluno(rs.getString("login"), login) : rs.getString("login"));
                     login.setTipoUsr(rs.getString("tipo"));
                     LoginBean.tipo = rs.getString("tipo");
                     LoginBean.id_logado = rs.getInt("id_user");
@@ -205,6 +205,28 @@ public class UsuariosDAO {
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao Obter Login do Banco de Dados!: \n" + ex);
         }
+    }
+    
+    public String nomeAluno(String login, LoginBean l){
+        String nomeAl = "";
+        String SQL = "SELECT a.nome, a.cpf FROM aluno a INNER JOIN MatriculaCurso m ON(m.fk_Aluno_cpf = a.cpf) WHERE m.matricula = " + login;
+        
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    nomeAl = rs.getString("nome");
+                    l.setCpfAluno(rs.getString("cpf"));
+                }
+
+                pstm.close();
+                BD.getConexao().close();
+            }
+            System.out.println("Nome do aluno obtido com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter nome do aluno!: \n" + ex);
+        }
+        String primeiroNome[] = nomeAl.split(" ");
+        return primeiroNome[0];
     }
 
     public void alterarSenha(String login, String novaSenha) {

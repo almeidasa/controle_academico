@@ -25,7 +25,8 @@
             <div class="divPrincipal">
                 <b:panel>
                     <h:graphicImage class="img" value="resources/img/logo.png"/><br/>
-                    <h:outputLabel class="msg">Bem-Vindo #{loginBean.nomeUsr} ao Sistema - SHAA</h:outputLabel>
+                    <h:outputLabel class="msg" rendered="#{!loginBean.tipoUsr.equalsIgnoreCase('Aluno')}">Olá #{loginBean.nomeUsr} Bem-Vindo ao Sistema - SHAA</h:outputLabel>
+                    <h:outputLabel class="msg" rendered="#{loginBean.tipoUsr.equalsIgnoreCase('Aluno')}">Olá #{loginBean.nomeUsr} bem-vindo ao portal do aluno</h:outputLabel>
                     <div class="footer" style="text-align: center">
                         <hr/>
                         &copy; 2018 WAAL Software. Todos os direitos reservados.

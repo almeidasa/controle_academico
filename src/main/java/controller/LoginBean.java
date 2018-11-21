@@ -26,6 +26,7 @@ public class LoginBean {
     private String novaSenha;
     private String novaSenhaConf;
     private String email;
+    private String cpfAluno;
     private boolean sessao = false;
     public int cont = 0;
     private String tipoUsr;
@@ -176,6 +177,14 @@ public class LoginBean {
 
     public void setSessao(boolean sessao) {
         this.sessao = sessao;
+    }
+
+    public String getCpfAluno() {
+        return cpfAluno;
+    }
+
+    public void setCpfAluno(String cpfAluno) {
+        this.cpfAluno = cpfAluno;
     }
 
     public String getEmail() {

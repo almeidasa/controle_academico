@@ -75,7 +75,7 @@ public class AlunoBean {
 
     public void alterar() {
         aluno = new Aluno(nome, cpf, data_nascimento, sexo, telefone, email, endereco, caminhoFoto);
-        alunoDao.alterarUsuario(aluno, tempCpf);
+        alunoDao.alterarAluno(aluno, tempCpf);
         editar = false;
         alunoDao.obterFoto(cpf);
         obter();
@@ -84,7 +84,7 @@ public class AlunoBean {
     }
 
     public void remover(Aluno lista) {
-        alunoDao.apagarUsuario(lista.getCpf());
+        alunoDao.apagarAluno(lista.getCpf());
         obter();
     }
 

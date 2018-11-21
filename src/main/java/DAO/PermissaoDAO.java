@@ -61,7 +61,7 @@ public class PermissaoDAO {
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
                     permissao.put(rs.getString("nome"), rs.getBoolean(tpUsr));
-                    System.out.println(rs.getString("nome"));
+                    //System.out.println(rs.getString("nome"));
                 }
                 pstm.close();
             }

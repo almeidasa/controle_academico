@@ -23,13 +23,8 @@ public class AlunoDAO {
 
     public void inserirAluno(Aluno aluno) {
         String SQL;
-        InputStream fis = null;
-
-        if (aluno.getCaminhoFoto() != null) {
-            SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone, bin_foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        } else {
-            SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        }
+        InputStream fis;
+        SQL = "INSERT INTO aluno(cpf, nome, data_nascimento, sexo, email, endereco, telefone, bin_foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setString(1, aluno.getCpf());
@@ -38,18 +33,21 @@ public class AlunoDAO {
             pstm.setString(4, aluno.getSexo());
             pstm.setString(5, aluno.getEmail());
             pstm.setString(6, aluno.getEndereco());
-            pstm.setString(7, aluno.getTelefone());
+            pstm.setString(7, aluno.getTelefone().replace(" (__) _____-____ (__) _____-____", "").replace(" (__) _____-____", ""));
             if (aluno.getCaminhoFoto() != null) {
                 File file = new File(aluno.getCaminhoFoto());
+                fis = new FileInputStream(file);
+                pstm.setBinaryStream(8, fis, (int) file.length());
+            } else {
+                File file = new File(Obter.CaminhoArquivo("usrFoto.jpg"));
                 fis = new FileInputStream(file);
                 pstm.setBinaryStream(8, fis, (int) file.length());
             }
             pstm.execute();
             pstm.close();
             BD.getConexao().close();
-            if (fis != null) {
-                fis.close();
-            }
+            fis.close();
+
             System.out.println("Aluno Inserido com Sucesso!");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir Aluno: " + ex);
@@ -86,7 +84,7 @@ public class AlunoDAO {
     }
 
     public String obterEmail(String cpf) {
-        String email="";
+        String email = "";
         System.out.println(cpf);
         String SQL = "SELECT email FROM aluno WHERE cpf = '" + cpf + "'";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
@@ -128,7 +126,7 @@ public class AlunoDAO {
         }
     }
 
-    public void alterarUsuario(Aluno aluno, String tempCpf) {
+    public void alterarAluno(Aluno aluno, String tempCpf) {
         String SQL;
         InputStream fis = null;
 
@@ -145,7 +143,7 @@ public class AlunoDAO {
             pstm.setString(4, aluno.getSexo());
             pstm.setString(5, aluno.getEmail());
             pstm.setString(6, aluno.getEndereco());
-            pstm.setString(7, aluno.getTelefone());
+            pstm.setString(7, aluno.getTelefone().replace(" (__) _____-____ (__) _____-____", "").replace(" (__) _____-____", ""));
             if (aluno.getCaminhoFoto() != null) {
                 File file = new File(aluno.getCaminhoFoto());
                 fis = new FileInputStream(file);
@@ -168,7 +166,7 @@ public class AlunoDAO {
         }
     }
 
-    public void apagarUsuario(String cpf) {
+    public void apagarAluno(String cpf) {
 
         String SQL = "DELETE FROM aluno WHERE cpf = (?)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
