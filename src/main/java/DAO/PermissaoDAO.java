@@ -2,6 +2,7 @@ package DAO;
 
 import Util.Exibir;
 import controller.PermissaoBean;
+import entities.Permissao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -72,16 +73,17 @@ public class PermissaoDAO {
         return permissao;
     }
 
-    public ArrayList<PermissaoBean> obterPermissoes() {
+    public ArrayList<Permissao> obterPermissoes() {
 
-        ArrayList<PermissaoBean> permissoes = new ArrayList<>();
+        ArrayList<Permissao> permissoes = new ArrayList<>();
 
         String SQL = "SELECT * FROM permissao ORDER BY nome";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             try (ResultSet rs = pstm.executeQuery()) {
+                boolean vazio = true;
                 while (rs.next()) {
-                    PermissaoBean perm = new PermissaoBean(
+                    Permissao perm = new Permissao(
                             rs.getString("nome"),
                             rs.getBoolean("admin"),
                             rs.getBoolean("diret"),
@@ -90,11 +92,12 @@ public class PermissaoDAO {
                             rs.getBoolean("aluno")
                     );
                     permissoes.add(perm);
-                    if (rs.getString("nome") == null) {
-                        inserirPermissoesPadrao();
-                    }
+                    vazio = false;
                 }
-
+                if (vazio) {
+                    Exibir.Mensagem("Não há permissões");
+                    inserirPermissoesPadrao();
+                }
                 pstm.close();
             }
             System.out.println("Permissões obtidas com sucesso!");
@@ -106,6 +109,7 @@ public class PermissaoDAO {
 
     public void inserirPermissoesPadrao() {
         String SQL = "INSERT INTO Permissao(nome, admin, diret, coord, func, aluno) VALUES \n"
+                + "	('1 Todas', false, false, false, false, false),\n"
                 + "	('Cadastrar Geral', false, false, false, false, false),\n"
                 + "	('Cadastrar Usuários', false, false, false, false, false),\n"
                 + "	('Cadastrar Funcionários', false, false, false, false, false),\n"
@@ -132,7 +136,7 @@ public class PermissaoDAO {
 
             BD.getConexao().close();
             pstm.close();
-            System.out.println("Permissões padrão inseridas com sucesso!");
+            Exibir.Mensagem("Permissões padrão inseridas com sucesso! (Recarregue a pagina!)");
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao inserir permissões padrão: " + ex);
         }
@@ -155,11 +159,21 @@ public class PermissaoDAO {
     }
 
     public void alterarPermissaoUsr(String usr, boolean situacao, String nomeAcesso) {
+        String SQL = "";
+        if (nomeAcesso.equals("1 Todas")) {
+            SQL = "UPDATE permissao SET " + usr + " = ?";
+        }
+        else{
+            SQL = "UPDATE permissao SET " + usr + " = ? WHERE nome = ?";
+        }
 
-        String SQL = "UPDATE permissao SET " + usr + " = ? WHERE nome = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setBoolean(1, situacao);
-            pstm.setString(2, nomeAcesso);
+            
+            if (!nomeAcesso.equals("1 Todas")) {
+                pstm.setString(2, nomeAcesso);
+            }
+            
             pstm.executeUpdate();
 
             pstm.close();

@@ -17,6 +17,11 @@ public class Aluno {
 
     public Aluno() {
     }
+    
+    public Aluno(String nome, String cpf) {
+        this.nome = nome;
+        this.cpf = cpf;
+    }
 
     public Aluno(String nome, String cpf, String data_nascimento, String sexo, String telefone, String email, String endereco) {
         this.nome = nome;

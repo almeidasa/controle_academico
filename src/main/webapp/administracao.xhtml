@@ -45,15 +45,17 @@
                 </b:panel>
             </div>
             <div>
-                <b:panel class="painel3" collapsible="false" title="Permissões" iconAwesome="table" icon-size="lg" look="primary" rendered="true">
+                <b:panel id="Permissoes" class="painel3" collapsible="false" title="Permissões" iconAwesome="table" icon-size="lg" look="primary" rendered="true">
                     <b:form>
                         <b:row style="padding: 15px">
-                            <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
-                                         class="table table-striped table-bordered" 
-                                         value = "#{permissaoBean.permissoes}"
-                                         var="lista"
-                                         style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
-                                         responsive="true">
+                            <b:dataTable
+                                customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
+                                class="table table-striped table-bordered" 
+                                value = "#{permissaoBean.permissoes}"
+                                var="lista"
+                                style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
+                                responsive="true"
+                                paginated="false">
                                 <b:dataTableColumn value="#{lista.nome}" label="Nome"/>
                                 <b:dataTableColumn  label="Administrador">
                                     <b:switch value="#{lista.admin}" onColor="success" offColor="danger" on-text="Ativo" off-text="Inativo" switchsize="mini">

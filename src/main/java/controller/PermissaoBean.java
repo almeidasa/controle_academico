@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.PermissaoDAO;
+import entities.Permissao;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,7 +24,7 @@ public class PermissaoBean {
     private boolean aluno;
     private boolean editar;
     PermissaoDAO perm;
-    private ArrayList<PermissaoBean> permissoes;
+    private ArrayList<Permissao> permissoes;
 
     public PermissaoBean() {
         perm = new PermissaoDAO();
@@ -42,10 +43,10 @@ public class PermissaoBean {
         return ("administracao");
     }
     
-    public void iniciaEditar(PermissaoBean p) {
-        nomePermAnterior = p.nome;
+    public void iniciaEditar(Permissao p) {
+        nomePermAnterior = p.getNome();
         editar = true;
-        nomeNovaPerm = p.nome;
+        nomeNovaPerm = p.getNome();
     }
     
     public void alterar(){
@@ -55,38 +56,29 @@ public class PermissaoBean {
         cancelar();
     }
     
-    public void remover(PermissaoBean p) {
-        perm.apagarPermissao(p.nome);
+    public void alterarPermAdmin(Permissao p) {
+        perm.alterarPermissaoUsr("admin", p.isAdmin(), p.getNome());
+    }
+    
+    public void alterarPermDiret(Permissao p) {
+        perm.alterarPermissaoUsr("diret", p.isDiret(), p.getNome());
+    }
+    
+    public void alterarPermCoord(Permissao p) {
+        perm.alterarPermissaoUsr("coord", p.isCoord(), p.getNome());
+    }
+    
+    public void alterarPermFunc(Permissao p) {
+        perm.alterarPermissaoUsr("func", p.isFunc(), p.getNome());
+    }
+    
+    public void alterarPermAluno(Permissao p) {
+        perm.alterarPermissaoUsr("aluno", p.isAluno(), p.getNome());
+    }
+    
+    public void remover(Permissao p) {
+        perm.apagarPermissao(p.getNome());
         obter();
-    }
-    
-    public void alterarPermAdmin(PermissaoBean p) {
-        perm.alterarPermissaoUsr("admin", p.admin, p.nome);
-    }
-    
-    public void alterarPermDiret(PermissaoBean p) {
-        perm.alterarPermissaoUsr("diret", p.diret, p.nome);
-    }
-    
-    public void alterarPermCoord(PermissaoBean p) {
-        perm.alterarPermissaoUsr("coord", p.coord, p.nome);
-    }
-    
-    public void alterarPermFunc(PermissaoBean p) {
-        perm.alterarPermissaoUsr("func", p.func, p.nome);
-    }
-    
-    public void alterarPermAluno(PermissaoBean p) {
-        perm.alterarPermissaoUsr("aluno", p.aluno, p.nome);
-    }
-
-    public PermissaoBean(String nome, boolean admin, boolean diret, boolean coord, boolean func, boolean aluno) {
-        this.nome = nome;
-        this.admin = admin;
-        this.diret = diret;
-        this.coord = coord;
-        this.func = func;
-        this.aluno = aluno;
     }
 
     private void obter() {
@@ -174,11 +166,11 @@ public class PermissaoBean {
         this.perm = perm;
     }
 
-    public ArrayList<PermissaoBean> getPermissoes() {
+    public ArrayList<Permissao> getPermissoes() {
         return permissoes;
     }
 
-    public void setPermissoes(ArrayList<PermissaoBean> permissoes) {
+    public void setPermissoes(ArrayList<Permissao> permissoes) {
         this.permissoes = permissoes;
     }
 }
