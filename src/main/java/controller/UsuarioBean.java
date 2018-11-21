@@ -19,7 +19,7 @@ public class UsuarioBean {
     private String login;
     private String senha;
     private String tipo;
-    private String situacao;
+    private String situacao = "true";
     private ArrayList<Usuarios> usuarios;
     Usuarios usr;
     UsuariosDAO usrDao;

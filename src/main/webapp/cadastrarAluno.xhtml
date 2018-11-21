@@ -62,12 +62,12 @@
                                 </h:form>
                             </b:panel>
                             <b:panel title="Foto" collapsible="false" title-style="" style="margin-left: 5px; height: 351px; width: 220px; text-align: center">
-                                <b:image value="#{alunoBean.fotoUsuario}" style="max-width:120px; max-height:160px; min-width:120px; min-height:160px;"/>
+                                <b:image id="Foto" value="#{alunoBean.fotoUsuario}" style="max-width:120px; max-height:160px; min-width:120px; min-height:160px;"/>
                                 <h:form enctype="multipart/form-data">
                                     <h:inputFile value="#{alunoBean.file}" style="margin-top: 3px">
                                         <f:validator validatorId="fileUploadValidator"/>
                                     </h:inputFile>
-                                    <b:commandButton value="Carregar Foto" look="warning" size="xs" action="#{alunoBean.carregarFoto()}" style="margin-top: 3px"/>
+                                    <b:commandButton value="Carregar Foto" look="warning" size="xs" action="#{alunoBean.carregarFoto()}" style="margin-top: 3px" />
                                 </h:form>
                             </b:panel>
                         </h:panelGrid>
