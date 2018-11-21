@@ -81,15 +81,15 @@
                                 <b:dataTableColumn value="#{lista.semestre}" label="Semestre"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
-                                        <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
+                                        <b:commandButton disabled="#{lista.situacao.equalsIgnoreCase('concluido')}" iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
                                                          title="Remover Item" look="danger"   action="#{matriculaDisciplinaBean.remover(lista)}"/>
-                                        <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
+                                        <b:commandButton disabled="#{lista.situacao.equalsIgnoreCase('concluido')}" iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
                                                          title="Editar Item" look="info"  action="#{matriculaDisciplinaBean.editar(lista)}" />
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:row>
-                    </b:form>
+                    </b:form> 
                 </b:panel>
             </div>
         </b:column>
