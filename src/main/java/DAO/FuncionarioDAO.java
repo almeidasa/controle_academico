@@ -19,7 +19,11 @@ public class FuncionarioDAO {
             pstm.setString(2, funcionario.getCargo());
             pstm.setString(3, funcionario.getEmail());
             pstm.setString(4, funcionario.getTelefone());
-            pstm.setInt(5, funcionario.getFk_Usuarios_id_user());
+            if (funcionario.getFk_Usuarios_id_user() != 0) {
+                pstm.setInt(5, funcionario.getFk_Usuarios_id_user());
+            }else{
+                pstm.setNull(5, 0);
+            }
 
             pstm.execute();
 

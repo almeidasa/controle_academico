@@ -66,8 +66,8 @@
                                 <h:form enctype="multipart/form-data">
                                     <h:inputFile value="#{alunoBean.file}" style="margin-top: 3px">
                                         <f:validator validatorId="fileUploadValidator"/>
+                                        <f:ajax event="change" immediate="false" render="Foto" listener="#{alunoBean.carregarFoto()}"/>
                                     </h:inputFile>
-                                    <b:commandButton value="Carregar Foto" look="warning" size="xs" action="#{alunoBean.carregarFoto()}" style="margin-top: 3px" />
                                 </h:form>
                             </b:panel>
                         </h:panelGrid>
