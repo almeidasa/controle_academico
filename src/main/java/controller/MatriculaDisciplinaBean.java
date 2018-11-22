@@ -167,7 +167,7 @@ public class MatriculaDisciplinaBean {
     private void setBoxDisciplina() {
         ItensBoxDisciplina = new LinkedHashMap<>();
         disciplina = new DisciplinaDAO().obterDisciplina();
-        ItensBoxDisciplina.clear();
+       
         for (Disciplina disc : disciplina) {
             ItensBoxDisciplina.put("", "Selecione uma Disciplina");
             if (disc.getFk_Curso_cod() == fk_Curso_cod) {

@@ -43,10 +43,12 @@
                             </b:selectOneMenu>
                         </b:row>
                         <b:row>
-                            <b:inputText value="#{matriculaDisciplinaBean.semestre}" label="Semestre" placeholder="Semestre" mask="9{0,2}" 
-                                         tiny-screen="one-third" required="true"/>
                             <b:inputText value="#{matriculaDisciplinaBean.ano}" label="Ano" placeholder="2018" mask="9{0,4}" 
                                          tiny-screen="one-third" required="true" />
+                            <b:selectOneMenu value="#{matriculaDisciplinaBean.semestre}" label="Semestre" tiny-screen="one-third" required="true">
+                                <f:selectItem itemLabel="1°" itemValue="1" />
+                                <f:selectItem itemLabel="2°" itemValue="2" />
+                            </b:selectOneMenu>
                             <b:selectOneMenu value="#{matriculaDisciplinaBean.situacao}" label="Situação" tiny-screen="one-third" required="true">
                                 <f:selectItem itemLabel="Cursando" itemValue="Cursando" />
                                 <f:selectItem itemLabel="Cancelado" itemValue="Cancelada" />
@@ -78,18 +80,18 @@
                                 <b:dataTableColumn value="#{matriculaDisciplinaBean.listaDisciplina.get(lista.fk_Disciplina_codigo)}" label="Disciplina"/>
                                 <b:dataTableColumn value="#{lista.ano}" label="Ano"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Situacao"/>
-                                <b:dataTableColumn value="#{lista.semestre}" label="Semestre"/>
+                                <b:dataTableColumn value="#{lista.semestre}°" label="Semestre"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
-                                        <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
+                                        <b:commandButton disabled="#{lista.situacao.equalsIgnoreCase('concluido')}" iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
                                                          title="Remover Item" look="danger"   action="#{matriculaDisciplinaBean.remover(lista)}"/>
-                                        <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
+                                        <b:commandButton disabled="#{lista.situacao.equalsIgnoreCase('concluido')}" iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
                                                          title="Editar Item" look="info"  action="#{matriculaDisciplinaBean.editar(lista)}" />
                                     </h:panelGrid>
                                 </b:dataTableColumn>
                             </b:dataTable>
                         </b:row>
-                    </b:form>
+                    </b:form> 
                 </b:panel>
             </div>
         </b:column>

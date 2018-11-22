@@ -89,22 +89,18 @@ public class MatriculaDisciplinaDAO {
         }
         return matdis;
     }
-    
+
     public boolean alunoMatriculado(String cpf, String cod_disciplina) {
         boolean pode_cursar = false;
-        String SQL = "SELECT * FROM matriculadisciplina WHERE fk_aluno_cpf = '" + cpf + "' AND fk_disciplina_codigo = '" + cod_disciplina + "'";
+        String SQL = "SELECT * FROM matriculadisciplina WHERE (fk_aluno_cpf = '" + cpf + "' AND fk_disciplina_codigo = '" + cod_disciplina + "') AND ((conceito != 'Insuficiente') OR situacao = 'Cursando')";
+        System.out.println(SQL);
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             try (ResultSet rs = pstm.executeQuery()) {
-                if (!rs.next()) {
-                    pode_cursar = true;
-                    System.out.println("Não");
+                if (rs.next()) {
+                    pode_cursar = false;
                 } else {
-                    while (rs.next()) {
-                        if ((rs.getString("conceito").equals("Insuficiente") && !rs.getString("situacao").equals("Cursando")) || !rs.getString("situacao").equals("Cursando")) {
-                            pode_cursar = true;
-                        }
-                    }
+                    pode_cursar = true;
                 }
                 pstm.close();
             }
@@ -152,7 +148,7 @@ public class MatriculaDisciplinaDAO {
             Exibir.Mensagem("Erro ao Alterar matriculaDisciplina!:\n" + ex);
         }
     }
-    
+
     public void removerMatriculaDisciplina(MatriculaDisciplina md) {
         String SQL = "DELETE FROM matriculadisciplina WHERE id = ?";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
