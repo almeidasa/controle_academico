@@ -5,11 +5,13 @@ import DAO.CursoDAO;
 import DAO.DisciplinaDAO;
 import DAO.MatriculaCursoDAO;
 import DAO.MatriculaDisciplinaDAO;
+import Util.Formatar;
 import entities.Aluno;
 import entities.Disciplina;
 import entities.MatriculaCurso;
 import entities.MatriculaDisciplina;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -50,9 +52,9 @@ public class MatriculaDisciplinaBean {
     public MatriculaDisciplinaBean() {
         this.matriculaCurso = new ArrayList<>();
         this.matriculaDisciplina = new ArrayList<>();
-
         this.disciplina = new ArrayList<>();
         this.alunos = new ArrayList<>();
+        ano = Integer.parseInt(Formatar.data(new Date(), "yyyy"));
         obter();
         setBoxAlunos();
         setBoxCurso();
@@ -80,7 +82,7 @@ public class MatriculaDisciplinaBean {
         id = 0;
         conceito = "";
         semestre = "";
-        ano = 0;
+        ano = Integer.parseInt(Formatar.data(new Date(), "yyyy"));
         situacao = "";
         fk_Disciplina_codigo = "";
         fk_Aluno_cpf = "";
