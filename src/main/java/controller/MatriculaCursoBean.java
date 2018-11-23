@@ -28,7 +28,7 @@ public class MatriculaCursoBean {
     private int matricula;
     private String situacao;
     private String data_inicio;
-    private String duracao_curso;
+    private String duracao_curso = "3";
     private String fk_Aluno;
     private int fk_Curso_cod;
 

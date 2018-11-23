@@ -31,7 +31,7 @@
                     <b:form>
                         <b:row>
                             <b:inputText value="#{disciplinaBean.codigo}" label="Código" readonly="#{disciplinaBean.readonly}" placeholder="Digite o código da disciplina" type="text" 
-                                         tiny-screen="one-fourth" required="true" />
+                                         tiny-screen="one-fourth" required="true" maxlength="5"/>
                             <b:inputText value="#{disciplinaBean.nome}" label="Nome" placeholder="Digite o nome da disciplina" type="text" 
                                          tiny-screen="one-fourth" required="true" />
                             <b:selectOneMenu value="#{disciplinaBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">

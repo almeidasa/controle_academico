@@ -84,12 +84,11 @@ public class AlunoDAO {
     }
     
     public ArrayList<Aluno> obterAlunosCurso(String codCurso) {
-
         ArrayList<Aluno> alunos = new ArrayList<>();
 
         String SQL = "SELECT cpf, nome FROM aluno a INNER JOIN MatriculaCurso m ON(m.fk_Aluno_cpf = a.cpf) WHERE m.fk_Curso_cod = ? ORDER BY nome ASC";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-            pstm.setString(1, codCurso);
+            pstm.setInt(1, Integer.parseInt(codCurso));
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
                     Aluno usr = new Aluno(
@@ -100,9 +99,9 @@ public class AlunoDAO {
                 }
                 pstm.close();
             }
-            System.out.println("Alunos obtidos com sucesso!");
+            System.out.println("Alunos no curso obtidos com sucesso!");
         } catch (Exception ex) {
-            Exibir.Mensagem("Erro ao obter alunos!: \n" + ex);
+            Exibir.Mensagem("Erro ao obter alunos no curso!: \n" + ex);
         }
         return alunos;
     }

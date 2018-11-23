@@ -30,11 +30,12 @@
                 <b:panel title="Histórico Acadêmico do Aluno" collapsible="true" look="info" iconAwesome="graduation-cap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu select2="true" value="#{matriculaCursoBean.fk_Curso_cod}"  label="Curso" tiny-screen="half" required="true">
-                                <f:selectItems value="#{matriculaCursoBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                            <b:selectOneMenu select2="true" value="#{relatorioBean.codCurso}"  label="Curso" tiny-screen="half" required="true">
+                                <f:selectItems value="#{relatorioBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change" immediate="false" render="boxAluno" listener="#{relatorioBean.setBoxAlunos()}"/>
                             </b:selectOneMenu>
-                            <b:selectOneMenu select2="true" value="#{matriculaCursoBean.fk_Aluno}" label="Aluno" tiny-screen="half" required="true">
-                                <f:selectItems value="#{matriculaCursoBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                            <b:selectOneMenu id="boxAluno" select2="true" value="#{relatorioBean.alunoCpf}" label="Aluno" tiny-screen="half" required="true">
+                                <f:selectItems value="#{relatorioBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
                             </b:selectOneMenu>
                         </b:row>
                         <!--Divisão de painéis-->
@@ -63,14 +64,6 @@
                                 <b:dataTableColumn value="#{lista.data_inicio}" label="Data de Início"/>
                                 <b:dataTableColumn value="#{lista.duracao_curso}" label="Duração (Semestres)"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
-                                <b:dataTableColumn label="Opções" style="width: 170px">
-                                    <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
-                                        <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"
-                                                         title="Remover Item" look="danger"   action="#{matriculaCursoBean.remover(lista)}"/>
-                                        <b:commandButton iconAwesome="edit" value="Editar" size="sm" class="btn btn-lg"
-                                                         title="Editar Item" look="info"  action="#{matriculaCursoBean.editar(lista)}" />
-                                    </h:panelGrid>
-                                </b:dataTableColumn>
                             </b:dataTable>
                         </b:row>
                     </b:form>

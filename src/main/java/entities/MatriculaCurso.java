@@ -1,7 +1,5 @@
 package entities;
 
-import java.sql.Date;
-
 /**
  *
  * @author Alexandre Almeida

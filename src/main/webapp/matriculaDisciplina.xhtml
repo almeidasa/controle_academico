@@ -43,8 +43,8 @@
                             </b:selectOneMenu>
                         </b:row>
                         <b:row>
-                            <b:inputText value="#{matriculaDisciplinaBean.ano}" label="Ano" placeholder="2018" mask="9{0,4}" 
-                                         tiny-screen="one-third" required="true" />
+                            <b:touchSpin label="Ano" value="#{matriculaDisciplinaBean.ano}" min="#{matriculaDisciplinaBean.ano}" max="2045" step="1" 
+                                         tiny-screen="one-third" required="true"/>
                             <b:selectOneMenu value="#{matriculaDisciplinaBean.semestre}" label="Semestre" tiny-screen="one-third" required="true">
                                 <f:selectItem itemLabel="1°" itemValue="1" />
                                 <f:selectItem itemLabel="2°" itemValue="2" />

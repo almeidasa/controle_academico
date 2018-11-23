@@ -7,14 +7,19 @@ import entities.Curso;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  * @Autor Winder Rezende
  * @Data 20/11/2018
  */
+@ManagedBean
+@ViewScoped
 public class RelatorioBean {
 
     private String codCurso;
+    private String alunoCpf;
     private ArrayList<Aluno> alunos;
     private ArrayList<Curso> curso;
     private Map<String, String> ItensBoxAlunos;
@@ -55,6 +60,14 @@ public class RelatorioBean {
 
     public void setCodCurso(String codCurso) {    
         this.codCurso = codCurso;
+    }
+
+    public String getAlunoCpf() {
+        return alunoCpf;
+    }
+
+    public void setAlunoCpf(String alunoCpf) {
+        this.alunoCpf = alunoCpf;
     }
 
     public ArrayList<Aluno> getAlunos() {
