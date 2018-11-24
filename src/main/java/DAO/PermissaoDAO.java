@@ -1,7 +1,6 @@
 package DAO;
 
 import Util.Exibir;
-import controller.PermissaoBean;
 import entities.Permissao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

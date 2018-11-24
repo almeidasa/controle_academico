@@ -43,7 +43,7 @@
                             <b:inputText value="#{matriculaCursoBean.data_inicio}" label="Data de Início" placeholder="Digite a data de início do curso" type="date" 
                                          tiny-screen="one-fourth" required="true"/>
                             <b:touchSpin label="Duração (Semestres)" col-md="3" value="#{matriculaCursoBean.duracao_curso}" min="1" max="12" step="1" 
-                                         tiny-screen="one-fourth" required="true"/>
+                                         tiny-screen="one-fourth" required="true" type="number"/>
                             <b:selectOneMenu value="#{matriculaCursoBean.situacao}" label="Situação" tiny-screen="one-fourth" required="true">
                                 <f:selectItem itemLabel="Cursando" itemValue="Cursando" />
                                 <f:selectItem itemLabel="Concluído" itemValue="Concluído" />

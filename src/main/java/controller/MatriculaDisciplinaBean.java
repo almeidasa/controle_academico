@@ -34,6 +34,7 @@ public class MatriculaDisciplinaBean {
     private String fk_Disciplina_codigo;
     private String fk_Aluno_cpf;
     private int fk_Curso_cod;
+    private int minDate = Integer.parseInt(Formatar.data(new Date(), "yyyy"))-1;
 
     private ArrayList<MatriculaDisciplina> matriculaDisciplina;
     private ArrayList<MatriculaCurso> matriculaCurso;
@@ -54,7 +55,7 @@ public class MatriculaDisciplinaBean {
         this.matriculaDisciplina = new ArrayList<>();
         this.disciplina = new ArrayList<>();
         this.alunos = new ArrayList<>();
-        ano = Integer.parseInt(Formatar.data(new Date(), "yyyy"));
+        ano = minDate;
         obter();
         setBoxAlunos();
         setBoxCurso();
@@ -82,7 +83,7 @@ public class MatriculaDisciplinaBean {
         id = 0;
         conceito = "";
         semestre = "";
-        ano = Integer.parseInt(Formatar.data(new Date(), "yyyy"));
+        ano = minDate;
         situacao = "";
         fk_Disciplina_codigo = "";
         fk_Aluno_cpf = "";
@@ -345,5 +346,12 @@ public class MatriculaDisciplinaBean {
     public void setReadonly(boolean readonly) {
         this.readonly = readonly;
     }
-    
+
+    public int getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(int minDate) {
+        this.minDate = minDate;
+    }
 }

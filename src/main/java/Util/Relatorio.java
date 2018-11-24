@@ -1,5 +1,6 @@
 package Util;
 
+import entities.HistoricoAluno;
 import entities.Usuarios;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -32,8 +33,31 @@ public class Relatorio {
     }
 
     public void getRelatorio(List<Usuarios> lista) {
-        System.out.println("asdasd: " + this.getClass().getResourceAsStream("/report/UsuarioReport.jasper"));
         stream = this.getClass().getResourceAsStream("/report/UsuarioReport.jasper");
+        Map<String, Object> params = new HashMap<>();
+        baos = new ByteArrayOutputStream();
+
+        try {
+            JasperReport report = (JasperReport) JRLoader.loadObject(stream);
+            JasperPrint print = JasperFillManager.fillReport(report, params, new JRBeanCollectionDataSource(lista));
+            JasperExportManager.exportReportToPdfStream(print, baos);
+
+            response.reset();
+            response.setContentType("application/pdf");
+            response.setContentLength(baos.size());
+            response.setHeader("Content-disposition", "inline; filename=relatorio.pdf");
+            response.getOutputStream().write(baos.toByteArray());
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+
+            context.responseComplete();
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao Gerar Relatório: " + ex);
+        }
+    }
+    
+    public void getHistoricoAluno(List<HistoricoAluno> lista) {
+        stream = this.getClass().getResourceAsStream("/report/historicoAluno.jasper");
         Map<String, Object> params = new HashMap<>();
         baos = new ByteArrayOutputStream();
 
