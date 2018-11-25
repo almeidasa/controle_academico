@@ -56,6 +56,37 @@ public class DisciplinaDAO {
 
         return disciplina;
     }
+    
+    public ArrayList<Disciplina> obterDisciplinaDisponivel(String fk_Aluno_cpf, int fk_Curso_cod) {
+
+        ArrayList<Disciplina> disciplina = new ArrayList<>();
+
+        String SQL = "SELECT nome, codigo FROM disciplina WHERE codigo \n"
+                + "NOT IN(SELECT d.codigo FROM matriculadisciplina m\n"
+                + "LEFT JOIN disciplina d ON(m.fk_disciplina_codigo = d.codigo)\n"
+                + "WHERE d.fk_curso_cod = ? AND fk_aluno_cpf = ? \n"
+                + "AND (conceito != 'Insuficiente' OR conceito IS NULL)) AND fk_curso_cod = ?;";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setInt(1, fk_Curso_cod);
+            pstm.setString(2, fk_Aluno_cpf);
+            pstm.setInt(3, fk_Curso_cod);
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Disciplina disc = new Disciplina(
+                            rs.getString("codigo"),
+                            rs.getString("nome")
+                    );
+                    disciplina.add(disc);
+                }
+                pstm.close();
+            }
+            System.out.println("Disciplinas disponíveis obtidas com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter disciplinas disponíveis!: \n" + ex);
+        }
+        return disciplina;
+    }
 
     public ArrayList<Disciplina> obterDisciplinaPorCurso(int cod_curso) {
 

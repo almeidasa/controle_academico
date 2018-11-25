@@ -26,7 +26,7 @@ public class RelatorioDAO {
                 + "INNER JOIN Curso c ON(c.cod = mc.fk_Curso_cod)\n"
                 + "INNER JOIN MatriculaDisciplina md on(md.fk_Aluno_cpf = a.cpf)\n"
                 + "INNER JOIN Disciplina d ON(d.codigo = md.fk_Disciplina_codigo AND d.fk_Curso_cod = ?)\n"
-                + "WHERE a.cpf = ? AND mc.fk_Curso_cod = ? ORDER BY a.nome, md.semestre";
+                + "WHERE a.cpf = ? AND mc.fk_Curso_cod = ? ORDER BY md.ano, md.semestre";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setInt(1, codCurso);
             pstm.setString(2, cpf);
@@ -45,8 +45,8 @@ public class RelatorioDAO {
                         rs.getString("nomedisciplina"),
                         rs.getString("ano"),
                         rs.getString("semestre"),
-                        rs.getString("conceito") == null ? "-" : rs.getString(7),
-                        rs.getString("conceito") != null ? (rs.getString(7).equals("Insuficiente") ? "Reprovado" : "Aprovado") : "-"
+                        rs.getString("conceito") == null || rs.getString("conceito").equals("") ? "-" : rs.getString("conceito"),
+                        rs.getString("conceito") != null &&  !rs.getString("conceito").equals("") ? (rs.getString("conceito").equals("Insuficiente") ? "Reprovado" : "Aprovado") : "M"
                 );
                 historico.add(ha);
             }

@@ -76,8 +76,9 @@
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 
-                                <b:dataTableColumn value="#{matriculaDisciplinaBean.itensBoxAlunos.get(lista.fk_Aluno_cpf)}" label="Aluno"/>
-                                <b:dataTableColumn value="#{matriculaDisciplinaBean.listaDisciplina.get(lista.fk_Disciplina_codigo)}" label="Disciplina"/>
+                                <b:dataTableColumn value="#{lista.nome_aluno}" label="Aluno"/>
+                                <b:dataTableColumn value="#{lista.nome_disciplina}" label="Disciplina"/>
+                                <b:dataTableColumn value="#{lista.nome_curso}" label="Curso"/>
                                 <b:dataTableColumn value="#{lista.ano}" label="Ano"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Situacao"/>
                                 <b:dataTableColumn value="#{lista.semestre}°" label="Semestre"/>

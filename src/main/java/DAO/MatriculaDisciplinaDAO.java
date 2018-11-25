@@ -1,6 +1,7 @@
 package DAO;
 
 import Util.Exibir;
+import entities.Disciplina;
 import entities.MatriculaDisciplina;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +37,11 @@ public class MatriculaDisciplinaDAO {
 
         ArrayList<MatriculaDisciplina> matdis = new ArrayList<>();
 
-        String SQL = "SELECT * FROM matriculadisciplina";
+        String SQL = "SELECT a.nome AS nome_aluno, d.nome AS nome_disciplina, c.nome_curso, m.ano, m.situacao, m.semestre, m.id, m.conceito, m.fk_disciplina_codigo, m.fk_aluno_cpf \n"
+                + "FROM matriculadisciplina m \n"
+                + "INNER JOIN aluno a ON(a.cpf = m.fk_aluno_cpf)\n"
+                + "INNER JOIN disciplina d ON(d.codigo = m.fk_disciplina_codigo)\n"
+                + "INNER JOIN curso c ON(c.cod = fk_curso_cod)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             try (ResultSet rs = pstm.executeQuery()) {
@@ -48,7 +53,10 @@ public class MatriculaDisciplinaDAO {
                             rs.getInt("ano"),
                             rs.getString("situacao"),
                             rs.getString("fk_disciplina_codigo"),
-                            rs.getString("fk_aluno_cpf")
+                            rs.getString("fk_aluno_cpf"),
+                            rs.getString("nome_aluno"),
+                            rs.getString("nome_disciplina"),
+                            rs.getString("nome_curso")
                     );
                     matdis.add(mat);
                 }
@@ -88,27 +96,6 @@ public class MatriculaDisciplinaDAO {
             Exibir.Mensagem("Erro ao obter Disciplinas!: \n" + ex);
         }
         return matdis;
-    }
-
-    public boolean alunoMatriculado(String cpf, String cod_disciplina) {
-        boolean pode_cursar = false;
-        String SQL = "SELECT * FROM matriculadisciplina WHERE (fk_aluno_cpf = '" + cpf + "' AND fk_disciplina_codigo = '" + cod_disciplina + "') AND ((conceito != 'Insuficiente') OR situacao = 'Cursando')";
-        System.out.println(SQL);
-        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-
-            try (ResultSet rs = pstm.executeQuery()) {
-                if (rs.next()) {
-                    pode_cursar = false;
-                } else {
-                    pode_cursar = true;
-                }
-                pstm.close();
-            }
-            System.out.println("Verificado aluno/disciplina com êxito!");
-        } catch (Exception ex) {
-            Exibir.Mensagem("Erro ao verificar  aluno/Disciplinas!: \n" + ex);
-        }
-        return pode_cursar;
     }
 
     public void editarMatriculaDisciplina(MatriculaDisciplina md) {

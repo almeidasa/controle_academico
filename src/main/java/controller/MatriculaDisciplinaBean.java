@@ -34,7 +34,7 @@ public class MatriculaDisciplinaBean {
     private String fk_Disciplina_codigo;
     private String fk_Aluno_cpf;
     private int fk_Curso_cod;
-    private int minDate = Integer.parseInt(Formatar.data(new Date(), "yyyy"))-1;
+    private int minDate = Integer.parseInt(Formatar.data(new Date(), "yyyy")) - 1;
 
     private ArrayList<MatriculaDisciplina> matriculaDisciplina;
     private ArrayList<MatriculaCurso> matriculaCurso;
@@ -45,7 +45,6 @@ public class MatriculaDisciplinaBean {
     private Map<String, String> ItensBoxAlunos;
     private Map<Integer, String> ItensBoxCurso;
     private Map<String, String> ItensBoxDisciplina;
-    private Map<String, String> ListaDisciplina;
 
     private String botao = "Incluir";
     private String icone = "plus-circle";
@@ -58,19 +57,6 @@ public class MatriculaDisciplinaBean {
         ano = minDate;
         obter();
         setBoxAlunos();
-        setBoxCurso();
-        setBoxDisciplina();
-        setListaDisciplina();
-    }
-
-    public MatriculaDisciplinaBean(int id, String conceito, String semestre, int ano, String situacao, String fk_Disciplina_codigo, String fk_Aluno_cpf) {
-        this.id = id;
-        this.conceito = conceito;
-        this.semestre = semestre;
-        this.ano = ano;
-        this.situacao = situacao;
-        this.fk_Disciplina_codigo = fk_Disciplina_codigo;
-        this.fk_Aluno_cpf = fk_Aluno_cpf;
     }
 
     private void obter() {
@@ -121,7 +107,7 @@ public class MatriculaDisciplinaBean {
         ano = matDisciplina.getAno();
         situacao = matDisciplina.getSituacao();
         fk_Aluno_cpf = matDisciplina.getFk_Aluno_cpf();
-        
+
         readonly = true;
         botao = "Alterar";
         icone = "fa-refresh";
@@ -169,28 +155,11 @@ public class MatriculaDisciplinaBean {
 
     private void setBoxDisciplina() {
         ItensBoxDisciplina = new LinkedHashMap<>();
-        disciplina = new DisciplinaDAO().obterDisciplina();
-       
-        for (Disciplina disc : disciplina) {
-            ItensBoxDisciplina.put("", "Selecione uma Disciplina");
-            if (disc.getFk_Curso_cod() == fk_Curso_cod) {
-                if (new MatriculaDisciplinaDAO().alunoMatriculado(fk_Aluno_cpf, disc.getCodigo())) {
-                    ItensBoxDisciplina.put(disc.getCodigo(), disc.getNome());
-                } else {
-                    ItensBoxDisciplina.remove(disc.getCodigo());
-                }
-            }
-        }
-    }
-
-    private void setListaDisciplina() {
-        ListaDisciplina = new LinkedHashMap<>();
-
-        disciplina = new DisciplinaDAO().obterDisciplina();
+        disciplina = new DisciplinaDAO().obterDisciplinaDisponivel(fk_Aluno_cpf, fk_Curso_cod);
 
         for (Disciplina disc : disciplina) {
-            ListaDisciplina.put("D", "Selecione uma Disciplina");
-            ListaDisciplina.put(disc.getCodigo(), disc.getNome());
+            ItensBoxDisciplina.put("D", "Selecione uma Disciplina");
+            ItensBoxDisciplina.put(disc.getCodigo(), disc.getNome());
         }
     }
 
@@ -305,14 +274,6 @@ public class MatriculaDisciplinaBean {
 
     public void setItensBoxDisciplina(Map<String, String> ItensBoxDisciplina) {
         this.ItensBoxDisciplina = ItensBoxDisciplina;
-    }
-
-    public Map<String, String> getListaDisciplina() {
-        return ListaDisciplina;
-    }
-
-    public void setListaDisciplina(Map<String, String> ListaDisciplina) {
-        this.ListaDisciplina = ListaDisciplina;
     }
 
     public String getBotao() {
