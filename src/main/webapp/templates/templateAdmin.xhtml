@@ -30,9 +30,9 @@
 
                 <b:dropMenu value="Relatórios" iconAwesome="list-alt" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('Relatórios Geral', false)}">
                     <b:dropMenu value="Relação de Alunos" icon-awesome="drivers-license-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos', false)}">
-                        <b:navLink href="#" value="Matriculados" icon-awesome="address-book-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Matriculados', false)}"/>
-                        <b:navLink href="#" value="Poderão Colar Grau" icon-awesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Poderão Colar Grau', false)}"/>
-                        <b:navLink href="#" value="Podem Colar Grau" icon-awesome="flag" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Podem Colar Grau', false)}"/>
+                        <b:navLink href="/controle_academico/matriculados.xhtml" value="Matriculados" icon-awesome="address-book-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Matriculados', false)}"/>
+                        <b:navLink href="/controle_academico/poderaoColarGrau.xhtml" value="Poderão Colar Grau" icon-awesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Poderão Colar Grau', false)}"/>
+                        <b:navLink href="/controle_academico/podemColarGrau.xhtml" value="Podem Colar Grau" icon-awesome="flag" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Podem Colar Grau', false)}"/>
                     </b:dropMenu>
                     <b:dropMenu value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários', false)}">
                         <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Coordenadores', false)}"/>
@@ -92,9 +92,9 @@
                     <b:listLinks rendered="#{loginBean.permissao.getOrDefault('Relatórios Geral', false)}">
                         <b:navLink href="#" value="Relatórios" active="true" iconAwesome="list-alt" icon-size="lg" style="background-color: #e57373" />
                         <b:dropMenu value="Relação de Alunos" icon-awesome="drivers-license-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos', false)}">
-                            <b:navLink href="#" value="Matriculados" icon-awesome="address-book-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Matriculados', false)}"/>
-                            <b:navLink href="#" value="Poderão Colar Grau" icon-awesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Poderão Colar Grau', false)}"/>
-                            <b:navLink href="#" value="Podem Colar Grau" icon-awesome="flag" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Podem Colar Grau', false)}"/>
+                            <b:navLink href="/controle_academico/matriculados.xhtml" value="Matriculados" icon-awesome="address-book-o" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Matriculados', false)}"/>
+                            <b:navLink href="/controle_academico/poderaoColarGrau.xhtml" value="Poderão Colar Grau" icon-awesome="graduation-cap" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Poderão Colar Grau', false)}"/>
+                            <b:navLink href="/controle_academico/podemColarGrau.xhtml" value="Podem Colar Grau" icon-awesome="flag" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Alunos Podem Colar Grau', false)}"/>
                         </b:dropMenu>
                         <b:dropMenu value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários', false)}">
                             <b:navLink href="#" value="Coordenadores" icon-awesome="user-secret" rendered="#{loginBean.permissao.getOrDefault('Relatórios Relação de Funcionários Coordenadores', false)}"/>
