@@ -16,8 +16,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
- *
- * @author Alexandre Almeida
+ * @Autor Alexandre Almeida / Winder Rezende
+ * @Data  27/10/2018
  */
 public class AlunoDAO {
 

@@ -26,6 +26,7 @@ public class CursoBean {
     private ArrayList<Curso> cursos;
     private ArrayList<Funcionario> func;
     private Map<Integer, String> ItensBoxFuncionarios;
+    private Map<Integer, String> telCoodenador;
 
     private String botao = "Incluir";
     private String icone = "plus-circle";
@@ -94,16 +95,18 @@ public class CursoBean {
 
     private void setBoxFuncionarios() {
         ItensBoxFuncionarios = new LinkedHashMap<>();
+        telCoodenador  = new LinkedHashMap<>();
         FuncionarioDAO us = new FuncionarioDAO();
         func = us.obterFuncionarios();
-
+        
         for (Funcionario funcionarios : func) {
             ItensBoxFuncionarios.put(0, "Selecione um Funcionário");
             ItensBoxFuncionarios.put(funcionarios.getId(), funcionarios.getNome());
-            System.out.println(funcionarios.getId());
+            telCoodenador.put(funcionarios.getId(), funcionarios.getTelefone());
         }
     }
 
+    //Getter e Setter
     public int getCod() {
         return cod;
     }
@@ -184,4 +187,11 @@ public class CursoBean {
         this.ItensBoxFuncionarios = ItensBoxFuncionarios;
     }
 
+    public Map<Integer, String> getTelCoodenador() {
+        return telCoodenador;
+    }
+
+    public void setTelCoodenador(Map<Integer, String> telCoodenador) {
+        this.telCoodenador = telCoodenador;
+    }
 }

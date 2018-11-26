@@ -22,7 +22,7 @@
     <h:body>
         <div id="header">
             <ui:insert name="templateAdmin" >
-                <ui:include src="/templates/templateAdmin.xhtml" />
+                <ui:include src="/templates/template.xhtml" />
             </ui:insert>
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
@@ -62,6 +62,7 @@
                                 <b:dataTableColumn value="#{lista.cod}" label="Código"/>
                                 <b:dataTableColumn value="#{lista.nome_curso}" label="Nome"/>
                                 <b:dataTableColumn value="#{cursoBean.itensBoxFuncionarios.get(lista.fk_Funcionario_id)}" label="Coordenador"/>
+                                <b:dataTableColumn value="#{cursoBean.telCoodenador.get(lista.fk_Funcionario_id)}" label="Telefone Contato"/>
                                 <b:dataTableColumn label="Opções" style="width: 170px">
                                     <h:panelGrid style="width: 170px; margin-left: auto; margin-right: auto" columns="2">
                                         <b:commandButton iconAwesome="trash-o" value="Remover" size="sm" class="btn btn-lg"

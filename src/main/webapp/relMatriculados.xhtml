@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Alunos que podem colar grau</title>
+        <title>Histórico Acadêmico do Aluno</title>
         <link rel="shortcut icon" href="resources/img/home.png"/>
         <link rel="StyleSheet" type="text/css" href="resources/css/cadastrarUsuario.css" media="screen" />
 
@@ -22,36 +22,46 @@
     <h:body>
         <div id="header">
             <ui:insert name="templateAdmin" >
-                <ui:include src="/templates/templateAdmin.xhtml" />
+                <ui:include src="/templates/template.xhtml" />
             </ui:insert>
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div>
-                <b:panel title="Alunos que podem colar grau" collapsible="true" look="info" iconAwesome="graduation-cap" icon-size="lg" >
+                <b:panel title="Histórico Acadêmico do Aluno" collapsible="true" look="info" iconAwesome="graduation-cap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu select2="true" value="#{podemColarGrauBean.codCurso}"  label="Curso" tiny-screen="half" required="true">
-                                <f:selectItems value="#{podemColarGrauBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
-                                <f:ajax event="change" immediate="false" render="Tabela" listener="#{relatorioBean.obter()}"/>
+                            <b:selectOneMenu select2="true" value="#{relatorioBean.codCurso}"  label="Curso" tiny-screen="half" required="true">
+                                <f:selectItems value="#{relatorioBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change" immediate="false" render="boxAluno" listener="#{relatorioBean.setBoxAlunos()}"/>
+                            </b:selectOneMenu>
+                            <b:selectOneMenu id="boxAluno" select2="true" value="#{relatorioBean.alunoCpf}" label="Aluno" tiny-screen="half" required="true">
+                                <f:selectItems value="#{relatorioBean.itensBoxAlunos.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change" immediate="false" render="Tabela" listener="#{relatorioBean.obterHistoricoAluno()}"/>
                             </b:selectOneMenu>
                         </b:row>
                         <!--Divisão de painéis-->
                         <b:row>
                             <b:commandButton iconAwesome="file-pdf-o" icon-size="lg" value="Gerar Relatório" class="btn btn-lg btnIncluir" 
-                                             title="Gerar Relatório PDF" look="danger" action="#{podemColarGrauBean.gerarRelatorio()}" ajax="false" onclick="this.form.target = '_blank'"/>
+                                             title="Gerar Relatório PDF" look="danger" action="#{relatorioBean.gerarRelatorio()}" ajax="false" onclick="this.form.target = '_blank'"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
                 </b:panel>
             </div>
             <div>
-                <b:panel class="painel3" collapsible="false" title="Matriculados" iconAwesome="table" icon-size="lg" look="info" rendered="true">
+                <b:panel class="painel3" collapsible="false" title="Histórico" iconAwesome="table" icon-size="lg" look="info" rendered="true">
                     <b:form id="Tabela">
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
                                          class="table table-striped table-bordered" 
-                                         value = "#{podemColarGrauBean.historico}"
+                                         value = "#{relatorioBean.historico}"
                                          var="lista"
+                                         excel="true"
+                                         csv="true"
+                                         pdf="true"
+                                         columnVisibility="true"
+                                         copy="true"
+                                         print="true"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
 

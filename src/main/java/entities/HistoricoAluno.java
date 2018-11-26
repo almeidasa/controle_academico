@@ -15,6 +15,18 @@ public class HistoricoAluno {
     private String semestre;
     private String conceito;
     private String situacao;
+    private String data_inicio;
+    private String duracao_curso;
+
+    public HistoricoAluno(String nome_curso, String nome_aluno, String cpf, String matricula, String situacao, String data_inicio, String duracao_curso) {
+        this.nome_curso = nome_curso;
+        this.nome_aluno = nome_aluno;
+        this.cpf = cpf;
+        this.matricula = matricula;
+        this.situacao = situacao;
+        this.data_inicio = data_inicio;
+        this.duracao_curso = duracao_curso;
+    }
 
     public HistoricoAluno(String nome_curso, String nome_aluno, String cpf, String matricula, String nome_Disciplina, String ano, String semestre, String conceito, String situacao) {
         this.nome_curso = nome_curso;
@@ -98,5 +110,21 @@ public class HistoricoAluno {
 
     public void setSituacao(String situacao) {
         this.situacao = situacao;
+    }
+
+    public String getData_inicio() {
+        return data_inicio;
+    }
+
+    public void setData_inicio(String data_inicio) {
+        this.data_inicio = data_inicio;
+    }
+
+    public String getDuracao_curso() {
+        return duracao_curso;
+    }
+
+    public void setDuracao_curso(String duracao_curso) {
+        this.duracao_curso = duracao_curso;
     }
 }
