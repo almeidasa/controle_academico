@@ -108,28 +108,28 @@ public class PermissaoDAO {
 
     public void inserirPermissoesPadrao() {
         String SQL = "INSERT INTO Permissao(nome, admin, diret, coord, func, aluno) VALUES \n"
-                + "	('1 Todas', false, false, false, false, false),\n"
-                + "	('Cadastrar Geral', false, false, false, false, false),\n"
-                + "	('Cadastrar Usuários', false, false, false, false, false),\n"
-                + "	('Cadastrar Funcionários', false, false, false, false, false),\n"
-                + "	('Cadastrar Cursos', false, false, false, false, false),\n"
-                + "	('Cadastrar Disciplinas', false, false, false, false, false),\n"
-                + "	('Cadastrar Alunos', false, false, false, false, false),\n"
-                + "	('Gerenciar Alunos', false, false, false, false, false),\n"
-                + "	('Gerenciar Matricular', false, false, false, false, false),\n"
-                + "	('Gerenciar Matricular Aluno no Curso', false, false, false, false, false),\n"
-                + "	('Gerenciar Matricular Aluno nas Disciplinas', false, false, false, false, false),\n"
-                + "	('Gerenciar Aprovação', false, false, false, false, false),\n"
-                + "	('Gerenciar Histórico Acadêmico', false, false, false, false, false),\n"
-                + "	('Relatórios Geral', false, false, false, false, false),\n"
-                + "	('Relatórios Relação de Alunos', false, false, false, false, false),\n"
-                + "	('Relatórios Relação de Alunos Matriculados', false, false, false, false, false),\n"
-                + "	('Relatórios Relação de Alunos Poderão Colar Grau', false, false, false, false, false),\n"
-                + "	('Relatórios Relação de Alunos Podem Colar Grau', false, false, false, false, false),\n"
-                + "	('Relatórios Relação de Funcionários', false, false, false, false, false),\n"
-                + "	('Relatórios Relação de Funcionários Coordenadores', false, false, false, false, false),\n"
-                + "	('Relatórios Relação de Funcionários Outros', false, false, false, false, false),\n"
-                + "	('Relatórios Outros Geral', false, false, false, false, false)";
+                + "	('1 - TODAS', false, false, false, false, false),\n"
+                + "	('2 - (MENU) CADASTRAR', false, false, false, false, false),\n"
+                + "	('2.1 - Cadastrar Usuários', false, false, false, false, false),\n"
+                + "	('2.2 - Cadastrar Funcionários', false, false, false, false, false),\n"
+                + "	('2.3 - Cadastrar Cursos', false, false, false, false, false),\n"
+                + "	('2.4 - Cadastrar Disciplinas', false, false, false, false, false),\n"
+                + "	('2.5 - Cadastrar Alunos', false, false, false, false, false),\n"
+                + "	('3 - (MENU) GERENCIAR ALUNOS', false, false, false, false, false),\n"
+                + "	('3.1 - (Sub Menu) Matricular', false, false, false, false, false),\n"
+                + "	('3.1.1 - Matricular Aluno no Curso', false, false, false, false, false),\n"
+                + "	('3.1.2 - Matricular Aluno nas Disciplinas', false, false, false, false, false),\n"
+                + "	('3.2 - Aprovação', false, false, false, false, false),\n"
+                + "	('3.3 - Histórico Acadêmico', false, false, false, false, false),\n"
+                + "	('4 - (MENU) RELATÓRIOS', false, false, false, false, false),\n"
+                + "	('4.1 - (Sub Menu) Relação de Alunos', false, false, false, false, false),\n"
+                + "	('4.1.1 - Matriculados', false, false, false, false, false),\n"
+                + "	('4.1.2 - Poderão Colar Grau', false, false, false, false, false),\n"
+                + "	('4.1.3 - Podem Colar Grau', false, false, false, false, false),\n"
+                + "	('4.2 - (Sub Menu) Gerenciais', false, false, false, false, false),\n"
+                + "	('4.2.1 - Relação de Usuários do Sistema', false, false, false, false, false),\n"
+                + "	('4.2.2 - Relação de Funcionários', false, false, false, false, false),\n"
+                + "	('5 - (MENU) PORTAL DO ALUNO', false, false, false, false, false)";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.execute();
 
@@ -159,7 +159,7 @@ public class PermissaoDAO {
 
     public void alterarPermissaoUsr(String usr, boolean situacao, String nomeAcesso) {
         String SQL = "";
-        if (nomeAcesso.equals("1 Todas")) {
+        if (nomeAcesso.equals("1 - TODAS")) {
             SQL = "UPDATE permissao SET " + usr + " = ?";
         }
         else{
@@ -169,7 +169,7 @@ public class PermissaoDAO {
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             pstm.setBoolean(1, situacao);
             
-            if (!nomeAcesso.equals("1 Todas")) {
+            if (!nomeAcesso.equals("1 - TODAS")) {
                 pstm.setString(2, nomeAcesso);
             }
             

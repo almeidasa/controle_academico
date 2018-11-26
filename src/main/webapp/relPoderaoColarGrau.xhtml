@@ -14,7 +14,7 @@
             if (!#{loginBean.sessao}) {
                 window.location.href = "/controle_academico/login.xhtml";
             }
-            if (!#{loginBean.permissao.getOrDefault('Gerenciar Matricular Aluno no Curso', false)}) {
+            if (!#{loginBean.permissao.getOrDefault('4.1.2 - Poderão Colar Grau', false)}) {
                 window.location.href = "/controle_academico/naoAutorizado.xhtml";
             }
         </script>
