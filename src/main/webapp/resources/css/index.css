@@ -5,11 +5,10 @@
 
 .divPrincipal{
     text-align: center;
-    width: 100%
 }
 
 .img{
-    width: 45%;
+    margin-top: 20%;
 }
 
 .msg{
@@ -17,5 +16,5 @@
 }
 
 .footer{
-    padding-top: 16%;
+    margin-top: 28%;
 }

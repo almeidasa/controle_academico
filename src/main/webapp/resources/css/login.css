@@ -40,6 +40,7 @@ html {
 }
 
 .painel{ 
+    text-align: center;
     margin-left: auto; 
     margin-right: auto;  
     height: auto; 
@@ -48,6 +49,7 @@ html {
 }
 
 .btnLogin{
+    margin-top: 2px;
     width: 145px
 }
 

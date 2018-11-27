@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Inicio</title>
+        <title>Histórico Acadêmico do Aluno</title>
         <link rel="shortcut icon" href="resources/img/home.png"/>
         <link rel="StyleSheet" type="text/css" href="resources/css/cadastrarUsuario.css" media="screen" />
 
@@ -14,10 +14,7 @@
             if (!#{loginBean.sessao}) {
                 window.location.href = "/controle_academico/login.xhtml";
             }
-            if (!#{loginBean.permissao.getOrDefault('4.2.1 - Relação de Usuários do Sistema', false)}) {
-                window.location.href = "/controle_academico/naoAutorizado.xhtml";
-            }
-        </script>        
+        </script>
     </h:head>
     <h:body  style=" margin-top: 60px; background-image: url('resources/img/back.png')">
         <div id="header">
@@ -27,37 +24,29 @@
         </div>
         <b:column col-sm="9" offset-sm="3" col-md="10" offset="2">
             <div>
-                <b:panel title="Relatório de Usuários do Sistema" collapsible="true" look="info" iconAwesome="user-circle-o" icon-size="lg" >
+                <b:panel title="Histórico Acadêmico do Aluno" collapsible="true" look="info" iconAwesome="graduation-cap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu value="#{usuarioBean.senha}" label="Situação" tiny-screen="one-fourth">
-                                <f:selectItem itemLabel="Qualquer" itemValue="" />
-                                <f:selectItem itemLabel="Ativo" itemValue="true" />
-                                <f:selectItem itemLabel="Inativo" itemValue="false"/>
-                            </b:selectOneMenu>
-                            <b:selectOneMenu value="#{usuarioBean.tipo}" label="Tipo" tiny-screen="one-fourth">
-                                <f:selectItem itemLabel="Qualquer" itemValue="" />
-                                <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-                                <f:selectItem itemLabel="Diretor" itemValue="Diretor" />
-                                <f:selectItem itemLabel="Coordenador" itemValue="Coordenador" />
-                                <f:selectItem itemLabel="Funcionário" itemValue="Funcionário" />
+                            <b:selectOneMenu select2="true" value="#{relatorioBean.codCurso}"  label="Curso" tiny-screen="half" required="true">
+                                <f:selectItems value="#{relatorioBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change" immediate="false" render="Tabela" listener="#{relatorioBean.obterHistoricoAluno()}"/>
                             </b:selectOneMenu>
                         </b:row>
                         <b:row>
                             <b:commandButton iconAwesome="file-pdf-o" icon-size="lg" value="Gerar Relatório" class="btn btn-lg btnIncluir" 
-                                             title="Gerar Relatório PDF" look="danger" action="#{usuarioBean.gerarRelatorio()}" ajax="false" onclick="this.form.target = '_blank'"/>
+                                             title="Gerar Relatório PDF" look="danger" action="#{relatorioBean.gerarRelatorio()}" ajax="false" onclick="this.form.target = '_blank'"/>
                         </b:row>
                     </b:form>
                     <b:messages/>
                 </b:panel>
             </div>
             <div>
-                <b:panel class="painel3" collapsible="false" title="Cadastrados" iconAwesome="table" icon-size="lg" look="info" rendered="true">
-                    <b:form>
+                <b:panel class="painel3" collapsible="false" title="Histórico" iconAwesome="table" icon-size="lg" look="info" rendered="true">
+                    <b:form id="Tabela">
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
                                          class="table table-striped table-bordered" 
-                                         value = "#{usuarioBean.usuarios}"
+                                         value = "#{relatorioBean.historico}"
                                          var="lista"
                                          excel="true"
                                          csv="true"
@@ -67,11 +56,16 @@
                                          print="true"
                                          style=" margin-left: auto; margin-right: auto; width: 100%; position: relative;"
                                          responsive="true">
-                                <b:dataTableColumn value="#{lista.login}" label="Login"/>
-                                <b:dataTableColumn value="#{lista.senha}" label="Senha"/>
-                                <b:dataTableColumn value="#{lista.tipo}" label="Tipo"/>
+
+                                <b:dataTableColumn value="#{lista.nome_curso}" label="Curso"/>
+                                <b:dataTableColumn value="#{lista.nome_aluno}" label="Aluno"/>
+                                <b:dataTableColumn value="#{lista.cpf}" label="CPF"/>
+                                <b:dataTableColumn value="#{lista.matricula}" label="Matrícula"/>
+                                <b:dataTableColumn value="#{lista.nome_Disciplina}" label="Disciplina"/>
+                                <b:dataTableColumn value="#{lista.ano}" label="Ano"/>
+                                <b:dataTableColumn value="#{lista.semestre}" label="Semestre"/>
+                                <b:dataTableColumn value="#{lista.conceito}" label="Conceito"/>
                                 <b:dataTableColumn value="#{lista.situacao}" label="Situação"/>
-                                <b:dataTableColumn value="#{lista.data_cad}" label="Data do Cadastro"/>
                             </b:dataTable>
                         </b:row>
                     </b:form>

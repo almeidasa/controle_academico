@@ -3,6 +3,7 @@ package DAO;
 import Util.Exibir;
 import Util.Formatar;
 import controller.LoginBean;
+import controller.RelatorioBean;
 import entities.Usuarios;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -206,16 +207,17 @@ public class UsuariosDAO {
             Exibir.Mensagem("Erro ao Obter Login do Banco de Dados!: \n" + ex);
         }
     }
-    
-    public String nomeAluno(String login, LoginBean l){
+
+    public String nomeAluno(String login, LoginBean lb) {
         String nomeAl = "";
         String SQL = "SELECT a.nome, a.cpf FROM aluno a INNER JOIN MatriculaCurso m ON(m.fk_Aluno_cpf = a.cpf) WHERE m.matricula = " + login;
-        
+
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
             try (ResultSet rs = pstm.executeQuery()) {
                 while (rs.next()) {
                     nomeAl = rs.getString("nome");
-                    l.setCpfAluno(rs.getString("cpf"));
+                    lb.setCpfAluno(rs.getString("cpf"));
+                    RelatorioBean.cpfAlunoLogado = rs.getString("cpf");
                 }
 
                 pstm.close();
@@ -225,8 +227,8 @@ public class UsuariosDAO {
         } catch (Exception ex) {
             Exibir.Mensagem("Erro ao obter nome do aluno!: \n" + ex);
         }
-        String primeiroNome[] = nomeAl.split(" ");
-        return primeiroNome[0];
+        //String primeiroNome[] = nomeAl.split(" ");
+        return nomeAl;
     }
 
     public void alterarSenha(String login, String novaSenha) {

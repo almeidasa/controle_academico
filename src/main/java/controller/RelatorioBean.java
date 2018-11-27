@@ -23,6 +23,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class RelatorioBean {
 
+    public static String cpfAlunoLogado;
     private int codCurso;
     private String alunoCpf;
     private String situacao;
@@ -37,6 +38,9 @@ public class RelatorioBean {
     public RelatorioBean() {
         this.curso = new ArrayList<>();
         setBoxCurso();
+        if (cpfAlunoLogado != null) {
+            boxCursoAluno();
+        }
     }
     
     private void setBoxCurso() {
@@ -48,6 +52,19 @@ public class RelatorioBean {
             ItensBoxCurso.put(0, "Selecione um Curso");
             ItensBoxCurso.put(cursos.getCod(), cursos.getNome_curso());
         }
+    }
+    
+    private void boxCursoAluno() {
+        this.curso = new ArrayList<>();
+        ItensBoxCurso = new LinkedHashMap<>();
+        CursoDAO c = new CursoDAO();
+        curso = c.obterCursoAluno(cpfAlunoLogado);
+
+        for (Curso cursos : curso) {
+            ItensBoxCurso.put(0, "Selecione um Curso");
+            ItensBoxCurso.put(cursos.getCod(), cursos.getNome_curso());
+        }
+        alunoCpf = cpfAlunoLogado;
     }
     
     public void setBoxAlunos() {

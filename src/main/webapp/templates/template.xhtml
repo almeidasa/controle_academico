@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
-    <h:body style="padding-top: 59px">
+    <h:body style="margin-top: 60px">
         <b:navBar inverse="true" fixed="top" fluid="true">
             <b:navbarLinks pull="left">
                 <b:navLink value="Inicio" href="/controle_academico/index.xhtml" style="font-size: 18px" icon-awesome="home" icon-size="lg"></b:navLink>
@@ -41,7 +41,7 @@
                 </b:dropMenu>
                 <b:dropMenu value="Portal do Aluno" iconAwesome="laptop" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('5 - (MENU) PORTAL DO ALUNO', false)}">
                     <b:image value="resources/img/#{loginBean.cpfAluno}.jpg" style="max-width:30px; max-height:40px; min-width:30px; min-height:40px; margin-left: 14px; margin-top: 5px" rendered="#{loginBean.tipoUsr.equalsIgnoreCase('Aluno')}"/>
-                    <b:navLink href="/controle_academico/historicoAcademico.xhtml" value="Histórico Escolar" iconAwesome="file-o"/>
+                    <b:navLink href="/controle_academico/historicoAcademicoAluno.xhtml" value="Histórico Escolar" iconAwesome="file-pdf-o"/>
                 </b:dropMenu>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
@@ -102,8 +102,8 @@
                     </b:listLinks>
                     <b:listLinks rendered="#{loginBean.permissao.getOrDefault('5 - (MENU) PORTAL DO ALUNO', false)}">
                         <b:navLink value="Portal do Aluno" active="true" iconAwesome="laptop" icon-size="lg" style="background-color: #546e7a" />
-                        <b:image value="resources/img/#{loginBean.cpfAluno}.jpg" style="max-width:30px; max-height:40px; min-width:30px; min-height:40px; margin-left: 14px; margin-top: 5px" rendered="#{loginBean.tipoUsr.equalsIgnoreCase('Aluno')}"/>
-                        <b:navLink href="/controle_academico/historicoAcademico.xhtml" value="Histórico Escolar" iconAwesome="file-o"/>
+                        <b:image value="resources/img/#{loginBean.cpfAluno}.jpg" style="max-width:60px; max-height:80px; min-width:60px; min-height:80px; margin-left: 14px; margin-top: 5px" rendered="#{loginBean.tipoUsr.equalsIgnoreCase('Aluno')}"/>
+                        <b:navLink href="/controle_academico/historicoAcademicoAluno.xhtml" value="Histórico Escolar" iconAwesome="file-pdf-o"/>
                     </b:listLinks>
                 </b:column>
             </b:row>
@@ -119,7 +119,7 @@
             .sidebar {
                 display: none;
             }
-            @media (min-width: 768px) {
+            @media (min-width: 640px) {
                 .sidebar {
                     background-color: #f5f5f5;
                     border-right: 1px solid #eee;
@@ -150,7 +150,7 @@
             .main {
                 padding: 20px;
             }
-            @media (min-width: 768px) {
+            @media (min-width: 640px) {
                 .main {
                     padding-left: 40px;
                     padding-right: 40px;

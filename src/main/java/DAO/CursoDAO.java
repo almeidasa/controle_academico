@@ -56,11 +56,11 @@ public class CursoDAO {
         return cursos;
     }
 
-     public ArrayList<Curso> obterCursosPorCoordenador(int fk_Funcionario_id) {
+    public ArrayList<Curso> obterCursosPorCoordenador(int fk_Funcionario_id) {
 
         ArrayList<Curso> cursos = new ArrayList<>();
 
-        String SQL = "SELECT * FROM curso WHERE fk_Funcionario_id = " + fk_Funcionario_id ;
+        String SQL = "SELECT * FROM curso WHERE fk_Funcionario_id = " + fk_Funcionario_id;
         try {
             PreparedStatement pstm = BD.getConexao().prepareStatement(SQL);
             ResultSet rs = pstm.executeQuery();
@@ -82,7 +82,31 @@ public class CursoDAO {
 
         return cursos;
     }
-    
+
+    public ArrayList<Curso> obterCursoAluno(String cpfAluno) {
+        ArrayList<Curso> cursos = new ArrayList<>();
+        String SQL = "SELECT cod, nome_curso FROM curso c INNER JOIN MatriculaCurso mc ON(mc.fk_Curso_cod = c.cod) WHERE mc.fk_Aluno_cpf = '" + cpfAluno + "'";
+
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Curso novo = new Curso(
+                            rs.getInt("cod"),
+                            rs.getString("nome_curso")
+                    );
+                    cursos.add(novo);
+                }
+
+                pstm.close();
+                BD.getConexao().close();
+            }
+            System.out.println("Cursos do aluno obtidos com sucesso!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter Cursos do aluno!: \n" + ex);
+        }
+        return cursos;
+    }
+
     public String obterNomeCurso(int cod) {
         String nome = "";
         String SQL = "SELECT nome_curso FROM curso WHERE cod = " + cod;
