@@ -30,9 +30,9 @@
                 <b:panel title="Alunos que podem colar grau por curso" collapsible="true" look="info" iconAwesome="graduation-cap" icon-size="lg" >
                     <b:form>
                         <b:row>
-                            <b:selectOneMenu select2="true" value="#{relatorioBean.codCurso}"  label="Curso" tiny-screen="half" required="true">
-                                <f:selectItems value="#{relatorioBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
-                                <f:ajax event="change" immediate="false" render="Tabela" listener="#{relatorioBean.relAlunosPodemColarGrau()}"/>
+                            <b:selectOneMenu select2="true" value="#{podemColarGrauBean.codCurso}"  label="Curso" tiny-screen="half" required="true">
+                                <f:selectItems value="#{podemColarGrauBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                                <f:ajax event="change" immediate="false" render="Tabela" listener="#{podemColarGrauBean.relAlunosPodemColarGrau()}"/>
                             </b:selectOneMenu>
                         </b:row>
                     </b:form>
@@ -40,12 +40,12 @@
                 </b:panel>
             </div>
             <div>
-                <b:panel id="Tabela" class="painel3" collapsible="false" title="Alunos que podem colar grau no curso #{relatorioBean.itensBoxCurso.get(relatorioBean.codCurso)}" iconAwesome="table" icon-size="lg" look="info" rendered="true">
+                <b:panel id="Tabela" class="painel3" collapsible="false" title="Alunos que podem colar grau no curso #{podemColarGrauBean.itensBoxCurso.get(podemColarGrauBean.codCurso)}" iconAwesome="table" icon-size="lg" look="info" rendered="true">
                     <b:form>
                         <b:row style="padding: 15px">
                             <b:dataTable customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json" 
                                          class="table table-striped table-bordered" 
-                                         value = "#{relatorioBean.alunos}"
+                                         value = "#{podemColarGrauBean.alunos}"
                                          var="lista"
                                          excel="true"
                                          csv="true"
@@ -58,8 +58,8 @@
 
                                 <b:dataTableColumn value="#{lista.nome}" label="Aluno"/>
                                 <b:dataTableColumn value="#{lista.cpf}" label="CPF"/>
-                                <b:dataTableColumn value="#{relatorioBean.matriculaAluno.get(lista.cpf)}" label="Matrícula"/>
-                                <b:dataTableColumn value="#{relatorioBean.itensBoxCurso.get(relatorioBean.codCurso)}" label="Curso"/>
+                                <b:dataTableColumn value="#{podemColarGrauBean.matriculaAluno.get(lista.cpf)}" label="Matrícula"/>
+                                <b:dataTableColumn value="#{podemColarGrauBean.itensBoxCurso.get(podemColarGrauBean.codCurso)}" label="Curso"/>
                             </b:dataTable>
                         </b:row>
                     </b:form>

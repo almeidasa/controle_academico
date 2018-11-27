@@ -3,7 +3,7 @@ package DAO;
 import Util.Exibir;
 import Util.Formatar;
 import controller.LoginBean;
-import controller.RelatorioBean;
+import controller.HistoricoAcademicoBean;
 import entities.Usuarios;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -217,7 +217,7 @@ public class UsuariosDAO {
                 while (rs.next()) {
                     nomeAl = rs.getString("nome");
                     lb.setCpfAluno(rs.getString("cpf"));
-                    RelatorioBean.cpfAlunoLogado = rs.getString("cpf");
+                    HistoricoAcademicoBean.cpfAlunoLogado = rs.getString("cpf");
                 }
 
                 pstm.close();

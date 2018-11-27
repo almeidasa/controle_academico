@@ -32,7 +32,7 @@
                         <b:row>
                             <b:selectOneMenu select2="true" value="#{poderaoColarGrauBean.codCurso}"  label="Curso" tiny-screen="half" required="true">
                                 <f:selectItems value="#{poderaoColarGrauBean.itensBoxCurso.entrySet()}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
-                                <f:ajax event="change" immediate="false" render="Tabela" listener="#{relatorioBean.obter()}"/>
+                                <f:ajax event="change" immediate="false" render="Tabela" listener="#{historicoAlunoBean.obter()}"/>
                             </b:selectOneMenu>
                         </b:row>
                         <!--Divisão de painéis-->

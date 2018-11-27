@@ -90,35 +90,33 @@ public class RelatorioDAO {
         return historico;
     }
 
-    public ArrayList<HistoricoAluno> obterAlunosMatriculados(int codCurso, String situacao) {
+    public ArrayList<HistoricoAluno> obterAlunosMatriculados(int codCurso, String codDicplina) {
         ArrayList<HistoricoAluno> matriculados = new ArrayList<>();
 
-        String sqlCodCurso = (codCurso != 0 ? "AND mc.fk_curso_cod = " + codCurso : "");
-        String sqlSituacao = (situacao.equals("") ? "AND mc.situacao = " + situacao : "");
+        String sqlCodCurso = (codCurso != 0 ? " AND d.fk_Curso_cod = " + codCurso : "");
+        String sqlCodDicplina = (!codDicplina.equals("D") ? " AND d.codigo = '" + codDicplina + "'" : "");
 
-        String SQL = "SELECT nome, matricula, fk_Aluno_cpf, nome_curso, data_inicio, duracao_curso, situacao FROM matriculacurso mc\n"
-                + "INNER JOIN aluno a ON(a.cpf = mc.fk_Aluno_cpf)\n"
-                + "INNER JOIN curso c ON(c.cod = mc.fk_Curso_cod)\n"
-                + "WHERE mc.matricula IS NOT NULL" + sqlCodCurso + sqlSituacao;
+        String SQL = "SELECT a.nome AS nome_aluno, cpf, nome_curso FROM aluno a\n"
+                + "INNER JOIN MatriculaDisciplina md on(md.fk_Aluno_cpf = a.cpf)\n"
+                + "INNER JOIN disciplina d ON(d.codigo = md.fk_Disciplina_codigo)\n"
+                + "INNER JOIN curso c ON(c.cod = d.fk_Curso_cod)\n"
+                + "INNER JOIN MatriculaCurso mc on(mc.fk_Aluno_cpf = a.cpf)\n"
+                + "WHERE mc.matricula IS NOT NULL" + sqlCodDicplina + sqlCodCurso + " GROUP BY a.nome, cpf, d.fk_Curso_cod, c.nome_curso";
         try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
 
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 HistoricoAluno matric = new HistoricoAluno(
-                        rs.getString("nome"),
-                        rs.getString("matricula"),
-                        rs.getString("fk_Aluno_cpf"),
                         rs.getString("nome_curso"),
-                        rs.getString("data_inicio"),
-                        rs.getString("duracao_curso"),
-                        rs.getString("situacao")
+                        rs.getString("nome_aluno"),
+                        rs.getString("cpf")
                 );
                 matriculados.add(matric);
             }
             pstm.close();
-            System.out.println("Histórico obtido com sucesso!");
+            System.out.println("Alunos Matriculados obtidos com sucesso!");
         } catch (Exception ex) {
-            System.out.println("Erro ao obter Histórico!" + ex);
+            System.out.println("Erro ao Alunos Matriculados!" + ex);
         }
 
         return matriculados;
