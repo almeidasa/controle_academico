@@ -61,6 +61,37 @@ public class UsuariosDAO {
         }
         return usuarios;
     }
+    
+    public ArrayList<Usuarios> obterUsuariosRel(String situacao, String tipo) {
+
+        ArrayList<Usuarios> usuarios = new ArrayList<>();
+        
+        String sqlSituacao = !situacao.equals("") ? " AND situacao = "+ situacao : "";
+        String sqlTipo = !tipo.equals("") ? " AND tipo = '"+ tipo + "'": "";
+
+        String SQL = "SELECT id_user, login, senha, tipo, situacao, data_cad FROM usuarios WHERE id_user IS NOT NULL" + sqlSituacao + sqlTipo +" ORDER BY id_user ASC";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Usuarios usr = new Usuarios(
+                            rs.getInt("id_user"),
+                            rs.getString("login"),
+                            "",
+                            rs.getString("tipo"),
+                            rs.getBoolean("situacao") ? "Ativo" : "Inativo",
+                            Formatar.data(rs.getDate("data_cad"), "dd/MM/yyyy")
+                    );
+                    usuarios.add(usr);
+                }
+                pstm.close();
+            }
+            System.out.println("Usuários obtidos com sucesso para o relatório!");
+        } catch (Exception ex) {
+            Exibir.Mensagem("Erro ao obter usuários para o relatório!: \n" + ex);
+        }
+        return usuarios;
+    }
 
     public void alterarUsuario(Usuarios usuarios) {
         String SQL;

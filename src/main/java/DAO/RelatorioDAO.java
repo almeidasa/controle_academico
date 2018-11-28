@@ -59,37 +59,6 @@ public class RelatorioDAO {
         return historico;
     }
 
-    public ArrayList<Aluno> obterPodemColarGrau(int codCurso) {
-
-        ArrayList<Aluno> historico = new ArrayList<>();
-
-        String SQL = "SELECT a.nome AS nome_aluno, md.fk_Aluno_cpf AS cpf FROM MatriculaDisciplina md\n"
-                + "LEFT JOIN aluno a ON(a.cpf = md.fk_Aluno_cpf)\n"
-                + "LEFT JOIN disciplina d ON(d.codigo = fk_Disciplina_codigo)\n"
-                + "WHERE md.situacao = 'Concluido' AND d.fk_Curso_cod = ?\n"
-                + "GROUP BY md.fk_Aluno_cpf, a.nome HAVING COUNT(md.fk_Aluno_cpf) = (SELECT COUNT(*) FROM disciplina WHERE fk_Curso_cod = ?) \n"
-                + "ORDER BY md.fk_Aluno_cpf";
-        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
-            pstm.setInt(1, codCurso);
-            pstm.setInt(2, codCurso);
-
-            try (ResultSet rs = pstm.executeQuery()) {
-                while (rs.next()) {
-                    Aluno aluno = new Aluno(
-                            rs.getString("nome_aluno"),
-                            rs.getString("cpf")
-                    );
-                    historico.add(aluno);
-                }
-            }
-            pstm.close();
-            System.out.println("Alunos que podem colar grau obtidos com sucesso!");
-        } catch (Exception ex) {
-            System.out.println("Erro ao obter Histórico alunos que podem colar grau!" + ex);
-        }
-        return historico;
-    }
-
     public ArrayList<HistoricoAluno> obterAlunosMatriculados(int codCurso, String codDicplina) {
         ArrayList<HistoricoAluno> matriculados = new ArrayList<>();
 
@@ -120,6 +89,70 @@ public class RelatorioDAO {
         }
 
         return matriculados;
+    }
+
+    public ArrayList<Aluno> obterPoderaoColarGrau(int codCurso) {
+
+        ArrayList<Aluno> historico = new ArrayList<>();
+
+        String SQL = "SELECT a.nome AS nome_aluno, md.fk_Aluno_cpf AS cpf FROM MatriculaDisciplina md\n"
+                + "LEFT JOIN aluno a ON(a.cpf = md.fk_Aluno_cpf)\n"
+                + "LEFT JOIN disciplina d ON(d.codigo = fk_Disciplina_codigo)\n"
+                + "WHERE md.situacao = 'Concluido' AND d.fk_Curso_cod = ?\n"
+                + "GROUP BY md.fk_Aluno_cpf, a.nome HAVING COUNT(md.fk_Aluno_cpf) >= (SELECT ROUND((COUNT(*) - 3) - (COUNT(*) / (SELECT to_number(duracao_curso, '99G999D9S') FROM matriculacurso \n"
+                + "WHERE fk_Curso_cod = ? GROUP BY fk_Curso_cod, duracao_curso))) FROM disciplina WHERE fk_Curso_cod = ?)\n"
+                + "ORDER BY a.nome";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setInt(1, codCurso);
+            pstm.setInt(2, codCurso);
+            pstm.setInt(3, codCurso);
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Aluno aluno = new Aluno(
+                            rs.getString("nome_aluno"),
+                            rs.getString("cpf")
+                    );
+                    historico.add(aluno);
+                }
+            }
+            pstm.close();
+            System.out.println("Alunos que poderão colar grau obtidos com sucesso!");
+        } catch (Exception ex) {
+            System.out.println("Erro ao obter Histórico alunos que poderão colar grau!" + ex);
+        }
+        return historico;
+    }
+
+    public ArrayList<Aluno> obterPodemColarGrau(int codCurso) {
+
+        ArrayList<Aluno> historico = new ArrayList<>();
+
+        String SQL = "SELECT a.nome AS nome_aluno, md.fk_Aluno_cpf AS cpf FROM MatriculaDisciplina md\n"
+                + "LEFT JOIN aluno a ON(a.cpf = md.fk_Aluno_cpf)\n"
+                + "LEFT JOIN disciplina d ON(d.codigo = fk_Disciplina_codigo)\n"
+                + "WHERE md.situacao = 'Concluido' AND d.fk_Curso_cod = ?\n"
+                + "GROUP BY md.fk_Aluno_cpf, a.nome HAVING COUNT(md.fk_Aluno_cpf) = (SELECT COUNT(*) FROM disciplina WHERE fk_Curso_cod = ?) \n"
+                + "ORDER BY a.nome";
+        try (PreparedStatement pstm = BD.getConexao().prepareStatement(SQL)) {
+            pstm.setInt(1, codCurso);
+            pstm.setInt(2, codCurso);
+
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    Aluno aluno = new Aluno(
+                            rs.getString("nome_aluno"),
+                            rs.getString("cpf")
+                    );
+                    historico.add(aluno);
+                }
+            }
+            pstm.close();
+            System.out.println("Alunos que podem colar grau obtidos com sucesso!");
+        } catch (Exception ex) {
+            System.out.println("Erro ao obter Histórico alunos que podem colar grau!" + ex);
+        }
+        return historico;
     }
 
     public void obterFoto(String cpf) {

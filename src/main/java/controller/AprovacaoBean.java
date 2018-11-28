@@ -97,6 +97,10 @@ public class AprovacaoBean {
         new MatriculaDisciplinaDAO().alterarSituacaoDisciplina(md);
         return "aprovacao.xhtml";
     }
+    
+    public void salvar2(MatriculaDisciplina md) {
+        new MatriculaDisciplinaDAO().alterarSituacaoDisciplina(md);
+    }
 
     private void setBoxAlunos() {
         ItensBoxAlunos = new LinkedHashMap<>();
@@ -261,5 +265,4 @@ public class AprovacaoBean {
     public void setFk_Aluno_cpf(String fk_Aluno_cpf) {
         this.fk_Aluno_cpf = fk_Aluno_cpf;
     }
-
 }

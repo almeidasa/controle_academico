@@ -36,12 +36,12 @@
                     </b:dropMenu>
                     <b:dropMenu value="Gerenciais" icon-awesome="pie-chart" rendered="#{loginBean.permissao.getOrDefault('4.2 - (Sub Menu) Gerenciais', false)}">
                         <b:navLink href="/controle_academico/relRelacaoUsuarios.xhtml"  value="Relação de Usuários do Sistema" icon-awesome="user-circle-o" rendered="#{loginBean.permissao.getOrDefault('4.2.1 - Relação de Usuários do Sistema', false)}"/>
-                        <b:navLink href="#" value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('4.2.2 - Relação de Funcionários', false)}"/>
+                        <b:navLink href="/controle_academico/relRelacaoFuncionario.xhtml" value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('4.2.2 - Relação de Funcionários', false)}"/>
                     </b:dropMenu>
                 </b:dropMenu>
                 <b:dropMenu value="Portal do Aluno" iconAwesome="laptop" icon-size="lg" rendered="#{loginBean.permissao.getOrDefault('5 - (MENU) PORTAL DO ALUNO', false)}">
                     <b:image value="resources/img/#{loginBean.cpfAluno}.jpg" style="max-width:30px; max-height:40px; min-width:30px; min-height:40px; margin-left: 14px; margin-top: 5px" rendered="#{loginBean.tipoUsr.equalsIgnoreCase('Aluno')}"/>
-                    <b:navLink href="/controle_academico/historicoAcademicoAluno.xhtml" value="Histórico Escolar" iconAwesome="file-pdf-o"/>
+                    <b:navLink href="/controle_academico/historicoAcademicoAluno.xhtml" value="Histórico Acadêmico" iconAwesome="file-pdf-o"/>
                 </b:dropMenu>
             </b:navbarLinks>
             <b:navbarLinks pull="right">
@@ -97,13 +97,13 @@
                         </b:dropMenu>
                         <b:dropMenu value="Gerenciais" icon-awesome="pie-chart" rendered="#{loginBean.permissao.getOrDefault('4.2 - (Sub Menu) Gerenciais', false)}">
                             <b:navLink href="/controle_academico/relRelacaoUsuarios.xhtml"  value="Relação de Usuários do Sistema" icon-awesome="user-circle-o" rendered="#{loginBean.permissao.getOrDefault('4.2.1 - Relação de Usuários do Sistema', false)}"/>
-                            <b:navLink href="#" value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('4.2.2 - Relação de Funcionários', false)}"/>
+                            <b:navLink href="/controle_academico/relRelacaoFuncionario.xhtml" value="Relação de Funcionários" icon-awesome="group" rendered="#{loginBean.permissao.getOrDefault('4.2.2 - Relação de Funcionários', false)}"/>
                         </b:dropMenu>
                     </b:listLinks>
                     <b:listLinks rendered="#{loginBean.permissao.getOrDefault('5 - (MENU) PORTAL DO ALUNO', false)}">
                         <b:navLink value="Portal do Aluno" active="true" iconAwesome="laptop" icon-size="lg" style="background-color: #546e7a" />
                         <b:image value="resources/img/#{loginBean.cpfAluno}.jpg" style="max-width:60px; max-height:80px; min-width:60px; min-height:80px; margin-left: 14px; margin-top: 5px" rendered="#{loginBean.tipoUsr.equalsIgnoreCase('Aluno')}"/>
-                        <b:navLink href="/controle_academico/historicoAcademicoAluno.xhtml" value="Histórico Escolar" iconAwesome="file-pdf-o"/>
+                        <b:navLink href="/controle_academico/historicoAcademicoAluno.xhtml" value="Histórico Acadêmico" iconAwesome="file-pdf-o"/>
                     </b:listLinks>
                 </b:column>
             </b:row>

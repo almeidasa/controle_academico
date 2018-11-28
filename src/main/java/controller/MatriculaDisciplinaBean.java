@@ -144,7 +144,7 @@ public class MatriculaDisciplinaBean {
             ItensBoxCurso.clear();
             for (MatriculaCurso matCurso : matriculaCurso) {
                 ItensBoxCurso.put(0, "Selecione um Curso");
-                if (matCurso.getFk_Aluno().equals(fk_Aluno_cpf)) {
+                if (matCurso.getFk_Aluno().equals(fk_Aluno_cpf) && !matCurso.getSituacao().equals("Concluído") && !matCurso.getSituacao().equals("Trancado") && !matCurso.getSituacao().equals("Evadido")) {
                     ItensBoxCurso.put(matCurso.getFk_Curso_cod(), new CursoDAO().obterNomeCurso(matCurso.getFk_Curso_cod()));
                 }
             }
