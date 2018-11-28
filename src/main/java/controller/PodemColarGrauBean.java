@@ -1,12 +1,11 @@
 package controller;
 
-import DAO.AlunoDAO;
 import DAO.CursoDAO;
+import DAO.MatriculaCursoDAO;
 import DAO.RelatorioDAO;
-import Util.Relatorio;
 import entities.Aluno;
 import entities.Curso;
-import entities.HistoricoAluno;
+import entities.MatriculaCurso;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -22,15 +21,13 @@ import javax.faces.bean.ViewScoped;
 public class PodemColarGrauBean {
 
     private int codCurso;
-    private String alunoCpf;
     private ArrayList<Aluno> alunos;
     private ArrayList<Curso> curso;
-    private ArrayList<HistoricoAluno> historico;
-    private Map<String, String> ItensBoxAlunos;
+    private ArrayList<MatriculaCurso> matriculaCurso;
     private Map<Integer, String> ItensBoxCurso;
+    private Map<String, Integer> matriculaAluno;
 
     public PodemColarGrauBean() {
-        this.alunos = new ArrayList<>();
         this.curso = new ArrayList<>();
         setBoxCurso();
     }
@@ -46,27 +43,20 @@ public class PodemColarGrauBean {
         }
     }
     
-    public void setBoxAlunos() {
-        ItensBoxAlunos = new LinkedHashMap<>();
-        AlunoDAO al = new AlunoDAO();
-        alunos = al.obterAlunosCurso(codCurso);
-
-        for (Aluno aluno : alunos) {
-            ItensBoxAlunos.put("A", "Selecione um Aluno");
-            ItensBoxAlunos.put(aluno.getCpf(), aluno.getNome());
-        }
-    }
-    
-    public void obter(){
-        this.historico = new ArrayList<>();
+    public void relAlunosPodemColarGrau(){
+        this.alunos = new ArrayList<>();
         RelatorioDAO rel = new RelatorioDAO();
-        historico = rel.obterHistorico(alunoCpf, codCurso);
-        rel.obterFoto(alunoCpf);
-    }
-    
-    public void gerarRelatorio(){
-        Relatorio gerar = new Relatorio();
-        gerar.getHistoricoAluno(historico);
+        alunos = rel.obterPodemColarGrau(codCurso);
+        
+        MatriculaCursoDAO mat = new MatriculaCursoDAO();
+        matriculaCurso = mat.obterMatriculaCurso();
+        
+        this.matriculaAluno = new LinkedHashMap<>();
+        for (MatriculaCurso mtc : matriculaCurso) {
+            if (mtc.getFk_Curso_cod() == codCurso) {
+                matriculaAluno.put(mtc.getFk_Aluno(), mtc.getMatricula());
+            }
+        }
     }
     
     //Getters e Seters
@@ -76,14 +66,6 @@ public class PodemColarGrauBean {
 
     public void setCodCurso(int codCurso) {
         this.codCurso = codCurso;
-    }
-
-    public String getAlunoCpf() {
-        return alunoCpf;
-    }
-
-    public void setAlunoCpf(String alunoCpf) {
-        this.alunoCpf = alunoCpf;
     }
 
     public ArrayList<Aluno> getAlunos() {
@@ -102,20 +84,12 @@ public class PodemColarGrauBean {
         this.curso = curso;
     }
 
-    public ArrayList<HistoricoAluno> getHistorico() {
-        return historico;
+    public ArrayList<MatriculaCurso> getMatriculaCurso() {
+        return matriculaCurso;
     }
 
-    public void setHistorico(ArrayList<HistoricoAluno> historico) {
-        this.historico = historico;
-    }
-
-    public Map<String, String> getItensBoxAlunos() {
-        return ItensBoxAlunos;
-    }
-
-    public void setItensBoxAlunos(Map<String, String> ItensBoxAlunos) {
-        this.ItensBoxAlunos = ItensBoxAlunos;
+    public void setMatriculaCurso(ArrayList<MatriculaCurso> matriculaCurso) {
+        this.matriculaCurso = matriculaCurso;
     }
 
     public Map<Integer, String> getItensBoxCurso() {
@@ -124,5 +98,13 @@ public class PodemColarGrauBean {
 
     public void setItensBoxCurso(Map<Integer, String> ItensBoxCurso) {
         this.ItensBoxCurso = ItensBoxCurso;
+    }
+
+    public Map<String, Integer> getMatriculaAluno() {
+        return matriculaAluno;
+    }
+
+    public void setMatriculaAluno(Map<String, Integer> matriculaAluno) {
+        this.matriculaAluno = matriculaAluno;
     }
 }

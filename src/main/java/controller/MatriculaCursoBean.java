@@ -94,7 +94,7 @@ public class MatriculaCursoBean {
             MatriculaCurso matCurso = new MatriculaCurso(mat_criada, situacao, data_inicio, duracao_curso, fk_Aluno, fk_Curso_cod);
 
             criarUsuario(mat_criada, fk_Aluno);
-            
+
             matCursoDAO.inserirMatriculaCurso(matCurso);
             limpaTela();
             obter();

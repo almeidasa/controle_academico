@@ -34,17 +34,7 @@
 	<field name="situacao" class="java.lang.String"/>
 	<field name="data_cad" class="java.lang.String"/>
 	<title>
-		<band height="125" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="90" width="555" height="25" forecolor="#0026FF" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
-					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Relação de Usuários do Sistema ]]></text>
-			</staticText>
+		<band height="85" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -52,51 +42,32 @@
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="415" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<reportElement x="95" y="28" width="28" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<text><![CDATA[Data:]]></text>
 			</staticText>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="65" height="60" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
 				<imageExpression><![CDATA[getClass().getClassLoader().getResourceAsStream("/report/invoice_logo.png")]]></imageExpression>
 			</image>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="465" y="30" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
-				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="415" y="30" width="50" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
-				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Nº Rel.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="95" y="0" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+				<reportElement x="95" y="0" width="456" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[WAAL Software Company]]></text>
+				<text><![CDATA[Relação de Usuários do Sistema ]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="95" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
-				<text><![CDATA[http://gti.projetointegrador.com.br]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="95" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
-				<text><![CDATA[Endereço]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="95" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
-				<text><![CDATA[Goiânia, Avenida Independência, 74000-000]]></text>
-			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="123" y="28" width="197" height="20" forecolor="#000000" uuid="cf2437c3-2bad-41db-a18f-7ca48cd1d4e7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -129,7 +100,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="24">
+		<band height="23">
 			<textField>
 				<reportElement x="0" y="0" width="111" height="20" uuid="e0e53e99-f8f4-4b27-a20e-6c53b4bb85ae"/>
 				<textElement textAlignment="Center"/>
@@ -157,6 +128,34 @@
 			</textField>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="35">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="5" width="597" height="24" forecolor="#CFCFCF" backcolor="#CFEEEB" uuid="19c06659-8f8f-496c-99a2-e517e4b3af97"/>
+				<textField evaluationTime="Report">
+					<reportElement x="533" y="0" width="40" height="20" forecolor="#000000" uuid="cd526397-255a-4cb9-bc2a-735fc0a6015e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="453" y="0" width="80" height="20" forecolor="#000000" uuid="a74258c4-80fa-4310-bb79-c5abb545c52d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Pag. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="22" y="1" width="197" height="20" forecolor="#000000" uuid="5029be46-a140-4f00-8eaa-4466c695f27a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
 	<summary>
 		<band height="50" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>

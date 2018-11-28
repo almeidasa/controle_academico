@@ -47,7 +47,7 @@ public class JavaMailApp {
 
                     message.setRecipients(Message.RecipientType.TO, toUser);
                     message.setSubject("Recuperação de Senha Controle Academico"); //Assunto
-                    message.setText("<!DOCTYPE html><html> Sua senha de recuperação é: " + novaSenha + " </html>", "utf-8", "html");
+                    message.setText("<!DOCTYPE html><html> Sua senha nova é: " + novaSenha + " </html>", "utf-8", "html");
 
                     Transport.send(message);//Método para enviar a mensagem criada
 

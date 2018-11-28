@@ -73,11 +73,6 @@ public class UsuarioBean {
         usrDao.apagarUsuario(lista.getId_user());
         obter();
     }
-    
-    public void gerarRelatorio(){
-        Relatorio gerar = new Relatorio();
-        gerar.getRelatorio(usuarios);
-    }
 
     //Getters e Seters
     public int getId_user() {

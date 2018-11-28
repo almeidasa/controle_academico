@@ -17,6 +17,12 @@ public class HistoricoAluno {
     private String situacao;
     private String data_inicio;
     private String duracao_curso;
+    
+    public HistoricoAluno(String nome_curso, String nome_aluno, String cpf) {
+        this.nome_curso = nome_curso;
+        this.nome_aluno = nome_aluno;
+        this.cpf = cpf;
+    }
 
     public HistoricoAluno(String nome_curso, String nome_aluno, String cpf, String matricula, String situacao, String data_inicio, String duracao_curso) {
         this.nome_curso = nome_curso;

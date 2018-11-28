@@ -28,34 +28,27 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="105" splitType="Stretch">
-			<staticText>
-				<reportElement style="Title" x="218" y="60" width="118" height="14" uuid="1a652692-054a-40f3-ade5-68d8da36626d"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="10"/>
-				</textElement>
-				<text><![CDATA[Tecnologia para o futuro]]></text>
-			</staticText>
+		<band height="86" splitType="Stretch">
 			<image>
-				<reportElement x="257" y="0" width="40" height="40" uuid="ab036440-de36-4676-a33e-12fb357f4bf1"/>
+				<reportElement x="238" y="-5" width="77" height="45" uuid="ab036440-de36-4676-a33e-12fb357f4bf1"/>
 				<imageExpression><![CDATA[getClass().getClassLoader().getResourceAsStream("/report/logoFac.png")]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="191" y="40" width="172" height="20" uuid="40813436-9a8d-4142-a321-a6c0e72d26d7"/>
+				<reportElement style="Title" x="197" y="40" width="169" height="20" uuid="40813436-9a8d-4142-a321-a6c0e72d26d7"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[FACUDADE DE TECNOLOGIA]]></text>
+				<text><![CDATA[FACULDADE SENAC GOIÁS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Title" x="202" y="81" width="151" height="20" uuid="818817c5-faa9-4a34-992b-52e27041d1f2"/>
+				<reportElement style="Title" x="219" y="66" width="124" height="20" uuid="818817c5-faa9-4a34-992b-52e27041d1f2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[HISTÓRICO ACADÊMICO]]></text>
+				<text><![CDATA[Histórico Acadêmico]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="103" width="555" height="1" uuid="93a8dd81-2fde-4a0f-a08d-53933b75c121"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="83" width="555" height="1" uuid="93a8dd81-2fde-4a0f-a08d-53933b75c121"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -99,28 +92,36 @@
 				<reportElement x="62" y="0" width="46" height="18" uuid="4250ca68-585e-489f-aabe-3d02dcb78132">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cfd8a1fb-2b85-431f-baf9-84495b67a742"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Curso:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="62" y="18" width="46" height="18" uuid="fa495d1b-228d-4a8b-a436-d6890d4ca61e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cfd8a1fb-2b85-431f-baf9-84495b67a742"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="62" y="36" width="46" height="18" uuid="0b1a7354-fc0c-4ad2-929e-83eb8fa60cd8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cfd8a1fb-2b85-431f-baf9-84495b67a742"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[CPF:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="62" y="54" width="46" height="18" uuid="441b6b82-7fb7-4aea-abc7-c34103c6dd93">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cfd8a1fb-2b85-431f-baf9-84495b67a742"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Matrícula:]]></text>
 			</staticText>
 			<textField>
@@ -265,23 +266,23 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="183682bc-d976-4756-83e0-6625a3f98ed1"/>
+				<reportElement mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#B6F2E4" uuid="183682bc-d976-4756-83e0-6625a3f98ed1"/>
 				<textField evaluationTime="Report">
-					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#736343" uuid="0193f9b3-1559-491a-8580-b6988863b6a1"/>
+					<reportElement style="Column header" x="533" y="0" width="40" height="20" forecolor="#000000" uuid="0193f9b3-1559-491a-8580-b6988863b6a1"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#736343" uuid="d00b105e-494b-418b-8ac9-8b1b4824f4f0"/>
+					<reportElement style="Column header" x="453" y="0" width="80" height="20" forecolor="#000000" uuid="d00b105e-494b-418b-8ac9-8b1b4824f4f0"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Pag. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="0616f3fe-0354-456f-8911-ec30ec51a5ae"/>
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#000000" uuid="0616f3fe-0354-456f-8911-ec30ec51a5ae"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>

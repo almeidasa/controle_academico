@@ -14,12 +14,12 @@
             if (!#{loginBean.sessao}) {
                 window.location.href = "/controle_academico/login.xhtml";
             }
-            if (!#{loginBean.permissao.getOrDefault('Cadastrar Funcionários', false)}) {
+            if (!#{loginBean.permissao.getOrDefault('2.2 - Cadastrar Funcionários', false)}) {
                 window.location.href = "/controle_academico/naoAutorizado.xhtml";
             }
         </script>
     </h:head>
-    <h:body>
+    <h:body  style=" margin-top: 60px; background-image: url('resources/img/back.png')">
         <div id="header">
             <ui:insert name="templateAdmin" >
                 <ui:include src="/templates/template.xhtml" />

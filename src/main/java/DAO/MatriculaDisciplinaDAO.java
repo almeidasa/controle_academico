@@ -124,8 +124,6 @@ public class MatriculaDisciplinaDAO {
             pstm.setString(1, md.getConceito());
             pstm.setString(2, md.getSituacao());
             pstm.setInt(3, md.getId());
-
-            System.out.println(SQL);
             pstm.executeUpdate();
 
             pstm.close();
