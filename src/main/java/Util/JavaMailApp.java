@@ -33,7 +33,7 @@ public class JavaMailApp {
                 Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("isoinformaticati@gmail.com", "Ctrl270787");
+                        return new PasswordAuthentication("exemplo@gmail.com", "senha");
                     }
                 });
 
@@ -41,7 +41,7 @@ public class JavaMailApp {
 
                 try {
                     MimeMessage message = new MimeMessage(session);
-                    message.setFrom(new InternetAddress("isoinformaticati@gmail.com")); //Remetente
+                    message.setFrom(new InternetAddress("exemplo.dest@gmail.com")); //Remetente
 
                     Address[] toUser = InternetAddress.parse(emailUsr); //Destinatário(s)
 
